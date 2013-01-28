@@ -36,6 +36,7 @@ Séance du vendredi 25 janvier 2013 (3h)
     - Succès de la connexion au WiFi
 
 Séance du lundi 28 janvier 2013 (4h)
+------------------------------------
 - Baudouin
     - Envoi de commandes AT, le drone s'envole et atterit
     - écriture d'un programme utilisant les sockets pour envoyer des commandes
