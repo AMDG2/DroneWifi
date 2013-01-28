@@ -5,7 +5,7 @@
 
 $host = "192.168.1.1";
 $port = "5556";
-$ident = 0;
+$ident = 6;
 $tmpAT;
 
 $stdin = fopen("php://stdin", "r");
