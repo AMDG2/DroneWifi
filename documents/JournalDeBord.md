@@ -44,3 +44,12 @@ Séance du lundi 28 janvier 2013 (4h)
     - Automatisation de la connexion au WiFi
 	    - écriture d'une fonction en Dynamic-C
 	- Essais d'envoi de commande AT avec les sockets Dynamic C
+
+Séance du mardi 29 janvier 2013 (3h)
+------------------------------------
+- Baudouin
+    - Suite de l'étude des commandes AT
+    - Récupération des flux vidéos avec ffplay
+- Thibaut
+	- Envoi de trame UDP
+	- écriture de documentation
