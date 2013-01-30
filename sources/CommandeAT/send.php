@@ -25,6 +25,12 @@ else
 	$tmpAT = "AT*CONFIG=" . ++$ident . ",\"control:altitude_max\",\"2000\"\r";
 	echo "Commande AT: " . $tmpAT . "\n";
 	fwrite($socket_at, $tmpAT);
+
+	echo "Configuration du drone\n";
+	$tmpAT = "AT*CONFIG=" . ++$ident . ",\"general:navdata_demo\",\"TRUE\"\r";
+	echo "Commande AT: " . $tmpAT . "\n";
+	fwrite($socket_at, $tmpAT);
+
 	echo "Configuration du drone\n";
 	$tmpAT = "AT*FTRIM=" . ++$ident . ",\r";
 	echo "Commande AT: " . $tmpAT . "\n";
