@@ -42,8 +42,7 @@ Séance du lundi 28 janvier 2013 (4h)
     - écriture d'un programme utilisant les sockets pour envoyer des commandes
 - Thibaut
     - Automatisation de la connexion au WiFi
-	    - écriture d'une fonction en Dynamic-C
-	- Essais d'envoi de commande AT avec les sockets Dynamic C
+    - Essais d'envoi de commande AT avec les sockets Dynamic C
 
 Séance du mardi 29 janvier 2013 (3h)
 ------------------------------------
@@ -51,5 +50,6 @@ Séance du mardi 29 janvier 2013 (3h)
     - Suite de l'étude des commandes AT
     - Récupération des flux vidéos avec ffplay
 - Thibaut
-	- Envoi de trame UDP
+    - Mise en parallèle d'un condensateur de 10mF pour les pics de courants : on penseait que le drone se reposait à cause d'une baisse de courant, mais c'est juste parce qu'il faut lui envoyer des commandes en continu
+	- Envoi de trames UDP
 	- écriture de documentation
