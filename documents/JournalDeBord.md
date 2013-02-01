@@ -53,3 +53,19 @@ Séance du mardi 29 janvier 2013 (3h)
     - Mise en parallèle d'un condensateur de 10mF pour les pics de courants : on penseait que le drone se reposait à cause d'une baisse de courant, mais c'est juste parce qu'il faut lui envoyer des commandes en continu
 	- Envoi de trames UDP
 	- écriture de documentation
+
+Séance extra du jeudi 31 janvier 2013 (3h)
+------------------------------------------
+- Baudouin
+    - Programmation d'un logiciel de commande du drone avec QT dans le but d'étudier les différentes commandes possibles
+- Thibaut
+    - Réglage du problème d'alimentation : coupe du câble à la moitié
+
+Séance du vendredi 1er février (3h)
+-----------------------------------
+- Recherche d'un câble HDMI/DVI pour le raspberry pi
+- Baudouin
+    - Continue sur le logiciel
+- Thibaut
+    - Création de la carte de joystick
+    - Recherche sur la conversion analogique/numérique sur le Rabbit
