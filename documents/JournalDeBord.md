@@ -61,7 +61,7 @@ Séance extra du jeudi 31 janvier 2013 (3h)
 - Thibaut
     - Réglage du problème d'alimentation : coupe du câble à la moitié
 
-Séance du vendredi 1er février (3h)
+Séance du vendredi 1er février 2013 (3h)
 -----------------------------------
 - Recherche d'un câble HDMI/DVI pour le raspberry pi
 - Baudouin
@@ -69,3 +69,14 @@ Séance du vendredi 1er février (3h)
 - Thibaut
     - Création de la carte de joystick
     - Recherche sur la conversion analogique/numérique sur le Rabbit
+
+Séance du lundi 4 février 2013 (4h)
+-----------------------------------
+- Baudouin
+	- fin de test des commandes AT
+	- écriture d'un nouveau programme Qt plus structuré pour meilleure portabilité vers DynamicC
+- Thibaut
+	- Renseignements sur la conversion analogique -> numérique avec le rabbit 5600w : ce n'est pas possible
+	- Recherche d'un composant pouvant faire la conversion de 4 signaux analogiques (2 joysticks (x, y pour chaque)) et dialoguant en I²C
+	- Refonte du routage pour ces nouveaux élements
+	- Lecture de la doc I²C du Rabbit pour trouver les broches correspondante et voir si on peut les modifier.
