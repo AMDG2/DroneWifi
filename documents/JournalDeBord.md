@@ -80,3 +80,4 @@ Séance du lundi 4 février 2013 (4h)
 	- Recherche d'un composant pouvant faire la conversion de 4 signaux analogiques (2 joysticks (x, y pour chaque)) et dialoguant en I²C
 	- Refonte du routage pour ces nouveaux élements
 	- Lecture de la doc I²C du Rabbit pour trouver les broches correspondante et voir si on peut les modifier.
+- Essai des commandes AT disponibles : tourner sur lui-même horaire/antihoraire ; monter/descendre ; incliner avant-arrière / gauche-droite
