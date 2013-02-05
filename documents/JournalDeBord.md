@@ -82,7 +82,7 @@ Séance du lundi 4 février 2013 (4h)
 	- Lecture de la documentation I²C du Rabbit pour trouver les broches correspondante et voir si on peut les modifier.
 - Essai des commandes AT disponibles : tourner sur lui-même horaire/antihoraire ; monter/descendre ; incliner avant-arrière / gauche-droite
 
-Séance du mardi 5 février 2013 (4h + 1h30 (+ 1h pour Thibaut))
+Séance du mardi 5 février 2013 (3h + 1h30 (+ 1h30 pour Thibaut))
 --------------------------------------------------------------
 - Baudouin
 	- Finition du programme Qt avec commandes par touche de clavier
