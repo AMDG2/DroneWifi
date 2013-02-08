@@ -90,3 +90,9 @@ Séance du mardi 5 février 2013 (3h + 1h30 (+ 1h30 pour Thibaut))
 	- Modification du fil d'alimentation pour pouvoir avoir un fil plus long (donc fil de plus grosse section)
 	- Renseignements sur le bus I²C avec le Rabbit : on peut finalement changer les bits du port D (lui, immuable) pour l'horloge et la data du bus. Ainsi, on peut utiliser l'I²C et le convertisseur qui était prévu
 	- Finition du routage
+Séance du vendredi 8 février 2012 (3h + 1h30)
+---------------------------------------------
+- Baudouin
+ 	- Adaptation du programme Qt en Dynamic C pour le Rabbit
+- Thibaut
+	- Soudage de la carte joystick
