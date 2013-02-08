@@ -2,6 +2,7 @@
 	\defgroup Connexion
 	\defgroup UDP
 	\defgroup IO
+	\defgroup AT
 **/
 
 
@@ -43,10 +44,10 @@
 
 #define TCPCONFIG 5
 
-#define MODE_DEBUG 1
+//#define MODE_DEBUG 1
 
 
-/** \typedef connect_status Permet de définir le statut de la connexion en cours
+/** \typedef statut_connexion Permet de définir le statut de la connexion en cours
 	\ingroup Connexion
 **/
 typedef enum
@@ -55,30 +56,104 @@ typedef enum
 	RECHERCHE,
 	TROUVE,
 	CONNECTE
-} connect_status;
+} statut_connexion;
+
+/** \typedef etat_commandes
+	\ingroup IO
+**/
+typedef struct
+{
+	/* accessibles en écriture */
+	char led_connecte;	// 1 : allumée
+	char led_erreur;
+	char led_debug;
+	/* accessibles en lecture */
+	char bp_arret_urgence;	// 1 : actif
+	char bp_video;
+	char bp_trim;
+	char switch_land;	// 1 : position bas
+	
+	char joystick_1x;
+	char joystick_1y;
+	char joystick_2x;
+	char joystick_2y;
+} etat_commandes;
 
 #use "dcrtcp.lib"
 
 // pour ledDS1()
-#use "rcm56xxw.lib"
+//#use "rcm56xxw.lib"
+
+
+/* I2C.LIB a été modifié :
+	SCL Port D 0
+	SDA Port D 1
+*/
+#use "I2C_DEVICES.lib"
+// adresse de l'esclave ADC : 000
+#define ADCSLAVE 0
 
 #memmap xmem
 /**	\var connect variable globale qui défini le statut de la connexion en cours
 	\ingroup Connexion
 **/
-connect_status connect = INOCCUPE;
+statut_connexion connect = INOCCUPE;
 
 
-/**	\fn void ledDS1(char state)
+/**	\fn unsigned char lireCommandes(etat_commandes *s)
 	\ingroup IO
-	\brief change l'état de la LED DS1
-	\param state 1 : allumé ; 0 : éteinte
+	\brief remplie la structure de l'état des commandes avec de nouvelles valeurs lues
+	\param etat_commandes structure de l'état des commandes
+	\return erreurs sur la lecture des valeurs de joystick : {a b c d 00 EE}.
+		 a : erreur sur J1x
+		 b : erreur sur J1y
+		 c : erreur sur J2x
+		 d : erreur sur J2y
+		 EE : nombre d'erreur au total (0 à 4)
 	\author Thibaut Marty
 **/
-void ledDS1(char state)
+unsigned char lireCommandes(etat_commandes *s)
 {
-	BitWrPortI(PDDR, &PDDRShadow, !state, 0/*ds1*/);
+	unsigned char erreurs = 0;
+	char buff; // todo : à voir
+	s->bp_arret_urgence = BitRdPortI(PEDR, 3);
+	s->bp_video = BitRdPortI(PEDR, 6);
+	s->bp_trim = BitRdPortI(PEDR, 1);
+	s->switch_land = BitRdPortI(PEDR, 7);
+	
+	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
+		s->joystick_1x = buff;
+	else
+		erreurs += 0x80;
+	if(!I2CRead(ADCSLAVE, 1, &buff, 1)) // pas d'erreur
+		s->joystick_1y = buff;
+	else
+		erreurs += 0x40;
+	if(!I2CRead(ADCSLAVE, 2, &buff, 1)) // pas d'erreur
+		s->joystick_2x = buff;
+	else
+		erreurs += 0x20;
+	if(!I2CRead(ADCSLAVE, 3, &buff, 1)) // pas d'erreur
+		s->joystick_2y = buff;
+	else
+		erreurs += 0x10;
+	
+	erreurs += ((erreurs & 0x10) >> 3) + ((erreurs & 0x20) >> 4) + ((erreurs & 0x40) >> 5) + ((erreurs & 0x80) >> 6); // nombre d'erreur
 }
+
+/**	\fn void ecrireCommandes(etat_commandes *s)
+	\ingroup IO
+	\brief écris les valeurs de la structure de l'état des commandes en sortie
+	\param etat_commandes structure de l'état des commandes
+	\author Thibaut Marty
+**/
+void ecrireCommandes(etat_commandes *s)
+{
+	BitWrPortI(PEDR, &PEDRShadow, s->led_connecte, 0);
+	BitWrPortI(PEDR, &PEDRShadow, s->led_erreur, 2);
+	BitWrPortI(PEDR, &PEDRShadow, s->led_debug, 5);
+}
+
 
 /**	\fn int send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
 	\ingroup UDP
@@ -313,8 +388,8 @@ void main(void)
 	udp_Socket sock;
 	char buff[1025];
 	
-	brdInit();
-	ledDS1(0);
+	i2c_init();
+	
 #ifdef MODE_DEBUG
 	printf("\n\nDEMARRAGE\n\n");
 #endif
@@ -322,7 +397,6 @@ void main(void)
 #ifdef MODE_DEBUG
 	printf("\n\nCONNECTE\n\n");
 #endif
-	ledDS1(1);
 	
 
 	
