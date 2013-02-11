@@ -42,9 +42,9 @@ else
 	echo $tmpAT . "\n";
 	fwrite($socket_at, $tmpAT);
 
-	for($i = 0 ; $i < 100 ; $i++)
+	for($i = 0 ; $i < 10 ; $i++)
 	{
-	  usleep(100000);
+	  usleep(1000);
 
 	  echo "Vol stationnaire\n";
 	  $tmpAT = "AT*PCMD=" . ++$ident . ",1,0,0,0,0\r";

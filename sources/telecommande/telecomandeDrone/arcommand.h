@@ -6,8 +6,9 @@
 #include <QThread>
 #include <QTimer>
 #include <QObject>
+#include <QMutex>
 
-class arCommand : public QObject
+class arCommand : public QThread
 {
     Q_OBJECT
 public:
@@ -16,6 +17,10 @@ public:
     void connectToDrone(void);
     void initDrone();
     bool sendAT();
+    void setARU(bool value = true) { aru = value; }
+
+protected:
+    void run();
 
 private:
     QUdpSocket *udpSocket;
@@ -24,7 +29,8 @@ private:
     int ident;
     QString dataL;
     QString dataR;
-    QTimer *clk0;
+    QMutex dataMtx;
+    bool aru;
 
 private slots:
     void end_clk0();

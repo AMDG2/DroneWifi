@@ -1,7 +1,7 @@
 #include "arcommand.h"
 
 arCommand::arCommand(QString host0, int port0, QObject *parent) :
-    QObject(parent)
+    QThread(parent)
 {
     host = new QHostAddress(host0);
     port = port0;
@@ -9,18 +9,18 @@ arCommand::arCommand(QString host0, int port0, QObject *parent) :
 
     connectToDrone();
 
-    clk0 = new QTimer(this);
-    connect(clk0, SIGNAL(timeout()), this, SLOT(end_clk0));
-    //clk0->start(100);
+    aru = true;
 
 }
 
 bool arCommand::sendAT()
 {
+    dataMtx.lock();
     ident++;
     int length = dataL.length() + dataR.length() + QString::number(ident).length();
     int tmp = udpSocket->writeDatagram(qPrintable(dataL + QString::number(ident) + dataR),
                                        (qint64)length, *host, (qint16)port);
+    dataMtx.unlock();
     if(tmp == -1 || tmp != length)
         return false;
     return true;
@@ -28,14 +28,10 @@ bool arCommand::sendAT()
 
 void arCommand::changeData(QString dataLeft, QString dataRight)
 {
+    dataMtx.lock();
     dataL = dataLeft;
     dataR = dataRight;
-}
-
-void arCommand::end_clk0()
-{
-    sendAT();
-    emit newTrame(dataL + QString::number(ident) + dataR);
+    dataMtx.unlock();
 }
 
 void arCommand::connectToDrone()
@@ -46,11 +42,21 @@ void arCommand::connectToDrone()
 void arCommand::initDrone()
 {
     changeData("AT*CONFIG=", ",\"control:altitude_max\",\"2000\"\r");
-    snedAT();
+    sendAT();
 
     changeData("AT*CONFIG=", ",\"general:navdata_demo\",\"TRUE\"\r");
     sendAT();
 
     changeData("AT*FTRIM=", ",\r");
     sendAT();
+}
+
+void arCommand::run()
+{
+    while(!aru)
+    {
+        sendAT();
+        // wait 100ms
+        msleep(100);
+    }
 }
