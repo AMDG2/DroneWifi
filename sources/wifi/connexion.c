@@ -185,8 +185,8 @@ typedef struct
 {
 	char buff[1025];				// Buffer de Stockage de trame
 	udp_socket udpSocket_at;		// Handle de la socket d'envoi de commande AT
-	char host[13] = "192.168.1.1";	// Adresse IP du drone
-	int port_at = 5556;				// Port de commande du drone
+	char host[13];					// Adresse IP du drone
+	int port_at;					// Port de commande du drone
 	char bufferLeft[20];			// Partie gauche du buffer
 	char bufferRight[50];			// Partie droite du buffer
 	int ident;						// Identifiant de la commande
@@ -307,6 +307,14 @@ bool sendAT(ardrone* dr);
 	\author Baudouin Feildel
 **/
 void run(ardrone* dr);
+
+/** \fn ardrone* newARDrone(void)
+	\ingroup ATCommands
+	\brief Constructeur de l'objet ardrone
+	\return Handle sur drone
+	\author Baudouin Feildel
+**/
+ardrone* newARDrone(void);
 
 /*********************
  *                   * 
@@ -722,4 +730,14 @@ void run(ardrone* dr)
     }
 }
 
+ardrone* newARDrone(void)
+{
+	ardrone tmp;
+	tmp.host = "192.168.1.1";
+    tmp.port = 5556;
 
+    tmp.ident = 0;
+    tmp.fly = false;
+    
+    return &tmp;
+}
