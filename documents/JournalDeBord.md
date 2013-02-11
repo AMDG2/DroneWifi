@@ -92,9 +92,19 @@ Séance du mardi 5 février 2013 (3h + 1h30 (+ 1h30 pour Thibaut))
 	- Finition du routage
 	- Ecriture de deux fonctions pour lire et écrire les informations de la carte joystick
 
-Séance du vendredi 8 février 2012 (3h + 1h30)
+Séance du vendredi 8 février 2013 (3h + 1h30)
 ---------------------------------------------
 - Baudouin
  	- Adaptation du programme Qt en Dynamic C pour le Rabbit
 - Thibaut
 	- Soudage de la carte joystick
+
+Séance du lundi 11 février 2013 (4h)
+------------------------------------
+- Le drone à un problème d'hélices, il ne vole plus correctement
+- Baudouin
+ 	- Fin de la réécriture du programme Qt en Dynamic C
+ 	- Essai de récupération de données depuis le drone
+- Thibaut
+	- Débugage de la carte
+	- Écriture des fonctions d'E/S
