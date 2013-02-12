@@ -86,10 +86,10 @@ typedef struct
 
 #define I2CSCLBit 1
 #define I2CSDABit 0
-#use "I2C_DEVICES.lib"
-
-
-
+#define I2C_CLOCKPIN 1
+#define I2C_DATAPIN 0
+//#use "I2C.lib"
+#use "I2C_DEVICES.LIB"
 
 
 // adresse de l'esclave ADC : 000
@@ -172,25 +172,76 @@ unsigned char lireCommandes(etat_commandes *s)
 	s->bp_trim = BitRdPortI(PEDR, 5);
 	s->switch_land = BitRdPortI(PEDR, 7);
 	
-	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
+	i2c_start_tx();
+	
+	I2CRead(ADCSLAVE, 0, &buff, 1);
+	/*
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	i2c_SCL_H();
+	i2c_SCL_L();
+	/*
+	erreurs = i2c_write_char(0x90 + (ADCSLAVE << 1) + 1); // 0x90 : partie fixée ; adresse ; 1 : A/D conversion // renvoi 1 si ack
+	printf("write_char : %d\n", erreurs);
+	erreurs = i2c_read_char(&buff);
+	printf("i2c_read_char : %d\n", erreurs);
+	erreurs = i2c_send_ack();
+	printf("i2c_send_ack : %d\n", erreurs);
+	
+	i2c_stop_tx();
+	
+	s->joystick_1x = buff;
+		
+		
+	/*if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
 		s->joystick_1x = buff;
 	else
 		erreurs += 0x80;
-	if(!I2CRead(ADCSLAVE, 1, &buff, 1)) // pas d'erreur
+	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
 		s->joystick_1y = buff;
 	else
 		erreurs += 0x40;
-	if(!I2CRead(ADCSLAVE, 2, &buff, 1)) // pas d'erreur
+	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
 		s->joystick_2x = buff;
 	else
 		erreurs += 0x20;
-	if(!I2CRead(ADCSLAVE, 3, &buff, 1)) // pas d'erreur
+	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
 		s->joystick_2y = buff;
 	else
-		erreurs += 0x10;
+		erreurs += 0x10;*/
 	
-	erreurs += ((erreurs & 0x10) >> 3) + ((erreurs & 0x20) >> 4) + ((erreurs & 0x40) >> 5) + ((erreurs & 0x80) >> 6); // nombre d'erreur
-	
+	/*if(erreurs & 0x10)
+		erreurs++;
+	if(erreurs & 0x20)
+		erreurs++;
+	if(erreurs & 0x40)
+		erreurs++;
+	if(erreurs & 0x80)
+		erreurs++;*/
+	//erreurs += ((erreurs & 0x10) >> 4) + ((erreurs & 0x20) >> 5) + ((erreurs & 0x40) >> 6) + ((erreurs & 0x80) >> 7); // nombre d'erreur
+	return erreurs;
 }
 
 /**	\fn void ecrireCommandes(etat_commandes s)
@@ -438,9 +489,10 @@ void connexion(void)
 void main(void)
 {
 	etat_commandes ec;
-	unsigned char v, r;
+	unsigned char v = 0, r;
 	
-	brdInit();
+	//brdInit();
+	i2c_init();
 	
 	init_etat_commandes(&ec);
 	for(;;)
