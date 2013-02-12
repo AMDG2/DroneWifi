@@ -97,7 +97,7 @@ Séance du vendredi 8 février 2013 (3h + 1h30)
 - Baudouin
  	- Adaptation du programme Qt en Dynamic C pour le Rabbit
 - Thibaut
-	- Soudage de la carte joystick
+	- Soudure de la carte joystick
 
 Séance du lundi 11 février 2013 (4h)
 ------------------------------------
@@ -108,3 +108,13 @@ Séance du lundi 11 février 2013 (4h)
 - Thibaut
 	- Débugage de la carte
 	- Écriture des fonctions d'E/S
+
+Séance du mardi 12 février 2013 (3h + 4h)
+-----------------------------------------
+- Baudouin
+	- Écriture de la fonction principale (main) pour la télécommande : gestion de la connexion, de la lecture des commandes, de l'envoi des commandes...
+- Thibaut
+	- Soudure d'une résistance de tirage en plus pour le bit de données du bus I²C
+	- Étude du bus I²C sur le Rabbit : écriture d'une fonction de configuration des deux bits utilisés sur le port D (la fonction fournie ne fonctionne pas...)
+	- et tests... Il semble, à la fin de la séance, qu'un des bits (0) du port D ne fonctionne plus
+ 
