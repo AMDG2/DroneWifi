@@ -8,7 +8,7 @@ navdataWindow::navdataWindow(QWidget *parent) :
     ui->setupUi(this);
     navdataFlow = new ARDrone(this);
     navdataFlow->connectToDrone();
-    navdataFlow->initDrone();
+    navdataFlow->initNavData();
 }
 
 navdataWindow::~navdataWindow()

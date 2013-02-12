@@ -17,11 +17,6 @@ bool ARDrone::connectToDrone()
     // Création de la socket d'envoi des commande AT
     udpSocket_at = new QUdpSocket(this);
 
-    // Création de la socket de réception des données
-    udpSocket_navdata =  new QUdpSocket(this);
-    // Écoute sur le port des données de navigation
-    udpSocket_navdata->bind(port_navdata);
-
     return true;
 }
 
@@ -54,8 +49,20 @@ bool ARDrone::initDrone(void)
 
 bool ARDrone::initNavData()
 {
+
+    // Création de la socket de réception des données
+    udpSocket_navdata =  new QUdpSocket(this);
+    // Écoute sur le port des données de navigation
+    udpSocket_navdata->bind(port_navdata);
+
     // Send a packet to navdata port
     udpSocket_at->writeDatagram("", 0, *host, (qint16)port_navdata);
+    qint64 tmp;
+    char buffer[500];
+    //while(-1 == udpSocket_navdata->pendingDatagramSize());
+    tmp = udpSocket_navdata->pendingDatagramSize();
+    udpSocket_navdata->readDatagram(buffer, tmp);
+    qDebug(buffer);
 
     // Demande l'envoi de donnée de navigation
     bufferLeft = "AT*CONFIG=";
@@ -65,6 +72,8 @@ bool ARDrone::initNavData()
 
     // Démarre l'envoi de donnée de navigation
     udpSocket_at->writeDatagram("AT*CTRL=0\r", 10, *host, (qint16)port_at);
+
+    return true;
 }
 
 bool ARDrone::takeoff(void)
