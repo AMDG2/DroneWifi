@@ -44,17 +44,21 @@
 
 #use "dcrtcp.lib"
 
-// pour ledDS1()
-//#use "rcm56xxw.lib"
+#use "rcm56xxw.lib"
 
 
 /* I2C.LIB a été modifié :
 	SCL Port D 0
 	SDA Port D 1
 */
-#use "I2C_DEVICES.lib"
+#use "i2c.lib"
 // adresse de l'esclave ADC : 000
-#define ADCSLAVE 0
+// écriture :
+#define ADCSLAVEW (0x90 | (000 << 1))
+// lecture :
+#define ADCSLAVER (ADCSLAVEW + 1) //(0x91 | (000 << 1))
+
+#define IPDRONE "192.168.1.1"
 
 #memmap xmem
 
@@ -93,14 +97,14 @@ typedef struct
 	char joystick_2y;
 } etat_commandes;
 
-/** \typedef bool
+/** \typedef cppbool
 	\ingroup ATCommands
 	\brief Implementation du type c++ bool en c
 	\author Baudouin Feildel
 **/
 #define true (1)
 #define false (0)
-typedef bool char;
+#define cppbool char
 
 /**	\var connect variable globale qui défini le statut de la connexion en cours
 	\ingroup Connexion
@@ -108,27 +112,50 @@ typedef bool char;
 **/
 statut_connexion connect = INOCCUPE;
 
+/**	\fn cppbool ADCInit(void)
+	\ingroup IO
+	\brief Initialise les 2 ports pour l'I²C puis initialise le convertisseur analogique numérique PCF8591
+	\author Thibaut Marty
+**/
+cppbool ADCInit(void);
+
+/**	\fn void print_etat_commandes(etat_commandes s)
+	\ingroup IO
+	\brief initialise la structure structure de l'état des commandes
+	\param etat_commandes structure de l'état des commandes
+	\author Thibaut Marty
+**/
+void print_etat_commandes(etat_commandes s);
+
+/**	\fn void init_etat_commandes(etat_commandes *s)
+	\ingroup IO
+	\brief initialise la structure structure de l'état des commandes
+	\param etat_commandes structure de l'état des commandes
+	\author Thibaut Marty
+**/
+void init_etat_commandes(etat_commandes *s);
+
 /**	\fn unsigned char lireCommandes(etat_commandes *s)
 	\ingroup IO
 	\brief remplie la structure de l'état des commandes avec de nouvelles valeurs lues
 	\param etat_commandes structure de l'état des commandes
-	\return erreurs sur la lecture des valeurs de joystick : {a b c d 00 EE}.
+	\return erreurs sur la lecture des valeurs de joystick : {a b c d 0 EEE}.
 		 0xa : erreur sur J1x
 		 0xb : erreur sur J1y
 		 0xc : erreur sur J2x
 		 0xd : erreur sur J2y
-		 0xEE : nombre d'erreur au total (0 à 4)
+		 EEE : nombre d'erreur au total (0 à 4)
 	\author Thibaut Marty
 **/
 unsigned char lireCommandes(etat_commandes *s);
 
-/**	\fn void ecrireCommandes(etat_commandes *s)
+/**	\fn void ecrireCommandes(etat_commandes s)
 	\ingroup IO
 	\brief écris les valeurs de la structure de l'état des commandes en sortie
 	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
-void ecrireCommandes(etat_commandes *s);
+void ecrireCommandes(etat_commandes s);
 
 /**	\fn int send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
 	\ingroup UDP
@@ -136,7 +163,7 @@ void ecrireCommandes(etat_commandes *s);
 	\param str chaîne à envoyé
 	\param ip ip destination
 	\param port port de l'envoi
-	\param sock pointeur sur udp_Socket utilisée*
+	\param sock pointeur sur udp_Socket utilisée
 	\return 0 : paquet envoyé ; -1 : erreur mais la socket est ouverte ; -2 : erreur, la socket est ouverte
 	\author Thibaut Marty
 **/
@@ -167,15 +194,6 @@ root void scan_assoc_callback(far wifi_scan_data* data);
 **/
 void connexion(void);
 
-/** \typedef bool
-	\ingroup ATCommands
-	\brief Implementation du type c++ bool en c
-	\author Baudouin Feildel
-**/
-#define true (1)
-#define false (0)
-typedef bool char;
-
 /** \typedef ardrone
 	\ingroup ATCommands
 	\brief Structure contenant les informations nécéssaires à la commande d'un drone
@@ -184,65 +202,64 @@ typedef bool char;
 typedef struct
 {
 	char buff[1025];				// Buffer de Stockage de trame
-	udp_socket udpSocket_at;		// Handle de la socket d'envoi de commande AT
-	char host[13];					// Adresse IP du drone
+	udp_Socket udpSocket_at;		// Handle de la socket d'envoi de commande AT
 	int port_at;					// Port de commande du drone
 	char bufferLeft[20];			// Partie gauche du buffer
 	char bufferRight[50];			// Partie droite du buffer
 	int ident;						// Identifiant de la commande
-	bool fly;						// Mode vol
+	cppbool fly;						// Mode vol
 	float tiltFrontBack;			// Buffer de la commande d'inclinaison avant arrière
 	float tiltLeftRight;			// Buffer de la commande d'inclinaison gauche droite
 	float goUpDown;					// Buffer de la commande de vitesse verticale
 	float turnLeftRight;			// Buffer de la commande de vitesse angulaire
 } ardrone;
 
-/** \fn bool connectToDrone(ardrone* dr)
+/** \fn cppbool connectToDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Initie la connexion avec le drone dr
 	\param ardrone* dr : handle de drone
 	\return true : Connexion réussie ; false : Connexion échouée
 	\author Baudouin Feildel
 **/
-bool connectToDrone(ardrone* dr);
+cppbool connectToDrone(ardrone* dr);
 
-/** \fn bool initDrone(ardrone* dr)
+/** \fn cppbool initDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Initialisation du drone dr pour permettre un décollage en toute sécurité.
 	\param ardrone* dr : Handle du drone
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
 **/
-bool initDrone(ardrone* dr);
+cppbool initDrone(ardrone* dr);
 
-/** \fn bool takeoff(ardrone* dr)
+/** \fn cppbool takeoff(ardrone* dr)
 	\ingroup ATCommands
 	\brief Commande le décollage du drone dr
 	\param ardrone* dr : Handle du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-bool takeoff(ardrone* dr);
+cppbool takeoff(ardrone* dr);
 
-/** \fn bool land(ardrone* dr)
+/** \fn cppbool land(ardrone* dr)
 	\ingroup ATCommands
 	\brief Commande l'atterissage du drone dr
 	\param ardrone* dr : Handle du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-bool land(ardrone* dr);
+cppbool land(ardrone* dr);
 
-/** \fn bool aru(ardrone* dr)
+/** \fn cppbool aru(ardrone* dr)
 	\ingroup ATCommands
 	\brief Envoi un arrêt d'urgence au drone dr
 	\param ardrone* dr : Handle du drone
 	\return true : arrêt d'urgence envoyé ; false : arrêt d'urgence non-envoyé
 	\author Baudouin Feildel
 **/
-bool aru(ardrone* dr);
+cppbool aru(ardrone* dr);
 
-/** \fn bool volCommand(ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+/** \fn cppbool volCommand(ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
 	\ingroup ATCommands
 	\brief Envoi de la commande de vol au drone dr
 	\param ardrone* dr : Handle du drone
@@ -253,7 +270,7 @@ bool aru(ardrone* dr);
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-bool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
+cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
 
 /** \fn void setGoUpDown(ardrone* dr, float val)
 	\ingroup ATCommands
@@ -291,14 +308,14 @@ void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 &&
 **/
 void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn bool sendAT(ardrone* dr)
+/** \fn cppbool sendAT(ardrone* dr)
 	\ingroup ATCommands
 	\brief Envoyer la commande AT qui est dans le buffer du drone dr
 	\param ardrone* dr : Handle du drone
 	\return true : buffer envoyé ; false buffer non-envoyé
 	\author Baudouin Feildel
 **/
-bool sendAT(ardrone* dr);
+cppbool sendAT(ardrone* dr);
 
 /** \fn void run(ardrone* dr)
 	\ingroup ATCommands
@@ -308,13 +325,13 @@ bool sendAT(ardrone* dr);
 **/
 void run(ardrone* dr);
 
-/** \fn ardrone* newARDrone(void)
+/** \fn far ardrone* newARDrone(void)
 	\ingroup ATCommands
 	\brief Constructeur de l'objet ardrone
 	\return Handle sur drone
 	\author Baudouin Feildel
 **/
-ardrone* newARDrone(void);
+far ardrone* newARDrone(void);
 
 /*********************
  *                   * 
@@ -323,11 +340,53 @@ ardrone* newARDrone(void);
  *********************/
 void main(void)
 {
+	etat_commandes ec;
 	udp_Socket sock;
-	char buff[1025];
+	//char buff[1025];
+	unsigned char r, v = 0;
 	
-	i2c_init();
+	init_etat_commandes(&ec);
 	
+	brdInit();
+	
+	printf("adresse R : %d\n", ADCSLAVER);
+	printf("bit SCL : %d\nbit SDA : %d\n", I2CSCLBit, I2CSDABit);
+	
+	
+	for(;;)
+	{
+		costate
+		{
+			i2c_SCL_H();
+			i2c_SDA_H();
+			putchar('-');
+			waitfor(DelayMs(10));
+			//cWAIT_5_us;
+			i2c_SCL_L();
+			i2c_SDA_L();
+			putchar('+');
+			waitfor(DelayMs(10));
+			//cWAIT_5_us;
+		}
+	}
+	/*
+	for(;;)
+	{
+		costate
+		{
+			ec.led_connecte = v & 0x01;
+			ec.led_erreur = v & 0x02;
+			ec.led_debug = v & 0x04;
+			ecrireCommandes(ec);
+			v++;
+			r = lireCommandes(&ec);
+			printf("lireCommandes : %d", r);
+			//printf("\nnombre d'erreurs : %d (%s%s%s%s)\n", r & 0x07, (r & 0x80) ? "J1x " : "", (r & 0x40) ? "J1y " : "", (r & 0x20) ? "J2x " : "", (r & 0x10) ? "J2y " : "");
+			print_etat_commandes(ec);
+			waitfor(DelayMs(1000));
+		}
+	}*/
+	/*
 #ifdef MODE_DEBUG
 	printf("\n\nDEMARRAGE\n\n");
 #endif
@@ -335,8 +394,8 @@ void main(void)
 #ifdef MODE_DEBUG
 	printf("\n\nCONNECTE\n\n");
 #endif
-	
-
+	*/
+/*
 	
 	strcpy(buff, "AT*CONFIG=1,\"control:altitude_max\",\"2000\"\r");
 	
@@ -357,7 +416,7 @@ void main(void)
 		}
 	}
 	
-	
+	*/
 	/*sprintf(buf, "AT*CONFIG=%d,\"control:altitude_max\",\"2000\"\r", ++ident);
 	sprintf(buf, "AT*REF=%d,290718208\r", ++ident);
 	sprintf(buf, "AT*REF=%d,290717696\r", ++ident);*/
@@ -370,40 +429,127 @@ void main(void)
  *     functions     *
  *                   *
  *********************/
+ 
+
+cppbool ADCInit(void)
+{
+	/*#define I2CSCLBit 2
+	#define I2CSDABit 0*/
+	
+	
+	//char tmp;
+	WrPortI(PDCR,&PDCRShadow,0);
+	// Set the bits to normal function
+	BitWrPortI(PDFR ,&PDFRShadow ,0,I2CSCLBit);
+	BitWrPortI(PDFR ,&PDFRShadow ,0,I2CSDABit);
+	// Set the bits to output
+	BitWrPortI(PDDDR,&PDDDRShadow,1,I2CSCLBit);
+	BitWrPortI(PDDDR,&PDDDRShadow,1,I2CSDABit);
+	// Sans Open Drain
+	BitWrPortI(PDDCR,&PDDCRShadow,0,I2CSCLBit);
+	// Set the bits to Open Drain
+	//BitWrPortI(PDDCR,&PDDCRShadow,1,I2CSDABit);
+	BitWrPortI(PDDCR,&PDDCRShadow,1,I2CSDABit);
+	
+	// initialisation de l'AD/C
+	/*if(i2c_start_tx())
+	{
+		printf("erreur start_tx\n");
+		return false;
+	}
+	if(tmp = i2c_write_char(ADCSLAVEW))
+	{
+		printf("erreur write_char adresse (%d)\n", tmp);
+		return false;
+	}
+	//i2c_check_ack();
+	if(i2c_write_char((1 << 6)	// ANALOGUE OUTPUT ENABLE FLAG : active
+					| (0 << 4)	// ANALOGUE INPUT PROGRAMMING : Four single-ended inputs
+					| (1 << 2)	// AUTO-INCREMENT FLAG : active
+					| (0)))		// A/D CHANNEL NUMBER : channel 0 (pour commencer)
+	{
+		printf("erreur write_char control\n");
+		return false;
+	}
+	if(i2c_check_ack())
+	{
+		printf("erreur check_ack\n");
+		return false;
+	}
+	i2c_stop_tx();*/
+	return true;
+}
+
+void print_etat_commandes(etat_commandes s)
+{
+	printf("\nLED connecte : %s\nLED erreur : %s\nLED debug : %s\nBP arret d'urgence : %s\nBP video : %s\nBP trim : %s\nSWITCH land : %s\nJ1 x : %d\nJ1 y : %d\nJ2 x : %d\nJ2 y : %d\n",
+	
+	s.led_connecte ? "allumee" : "eteinte",
+	s.led_erreur ? "allumee" : "eteinte",
+	s.led_debug ? "allumee" : "eteinte",
+	
+	s.bp_arret_urgence ? "inactif" : "actif",
+	s.bp_video ? "inactif" : "actif",
+	s.bp_trim ? "inactif" : "actif",
+	s.switch_land ? "bas" : "haut",
+	
+	s.joystick_1x,
+	s.joystick_1y,
+	s.joystick_2x,
+	s.joystick_2y);
+}
+
+void init_etat_commandes(etat_commandes *s)
+{
+	s->led_connecte = 0;
+	s->led_erreur = 0;
+	s->led_debug = 0;
+	
+	s->bp_arret_urgence = 1;
+	s->bp_video = 1;
+	s->bp_trim = 1;
+	s->switch_land = 1;
+	
+	s->joystick_1x = 0;
+	s->joystick_1y = 0;
+	s->joystick_2x = 0;
+	s->joystick_2y = 0;
+}
+
 unsigned char lireCommandes(etat_commandes *s)
 {
 	unsigned char erreurs = 0;
+	int tmp;
 	char buff; // todo : à voir
-	s->bp_arret_urgence = BitRdPortI(PEDR, 3);
-	s->bp_video = BitRdPortI(PEDR, 6);
-	s->bp_trim = BitRdPortI(PEDR, 1);
+	s->bp_arret_urgence = BitRdPortI(PEDR, 2);
+	s->bp_video = BitRdPortI(PEDR, 0);
+	s->bp_trim = BitRdPortI(PEDR, 5);
 	s->switch_land = BitRdPortI(PEDR, 7);
 	
-	if(!I2CRead(ADCSLAVE, 0, &buff, 1)) // pas d'erreur
-		s->joystick_1x = buff;
-	else
-		erreurs += 0x80;
-	if(!I2CRead(ADCSLAVE, 1, &buff, 1)) // pas d'erreur
-		s->joystick_1y = buff;
-	else
-		erreurs += 0x40;
-	if(!I2CRead(ADCSLAVE, 2, &buff, 1)) // pas d'erreur
-		s->joystick_2x = buff;
-	else
-		erreurs += 0x20;
-	if(!I2CRead(ADCSLAVE, 3, &buff, 1)) // pas d'erreur
-		s->joystick_2y = buff;
-	else
-		erreurs += 0x10;
+	tmp = i2c_start_tx();
+	printf("tmp i2c_start : %d\n");
+	tmp = i2c_write_char(ADCSLAVER);
+	printf("tmp i2c_write_char : %d\n");
+	tmp = i2c_read_char(&buff);
+	printf("tmp i2c_read_char : %d ; (buff : %d)\n", buff);
+	tmp = i2c_send_ack();
+	printf("tmp i2c_send_ack : %d\n");
 	
-	erreurs += ((erreurs & 0x10) >> 3) + ((erreurs & 0x20) >> 4) + ((erreurs & 0x40) >> 5) + ((erreurs & 0x80) >> 6); // nombre d'erreur
+	s->joystick_1x = buff;
+	/*s->joystick_1x = buff;
+	s->joystick_1y = buff;
+	s->joystick_2x = buff;
+	s->joystick_2y = buff;*/
+	
+	//erreurs += ((erreurs & 0x10) >> 3) + ((erreurs & 0x20) >> 4) + ((erreurs & 0x40) >> 5) + ((erreurs & 0x80) >> 6); // nombre d'erreur
+	return erreurs;
 }
 
-void ecrireCommandes(etat_commandes *s)
+void ecrireCommandes(etat_commandes s)
 {
-	BitWrPortI(PEDR, &PEDRShadow, s->led_connecte, 0);
-	BitWrPortI(PEDR, &PEDRShadow, s->led_erreur, 2);
-	BitWrPortI(PEDR, &PEDRShadow, s->led_debug, 5);
+	BitWrPortI(PEDR, &PEDRShadow, s.led_connecte, 1);
+	BitWrPortI(PEDR, &PEDRShadow, s.led_erreur, 3);
+	BitWrPortI(PEDR, &PEDRShadow, s.led_debug, 6);
 }
 
 int send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
@@ -605,10 +751,10 @@ void connexion(void)
 	}
 }
 
-bool connectToDrone(ardrone* dr)
+cppbool connectToDrone(ardrone* dr)
 {
     // Création de la socket d'envoi des commande AT
-    if(!udp_open(&udpSocket_at, LOCAL_PORT, resolve(dr->port_at), dr->port_at, NULL))
+    if(!udp_open((udp_Socket*) &(dr->udpSocket_at), LOCAL_PORT, resolve(IPDRONE), dr->port_at, NULL))
 	{
 #ifdef MODE_DEBUG
 		printf("Failed to open udp socket with the drone on port %d!\n", dr->port_at);
@@ -619,39 +765,39 @@ bool connectToDrone(ardrone* dr)
     return true;
 }
 
-bool sendAT(ardrone* dr)
+cppbool sendAT(ardrone* dr)
 {
 	char lenght;
 	char tmp;
     dr->ident++;
 	sprintf(dr->buff, "%s%d%s", dr->bufferLeft, dr->ident, dr->bufferRight);
-	tmp = send_packet(dr->buff, dr->host, dr->port_at, &dr->udpSocket_at);
+	tmp = send_packet(dr->buff, IPDRONE, dr->port_at, &dr->udpSocket_at);
     if(tmp == -1 || tmp == -2)
         return false;
     return true;
 }
 
-bool initDrone(ardrone* dr)
+cppbool initDrone(ardrone* dr)
 {
     // Configure la hauteur maximale du drone
-    dr->bufferLeft = "AT*CONFIG=";
-    dr->bufferRight = ",\"control:altitude_max\",\"3000\"\r";
+    strcpy(dr->bufferLeft, "AT*CONFIG=");
+    strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Config alt max - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
     sendAT(dr);
 
     // Demande l'envoi de donnée de navigation
-    dr->bufferLeft = "AT*CONFIG=";
-    dr->bufferRight = ",\"general:navdata_demo\",\"TRUE\"\r";
+    strcpy(dr->bufferLeft, "AT*CONFIG=");
+    strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Start navdata flow - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
     sendAT(dr);
 
     // Indique au drone qu'il est à plat : le drone se calibre
-    dr->bufferLeft = "AT*FTRIM=";
-    dr->bufferRight = ",\r";
+    strcpy(dr->bufferLeft, "AT*FTRIM=");
+    strcpy(dr->bufferRight, ",\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Ftrim - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
@@ -659,19 +805,19 @@ bool initDrone(ardrone* dr)
     return sendAT(dr);
 }
 
-bool takeoff(ardrone* dr)
+cppbool takeoff(ardrone* dr)
 {
     // Décollage du drone
-    dr->bufferLeft = "AT*REF=";
-    dr->bufferRight = ",290718208\r";
+    strcpy(dr->bufferLeft, "AT*REF=");
+    strcpy(dr->bufferRight, ",290718208\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Take off - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
     sendAT(dr);
 
     // Passe en mode vol
-    dr->bufferLeft = "AT*PCMD=";
-    dr->bufferRight = ",1,0,0,0,0\r";
+    strcpy(dr->bufferLeft, "AT*PCMD=");
+    strcpy(dr->bufferRight, ",1,0,0,0,0\r");
     setGoUpDown(dr, 0);
     setTurnLeftRight(dr, 0);
     setTiltFrontBack(dr, 0);
@@ -683,11 +829,11 @@ bool takeoff(ardrone* dr)
     return true;
 }
 
-bool land(ardrone* dr)
+cppbool land(ardrone* dr)
 {
     dr->fly = false;
-    dr->bufferLeft = "AT*REF=";
-    dr->bufferRight = ",290717696\r";
+    strcpy(dr->bufferLeft, "AT*REF=");
+    strcpy(dr->bufferRight, ",290717696\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Land - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
@@ -695,11 +841,11 @@ bool land(ardrone* dr)
     return sendAT(dr);
 }
 
-bool aru(ardrone* dr)
+cppbool aru(ardrone* dr)
 {
     dr->fly = false;
-    dr->bufferLeft = "AT*REF=";
-    dr->bufferRight = ",290717952\r";
+    strcpy(dr->bufferLeft, "AT*REF=");
+    strcpy(dr->bufferRight, ",290717952\r");
 #ifdef MODE_DEBUG
     printf("#%5d - Arrêt d'urgence - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
@@ -707,15 +853,15 @@ bool aru(ardrone* dr)
     return sendAT(dr);
 }
 
-bool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
 {
     char strBuff[50];
     sprintf(strBuff, ",1,%d,%d,%d,%d\r", *(int*)(&tiltLeftRight_),
-                                         *(int*)(tiltFrontBack_),
-                                         *(int*)(goUpDown_),
-                                         *(int*)(turnLeftRight_));
-    dr->bufferLeft =  "AT*PCMD=";
-    dr->bufferRight = strBuff;
+                                         *(int*)(&tiltFrontBack_),
+                                         *(int*)(&goUpDown_),
+                                         *(int*)(&turnLeftRight_));
+    strcpy(dr->bufferLeft, "AT*PCMD=");
+    strcpy(dr->bufferRight, strBuff);
 #ifdef MODE_DEBUG
     printf("#%5d - PCMD - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 #endif
@@ -730,14 +876,15 @@ void run(ardrone* dr)
     }
 }
 
-ardrone* newARDrone(void)
+far ardrone* newARDrone(void)
 {
-	ardrone tmp;
-	tmp.host = "192.168.1.1";
-    tmp.port = 5556;
+	far ardrone* tmp;
+	tmp = malloc(sizeof(ardrone));
+	
+    tmp->port_at = 5556;
 
-    tmp.ident = 0;
-    tmp.fly = false;
+    tmp->ident = 0;
+    tmp->fly = false;
     
-    return &tmp;
+    return tmp;
 }
