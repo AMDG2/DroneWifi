@@ -102,6 +102,7 @@ Séance du vendredi 8 février 2013 (3h + 1h30)
 Séance du lundi 11 février 2013 (4h)
 ------------------------------------
 - Le drone à un problème d'hélices, il ne vole plus correctement
+- Réception du Raspberry Pi
 - Baudouin
  	- Fin de la réécriture du programme Qt en Dynamic C
  	- Essai de récupération de données depuis le drone
@@ -111,6 +112,8 @@ Séance du lundi 11 février 2013 (4h)
 
 Séance du mardi 12 février 2013 (3h + 4h)
 -----------------------------------------
+- Achat de nouvelles hélices pour le drone
+- Après avoir laissé les hélices du drone droites pendant une journée, le drone vole mieux...
 - Baudouin
 	- Écriture de la fonction principale (main) pour la télécommande : gestion de la connexion, de la lecture des commandes, de l'envoi des commandes...
 - Thibaut
