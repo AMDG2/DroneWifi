@@ -120,4 +120,13 @@ Séance du mardi 12 février 2013 (3h + 4h)
 	- Soudure d'une résistance de tirage en plus pour le bit de données du bus I²C
 	- Étude du bus I²C sur le Rabbit : écriture d'une fonction de configuration des deux bits utilisés sur le port D (la fonction fournie ne fonctionne pas...)
 	- et tests... Il semble, à la fin de la séance, qu'un des bits (0) du port D ne fonctionne plus
- 
+
+Séance du vendredi 15 février 2013 (3h)
+---------------------------------------
+- Arrivée du Raspberry Pi
+- Baudouin
+	- Découverte de l'environnement du Raspberry Pi
+	- Test de la récupération de la vidéo sur le RPi -> échoué
+	- Travail sur les données de navigation
+- Thibaut
+	- Changement de bus pour la récupération des valeurs analogiques, bus I²C -> SPI
