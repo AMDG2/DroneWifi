@@ -102,7 +102,6 @@ Séance du vendredi 8 février 2013 (3h + 1h30)
 Séance du lundi 11 février 2013 (4h)
 ------------------------------------
 - Le drone à un problème d'hélices, il ne vole plus correctement
-- Réception du Raspberry Pi
 - Baudouin
  	- Fin de la réécriture du programme Qt en Dynamic C
  	- Essai de récupération de données depuis le drone
@@ -112,6 +111,7 @@ Séance du lundi 11 février 2013 (4h)
 
 Séance du mardi 12 février 2013 (3h + 4h)
 -----------------------------------------
+- Réception du Raspberry Pi
 - Achat de nouvelles hélices pour le drone
 - Après avoir laissé les hélices du drone droites pendant une journée, le drone vole mieux...
 - Baudouin
@@ -123,18 +123,15 @@ Séance du mardi 12 février 2013 (3h + 4h)
 
 Séance du vendredi 15 février 2013 (3h)
 ---------------------------------------
-- Arrivée du Raspberry Pi
 - Baudouin
 	- Découverte de l'environnement du Raspberry Pi
-	- Test de la récupération de la vidéo sur le RPi -> échoué
+	- Test de la récupération de la vidéo sur le RPi : échoué
 	- Travail sur les données de navigation
 - Thibaut
-	- Changement de méthode pour la récupération des valeurs analogiques, bus I²C -> SPI, modification de la carte et du programme
+	- Changement de méthode pour la récupération des valeurs analogiques, bus I²C -> SPI : modification de la carte et du programme
 
 Séance extra du samedi 16 février 2013 - Portes ouvertes (Baudouin : 9h ; Thibaut : 2h30)
 -----------------------------------------------------------------------------------------
 - Accueil des lycéens, démonstration du projet, réponse aux questions...
-- Baudouin
-	- ...
 - Thibaut
 	- Finalisation du changement en SPI, réglages des temps. La conversion fonctionne et est lue par le Rabbit
