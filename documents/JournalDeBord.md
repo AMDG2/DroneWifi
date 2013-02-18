@@ -129,4 +129,12 @@ Séance du vendredi 15 février 2013 (3h)
 	- Test de la récupération de la vidéo sur le RPi -> échoué
 	- Travail sur les données de navigation
 - Thibaut
-	- Changement de bus pour la récupération des valeurs analogiques, bus I²C -> SPI
+	- Changement de méthode pour la récupération des valeurs analogiques, bus I²C -> SPI, modification de la carte et du programme
+
+Séance extra du samedi 16 février 2013 - Portes ouvertes (Baudouin : 9h ; Thibaut : 2h30)
+-----------------------------------------------------------------------------------------
+- Accueil des lycéens, démonstration du projet, réponse aux questions...
+- Baudouin
+	- ...
+- Thibaut
+	- Finalisation du changement en SPI, réglages des temps. La conversion fonctionne et est lue par le Rabbit
