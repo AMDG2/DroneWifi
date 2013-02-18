@@ -117,9 +117,9 @@ Séance du mardi 12 février 2013 (3h + 4h)
 - Baudouin
 	- Écriture de la fonction principale (main) pour la télécommande : gestion de la connexion, de la lecture des commandes, de l'envoi des commandes...
 - Thibaut
-	- Soudure d'une résistance de tirage en plus pour le bit de données du bus I²C
+	- Recherche sur les problème autour de l'I²C : résistance de tirage pour le bit de données du bus I²C, configuration des ports, etc...
 	- Étude du bus I²C sur le Rabbit : écriture d'une fonction de configuration des deux bits utilisés sur le port D (la fonction fournie ne fonctionne pas...)
-	- et tests... Il semble, à la fin de la séance, qu'un des bits (0) du port D ne fonctionne plus
+	- et tests... Il semble, à la fin de la séance, qu'un des bits (1) du port D ne fonctionne plus
 
 Séance du vendredi 15 février 2013 (3h)
 ---------------------------------------
@@ -128,10 +128,18 @@ Séance du vendredi 15 février 2013 (3h)
 	- Test de la récupération de la vidéo sur le RPi : échoué
 	- Travail sur les données de navigation
 - Thibaut
-	- Changement de méthode pour la récupération des valeurs analogiques, bus I²C -> SPI : modification de la carte et du programme
+	- Changement de méthode pour la récupération des valeurs analogiques, bus I²C -> SPI : changement du circuit intégré, modification de la carte, changement du connecteur, écriture de routines pour le programme
 
 Séance extra du samedi 16 février 2013 - Portes ouvertes (Baudouin : 9h ; Thibaut : 2h30)
 -----------------------------------------------------------------------------------------
 - Accueil des lycéens, démonstration du projet, réponse aux questions...
 - Thibaut
 	- Finalisation du changement en SPI, réglages des temps. La conversion fonctionne et est lue par le Rabbit
+
+Séance du lundi 18 février 2013 (4h + 1h)
+-----------------------------------------
+- Mise en commun des travaux pour le "programme final"
+- Résolutions des derniers problèmes
+- Travail sur l'oral de mi-projet
+- Thibaut
+	- Finalisation de la conversion avec le SPI : réglage de bugs dans le programme
