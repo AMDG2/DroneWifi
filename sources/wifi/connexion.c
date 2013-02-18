@@ -1,23 +1,9 @@
-ï»¿/**
+/**
 	\defgroup Connexion
 	\defgroup UDP
 	\defgroup IO
 	\defgroup ATCommands
 **/
-
-
-/* what local UDP port to use - packets we send come from here */
-#define LOCAL_PORT	5556
-
-/*
- * Where to send the heartbeats. If it is set to all '255's,
- * it will be a broadcast packet.
- */
-//#define REMOTE_IP			"192.168.1.1"
-#define REMOTE_IP			"255.255.255.255" /*broadcast*/
-
-/* the destination port to send to */
-#define REMOTE_PORT	LOCAL_PORT
 
 /* ******************************** */
 /*
@@ -28,8 +14,6 @@
 
 #define TCPCONFIG 5
 
-//#define printf
-
 #use "dcrtcp.lib"
 
 #use "rcm56xxW.lib"
@@ -38,8 +22,10 @@
 
 #memmap xmem
 
+#define printf 1;
 
-/** \typedef statut_connexion Permet de dÃ©finir le statut de la connexion en cours
+
+/** \typedef statut_connexion Permet de définir le statut de la connexion en cours
 	\ingroup Connexion
 	\author Thibaut Marty
 **/
@@ -57,8 +43,8 @@ typedef enum
 **/
 typedef struct
 {
-	/* accessibles en Ã©criture */
-	char led_connecte;	// 1 : allumÃ©e
+	/* accessibles en écriture */
+	char led_connecte;	// 1 : allumée
 	char led_erreur;
 	char led_debug;
 	/* accessibles en lecture */
@@ -82,7 +68,7 @@ typedef struct
 #define false (0)
 #define cppbool char
 
-/**	\var connect variable globale qui dÃ©fini le statut de la connexion en cours
+/**	\var connect variable globale qui défini le statut de la connexion en cours
 	\ingroup Connexion
 	\author Thibaut Marty
 **/
@@ -90,30 +76,30 @@ statut_connexion connect = INOCCUPE;
 
 /**	\fn void BRDInit(void)
 	\ingroup IO
-	\brief Initialise tous les ports d'entreÃ©s sorties pour la carte joystick
+	\brief Initialise tous les ports d'entreés sorties pour la carte joystick
 	\author Thibaut Marty
 **/
 void BRDInit(void);
 
 /**	\fn void print_etat_commandes(etat_commandes s)
 	\ingroup IO
-	\brief initialise la structure structure de l'Ã©tat des commandes
-	\param etat_commandes structure de l'Ã©tat des commandes
+	\brief initialise la structure structure de l'état des commandes
+	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
 void print_etat_commandes(etat_commandes s);
 
 /**	\fn void init_etat_commandes(etat_commandes *s)
 	\ingroup IO
-	\brief initialise la structure structure de l'Ã©tat des commandes
-	\param etat_commandes structure de l'Ã©tat des commandes
+	\brief initialise la structure structure de l'état des commandes
+	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
 void init_etat_commandes(etat_commandes *s);
 
 /**	\fn void SPI_CLK(char v)
 	\ingroup IO
-	\brief modifie l'Ã©tat de la sortie CLK pour le convertisseur A/N SPI
+	\brief modifie l'état de la sortie CLK pour le convertisseur A/N SPI
 	\param v 1 : +3.3V ; 0 : 0V
 	\author Thibaut Marty
 **/
@@ -121,7 +107,7 @@ void SPI_CLK(char v);
 
 /**	\fn void SPI_DIN(char v)
 	\ingroup IO
-	\brief modifie l'Ã©tat de la sortie DIN pour le convertisseur A/N SPI
+	\brief modifie l'état de la sortie DIN pour le convertisseur A/N SPI
 	\param v 1 : +3.3V ; 0 : 0V
 	\author Thibaut Marty
 **/
@@ -129,7 +115,7 @@ void SPI_DIN(char v);
 
 /**	\fn void SPI_CS(char v)
 	\ingroup IO
-	\brief modifie l'Ã©tat de la sortie CS pour le convertisseur A/N SPI
+	\brief modifie l'état de la sortie CS pour le convertisseur A/N SPI
 	\param v 1 : +3.3V ; 0 : 0V
 	\author Thibaut Marty
 **/
@@ -137,7 +123,7 @@ void SPI_CS(char v);
 
 /**	\fn int SPI_DOUT(void)
 	\ingroup IO
-	\brief lit l'Ã©tat de l'entrÃ©e DOUT du convertisseur A/N SPI
+	\brief lit l'état de l'entrée DOUT du convertisseur A/N SPI
 	\return 1 : +3.3V ; 0 : 0V
 	\author Thibaut Marty
 **/
@@ -145,7 +131,7 @@ int SPI_DOUT(void);
 
 /**	\fn cWAIT_5_us
 	\ingroup IO
-	\brief pause de 5 Âµs
+	\brief pause de 5 µs
 	\author Dynamic C
 **/
 #define cWAIT_5_us asm ld a,3 $\
@@ -153,214 +139,214 @@ int SPI_DOUT(void);
              ld b,a $\
              db 0x10,-2
 
-/**	\fn void SPI_delay(int i)
+/**	\fn void SPI_delay(void)
 	\ingroup IO
-	\brief temps d'attente de 'i' * 5 Âµs
-	\param i : nombre d'attente de 5 Âµs
+	\brief temps d'attente de 'i' * 5 µs
 	\author Thibaut Marty
 **/
-void SPI_delay(int i);
+void SPI_delay(void);
 
 /**	\fn int SPIread(char addr)
 	\ingroup IO
 	\brief demande au convertisseur A/N SPI de convertir le canal addr
-	\param addr canal de lecture (0 Ã  3)
-	\return le rÃ©sultat de la conversion
+	\param addr canal de lecture (0 à 3)
+	\return le résultat de la conversion
 	\author Thibaut Marty
 **/
 int SPIread(char addr);
 
 /**	\fn void lireCommandes(etat_commandes *s)
 	\ingroup IO
-	\brief remplie la structure de l'Ã©tat des commandes avec de nouvelles valeurs lues
-	\param etat_commandes structure de l'Ã©tat des commandes
+	\brief remplie la structure de l'état des commandes avec de nouvelles valeurs lues
+	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
 void lireCommandes(etat_commandes *s);
 
-/**	\fn void ecrireCommandes(etat_commandes s)
+/**	\fn void ecrireCommandes(etat_commandes *s)
 	\ingroup IO
-	\brief Ã©cris les valeurs de la structure de l'Ã©tat des commandes en sortie
-	\param etat_commandes structure de l'Ã©tat des commandes
+	\brief écris les valeurs de la structure de l'état des commandes en sortie
+	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
-void ecrireCommandes(etat_commandes s);
+void ecrireCommandes(etat_commandes *s);
 
 /**	\fn cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
 	\ingroup UDP
-	\brief envoie une chaÃ®ne de caractÃ¨re
-	\param str chaÃ®ne Ã  envoyÃ©
+	\brief envoie une chaîne de caractère
+	\param str chaîne à envoyé
 	\param ip ip destination
 	\param port port de l'envoi
-	\param sock pointeur sur udp_Socket utilisÃ©e
-	\return true : paquet envoyÃ© ; false : erreur, la socket est fermÃ©e et ne se reouvre pas
+	\param sock pointeur sur udp_Socket utilisée
+	\return true : paquet envoyé ; false : erreur, la socket est fermée et ne se reouvre pas
 	\author Thibaut Marty
 **/
 cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock);
 
 /**	\fn int rxsignal_cmp(far _wifi_wln_scan_bss *a, far _wifi_wln_scan_bss *b)
 	\ingroup Connexion
-	\brief fonction qui permet le trie les points d'accÃ¨s WiFi par puissance du signal
-	\param a un _wifi_wln_scan_bss qui correspond Ã  un point d'accÃ¨s
-	\param b un _wifi_wln_scan_bss qui correspond Ã  un point d'accÃ¨s
+	\brief fonction qui permet le trie les points d'accès WiFi par puissance du signal
+	\param a un _wifi_wln_scan_bss qui correspond à un point d'accès
+	\param b un _wifi_wln_scan_bss qui correspond à un point d'accès
 	\author Dynamic C
 **/
 int rxsignal_cmp(far _wifi_wln_scan_bss *a, far _wifi_wln_scan_bss *b);
 
 /**	\fn root void scan_assoc_callback(far wifi_scan_data* data)
 	\ingroup Connexion
-	\brief fonction de callback qui traite les points d'accÃ¨s donnÃ©s :
-		recherche le point d'accÃ¨s du drone et se connecte
-	\param data liste des points d'accÃ¨s
+	\brief fonction de callback qui traite les points d'accès donnés :
+		recherche le point d'accès du drone et se connecte
+	\param data liste des points d'accès
 	\author Thibaut Marty
 **/
 root void scan_assoc_callback(far wifi_scan_data* data);
 
-/**	\fn void connexion(void)
+/**	\fn void connexion(etat_commandes *s)
 	\ingroup Connexion
 	\brief fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective
+	\param etat_commandes structure de l'état des commandes
 	\author Thibaut Marty
 **/
-void connexion(void);
+void connexion(etat_commandes *s);
 
 /** \typedef ardrone
 	\ingroup ATCommands
-	\brief Structure contenant les informations nÃ©cÃ©ssaires Ã  la commande d'un drone
+	\brief Structure contenant les informations nécéssaires à la commande d'un drone
 	\author Baudouin Feildel
 **/
 typedef struct
 {
-	char buff[1025];				// Buffer de Stockage de trame
+	char buff[200];					// Buffer de Stockage de trame
 	udp_Socket udpSocket_at;		// Handle de la socket d'envoi de commande AT
 	int port_at;					// Port de commande du drone
 	char bufferLeft[20];			// Partie gauche du buffer
-	char bufferRight[50];			// Partie droite du buffer
+	char bufferRight[150];			// Partie droite du buffer
 	int ident;						// Identifiant de la commande
 	cppbool fly;						// Mode vol
-	float tiltFrontBack;			// Buffer de la commande d'inclinaison avant arriÃ¨re
+	float tiltFrontBack;			// Buffer de la commande d'inclinaison avant arrière
 	float tiltLeftRight;			// Buffer de la commande d'inclinaison gauche droite
 	float goUpDown;					// Buffer de la commande de vitesse verticale
 	float turnLeftRight;			// Buffer de la commande de vitesse angulaire
 } ardrone;
 
-/** \fn cppbool connectToDrone(far ardrone* dr)
+/** \fn cppbool connectToDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Initie la connexion avec le drone dr
-	\param far ardrone* dr : handle de drone
-	\return true : Connexion rÃ©ussie ; false : Connexion Ã©chouÃ©e
+	\param ardrone* dr : handle de drone
+	\return true : Connexion réussie ; false : Connexion échouée
 	\author Baudouin Feildel
 **/
-cppbool connectToDrone(far ardrone* dr);
+cppbool connectToDrone(ardrone* dr);
 
-/** \fn cppbool initDrone(far ardrone* dr)
+/** \fn cppbool initDrone(ardrone* dr)
 	\ingroup ATCommands
-	\brief Initialisation du drone dr pour permettre un dÃ©collage en toute sÃ©curitÃ©.
-	\param far ardrone* dr : Handle du drone
-	\return true : initialisation rÃ©ussie ; false : initialisation Ã©chouÃ©e
+	\brief Initialisation du drone dr pour permettre un décollage en toute sécurité.
+	\param ardrone* dr : Handle du drone
+	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
 **/
-cppbool initDrone(far ardrone* dr);
+cppbool initDrone(ardrone* dr);
 
-/** \fn cppbool takeoff(far ardrone* dr)
+/** \fn cppbool takeoff(ardrone* dr)
 	\ingroup ATCommands
-	\brief Commande le dÃ©collage du drone dr
-	\param far ardrone* dr : Handle du drone
-	\return true : commande envoyÃ©e ; false : commande non-envoyÃ©e
+	\brief Commande le décollage du drone dr
+	\param ardrone* dr : Handle du drone
+	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-cppbool takeoff(far ardrone* dr);
+cppbool takeoff(ardrone* dr);
 
-/** \fn cppbool land(far ardrone* dr)
+/** \fn cppbool land(ardrone* dr)
 	\ingroup ATCommands
 	\brief Commande l'atterissage du drone dr
-	\param far ardrone* dr : Handle du drone
-	\return true : commande envoyÃ©e ; false : commande non-envoyÃ©e
+	\param ardrone* dr : Handle du drone
+	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-cppbool land(far ardrone* dr);
+cppbool land(ardrone* dr);
 
-/** \fn cppbool aru(far ardrone* dr)
+/** \fn cppbool aru(ardrone* dr)
 	\ingroup ATCommands
-	\brief Envoi un arrÃªt d'urgence au drone dr
-	\param far ardrone* dr : Handle du drone
-	\return true : arrÃªt d'urgence envoyÃ© ; false : arrÃªt d'urgence non-envoyÃ©
+	\brief Envoi un arrêt d'urgence au drone dr
+	\param ardrone* dr : Handle du drone
+	\return true : arrêt d'urgence envoyé ; false : arrêt d'urgence non-envoyé
 	\author Baudouin Feildel
 **/
-cppbool aru(far ardrone* dr);
+cppbool aru(ardrone* dr);
 
-/** \fn cppbool volCommand(far ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+/** \fn cppbool volCommand(ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
 	\ingroup ATCommands
 	\brief Envoi de la commande de vol au drone dr
-	\param far ardrone* dr : Handle du drone
-	\param float tiltLeftRight : commande l'inclinaison avant/arriÃ¨re du drone
+	\param ardrone* dr : Handle du drone
+	\param float tiltLeftRight : commande l'inclinaison avant/arrière du drone
 	\param float tiltFrontBack : commande l'inclinaison gauche/droite du drone
 	\param float goUpDown : commande vitesse verticale du drone
 	\param float turnLeftRight : commande vitesse angulaire du drone
-	\return true : commande envoyÃ©e ; false : commande non-envoyÃ©e
+	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-cppbool volCommand(far ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
+cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
 
-/** \fn void setGoUpDown(far ardrone* dr, float val)
+/** \fn void setGoUpDown(ardrone* dr, float val)
 	\ingroup ATCommands
-	\brief Mettre une valeur de maniÃ¨re sÃ©curisÃ©e dans le buffer de la vitesse verticale du drone dr
-	\param far ardrone* dr : Handle du drone
-	\param float val : valeur Ã  inserer
+	\brief Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr
+	\param ardrone* dr : Handle du drone
+	\param float val : valeur à inserer
 	\author Baudouin Feildel
 **/
-void setGoUpDown(far ardrone* dr, float val) { dr->goUpDown = (val <= 1 && val >= -1) ? val:0; }
+void setGoUpDown(ardrone* dr, float val) { dr->goUpDown = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTurnLeftRight(far ardrone* dr, float val)
+/** \fn void setTurnLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
-	\brief Mettre une valeur dans de maniÃ¨re sÃ©curisÃ©e dans le buffer de la vitesse angulaire du drone dr
-	\param far ardrone* dr: Handle du drone
-	\param float val : valeur Ã  insÃ©rer
+	\brief Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr
+	\param ardrone* dr: Handle du drone
+	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTurnLeftRight(far ardrone* dr, float val) { dr->turnLeftRight = (val <= 1 && val >= -1) ? val:0; }
+void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTiltFrontBack(far ardrone* dr, float val)
+/** \fn void setTiltFrontBack(ardrone* dr, float val)
 	\ingroup ATCommands
-	\brief Mettre une valeur de maniÃ¨re sÃ©curisÃ© dans le buffer de l'inclinaison avant/arriÃ¨re du drone dr
-	\param far ardrone* dr : Handle du drone
-	\param float val : valeur Ã  insÃ©rer
+	\brief Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr
+	\param ardrone* dr : Handle du drone
+	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTiltFrontBack(far ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 && val >= -1) ? val:0; }
+void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTiltLeftRight(far ardrone* dr, float val)
+/** \fn void setTiltLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
-	\brief Mettre une valeur de maniÃ¨re sÃ©curisÃ©e dans le buffer de l'inclinaison gauche/droite du drone dr
-	\param far ardrone* dr : Handle du drone
-	\param float val : valeur Ã  insÃ©rer
+	\brief Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr
+	\param ardrone* dr : Handle du drone
+	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTiltLeftRight(far ardrone* dr, float val) { dr->tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
+void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn cppbool sendAT(far ardrone* dr)
+/** \fn cppbool sendAT(ardrone* dr)
 	\ingroup ATCommands
 	\brief Envoyer la commande AT qui est dans le buffer du drone dr
-	\param far ardrone* dr : Handle du drone
-	\return true : buffer envoyÃ© ; false buffer non-envoyÃ©
+	\param ardrone* dr : Handle du drone
+	\return true : buffer envoyé ; false buffer non-envoyé
 	\author Baudouin Feildel
 **/
-cppbool sendAT(far ardrone* dr);
+cppbool sendAT(ardrone* dr);
 
-/** \fn far ardrone* newARDrone(void)
+/** \fn void newARDrone(ardrone* tmp)
 	\ingroup ATCommands
 	\brief Constructeur de l'objet ardrone
-	\return Handle sur drone
+	\param pointeur sur ardrone
 	\author Baudouin Feildel
 **/
-far ardrone* newARDrone(void);
+void newARDrone(ardrone* tmp);
 
-/** \fn void closeARDrone(far ardrone* dr)
+/** \fn void closeARDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Destructeur de l'objet ardrone
-	\param far ardrone* dr : Handle du objet drone
+	\param ardrone* dr : Handle du objet drone
 	\author Baudouin Feildel
 **/
-void closeARDrone(far ardrone* dr);
+void closeARDrone(ardrone* dr);
 
 /*********************
  *                   *
@@ -369,59 +355,98 @@ void closeARDrone(far ardrone* dr);
  *********************/
 
 /** \fn void main(void)
-	\brief Fonction principal : gestion du pilotage du drone en fonctions des entrÃ©es/sorties
+	\brief Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties
 	\author Baudouin Feildel
 **/
 void main(void)
 {
 	etat_commandes ec;
-	far ardrone* drone;
+	ardrone droneStruct;
+	ardrone* drone = &droneStruct;
 	char cptPassErr = 0;
+	float j1x = 0, j2x = 0, j1y = 0, j2y = 0;
 	wifi_status status;
 
 	// Initialisation de la carte
 	brdInit();
 	BRDInit();
 	init_etat_commandes(&ec);
-
-	// Connexion au rÃ©seau WiFi
-	connexion();
+	
+	
+	// Connexion au réseau WiFi
+	connexion(&ec);
 
 	// Connexion et Initialisation du drone
-	drone = newARDrone();
+	newARDrone(drone);
 	connectToDrone(drone);
 	initDrone(drone);
-
-	ec.led_connecte = 1;
-	ecrireCommandes(ec);
-
+	
+	do
+	{
+		costate
+		{
+			lireCommandes(&ec);
+			yield;
+		}
+		costate
+		{
+			ec.led_erreur = ec.led_erreur ? 0 : 1;
+			ecrireCommandes(&ec);
+			waitfor(DelayMs(300));
+		}
+	}
+	while(ec.switch_land == 0);
+	
+	ec.led_erreur = 0;
+	ecrireCommandes(&ec);
 
 	for(;;)
 	{
-		// Tache de gestion des entrÃ©es/sorties
+		// Tache de gestion des entrées/sorties
 		//		et de l'envoi de commande au drone
 		costate
 		{
-			// Read Inputs
+			// Lit les entrées
 			lireCommandes(&ec);
 
-			// Si ARRÃŠT D'URGENCE
-			if(ec.bp_arret_urgence)
+			// Si ARRÊT D'URGENCE
+			if(!ec.bp_arret_urgence)
+			{
 				aru(drone);
+				drone->fly = false;
+				do
+				{
+					costate
+					{
+						lireCommandes(&ec);
+						yield;
+					}
+					costate
+					{
+						ec.led_debug = ec.led_debug ? 0 : 1;
+						ecrireCommandes(&ec);
+						waitfor(DelayMs(100));
+					}
+				}
+				while(!ec.bp_arret_urgence);	// attend le relachement
+				ec.led_debug = 0;
+				ecrireCommandes(&ec);
+				aru(drone);
+			}
 			else
 			{
 
-				/*if(ec.bp_video)
-				{
+				// if(ec.bp_video)
+				// {
 
-				}*/
+				// }
 
-				if(ec.bp_trim && !drone->fly)
+				if(!ec.bp_trim && !drone->fly)
 					initDrone(drone);
 
-				if(ec.switch_land == 0 && !drone->fly)	// Si on est en haut et que l'on ne vole pas
+				if(ec.switch_land == 0 && !drone->fly)	// Si le switch est en position haute et que l'on ne vole pas
 				{
-					if( !(initDrone(drone) && takeoff(drone)) )
+					if(!(initDrone(drone) && takeoff(drone)) )
 					{
 						while(ec.switch_land == 0)
 						{
@@ -432,18 +457,14 @@ void main(void)
 							}
 							costate
 							{
-								ec.led_erreur = 1;
-								ecrireCommandes(ec);
-								waitfor(DelayMs(300));
-
-								ec.led_erreur = 0;
-								ecrireCommandes(ec);
-								waitfor(DelayMs(300));
+								ec.led_erreur = ec.led_erreur ? 0 : 1;
+								ecrireCommandes(&ec);
+								waitfor(DelayMs(100));
 							}
 						}
 					}
 				}
-				else if(ec.switch_land == 1 && drone->fly)	// Si on est en bas et que l'on vole
+				else if(ec.switch_land == 1 && drone->fly)	// Si le switch est en position basse et que l'on vole
 				{
 					if(!land(drone))
 					{
@@ -456,12 +477,8 @@ void main(void)
 							}
 							costate
 							{
-								ec.led_erreur = 1;
-								ecrireCommandes(ec);
-								waitfor(DelayMs(300));
-
-								ec.led_erreur = 0;
-								ecrireCommandes(ec);
+								ec.led_erreur = ec.led_erreur ? 0 : 1;
+								ecrireCommandes(&ec);
 								waitfor(DelayMs(300));
 							}
 						}
@@ -470,7 +487,7 @@ void main(void)
 				// Les autres cas sont :
 				//			- haut et pas en vol
 				//			- bas et en vol
-				// Ces cas sont interdit, et il n'y a rien Ã  traiter dans ces cas.
+				// Ces cas sont interdit, et il n'y a rien à traiter dans ces cas.
 
 
 				// Si on est en vol
@@ -478,15 +495,16 @@ void main(void)
 				{
 					// Traiter la valeur des joystick
 					// Et stocker cette valeur dans l'objet drone
-					     setGoUpDown(drone, ((float)(ec.joystick_1x / 128) - 1) );
-					setTurnLeftRight(drone, ((float)(ec.joystick_1y / 128) - 1) );
-					setTiltFrontBack(drone, ((float)(ec.joystick_2x / 128) - 1) );
-					setTiltLeftRight(drone, ((float)(ec.joystick_2y / 128) - 1) );
+					
+					     setGoUpDown(drone, j1x = (float)(ec.joystick_1x - 2048) / 2048);
+					setTurnLeftRight(drone, j1y = (float)(ec.joystick_1y - 2048) / 2048);
+					setTiltFrontBack(drone, j2x = (float)(ec.joystick_2x - 2048) / 2048);
+					setTiltLeftRight(drone, j2y = (float)(ec.joystick_2y - 2048) / 2048);
 
 					// Envoyer la commande
-					if(!(volCommand(drone, drone->goUpDown, drone->turnLeftRight, drone->tiltFrontBack, drone->tiltLeftRight)))
+					if(!(volCommand(drone, drone->tiltLeftRight, drone->tiltFrontBack, drone->goUpDown, drone->turnLeftRight)))
 					{
-						// Si il y a une erreur on incrÃ©mente un compteur
+						// Si il y a une erreur on incrémente un compteur
 						// Au dela de dix erreurs de suite on fait atterrir le drone
 						if(cptPassErr > 10)
 							land(drone);
@@ -494,7 +512,10 @@ void main(void)
 							cptPassErr++;
 					}
 					else
-						cptPassErr = 0; // Remise Ã  zÃ©ro du compteur d'erreur en cas de rÃ©ussite
+					{
+						cptPassErr = 0; // Remise à zéro du compteur d'erreur en cas de réussite
+						waitfor(DelayMs(30)); // prochain envoi de commande dans 30 ms
+					}
 				}
 			}
 
@@ -503,10 +524,10 @@ void main(void)
 		}
 		costate
 		{
-			// VÃ©rification de la connexion WiFi toute les 5 secondes
-			ifconfig(IF_WIFI0, IFG_WIFI_STATUS, &status, IFS_END);	// rÃ©cupere le statut
+			// Vérification de la connexion WiFi toute les 5 secondes
+			ifconfig(IF_WIFI0, IFG_WIFI_STATUS, &status, IFS_END);	// récupere le statut
 			while(!tcp_tick(NULL));
-			if(status.state == WLN_ST_ASSOC_ESS) // test de la connexion
+			if(status.state == WLN_ST_ASSOC_ESS) // si connecté
 			{
 				waitfor(DelayMs(5000));
 			}
@@ -515,14 +536,14 @@ void main(void)
 				ec.led_connecte = 0;
 				ec.led_erreur = 1;
 				ec.led_debug = 1;
-				ecrireCommandes(ec);
+				ecrireCommandes(&ec);
 
-				connexion();
+				connexion(&ec);
 
 				ec.led_connecte = 1;
 				ec.led_erreur = 0;
 				ec.led_debug = 0;
-				ecrireCommandes(ec);
+				ecrireCommandes(&ec);
 			}
 		}
 	}
@@ -559,7 +580,7 @@ void BRDInit(void)
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 3);
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 6);
 
-	// Niveaux logiques de sortie : tout Ã  1
+	// Niveaux logiques de sortie : tout à 1
 	BitWrPortI(PCDR, &PCDRShadow, 1, 1);
 
 	BitWrPortI(PDDR, &PDDRShadow, 1, 0);
@@ -570,14 +591,14 @@ void BRDInit(void)
 	BitWrPortI(PEDR, &PEDRShadow, 1, 3);
 	BitWrPortI(PEDR, &PEDRShadow, 1, 6);
 
-	// EntrÃ©es / Sorties
+	// Entrées / Sorties
 	BitWrPortI(PCDDR, &PCDDRShadow, 0, 1); // sorties : DOUT
 
 	BitWrPortI(PDDDR, &PDDDRShadow, 1, 0); // sorties : /CS, DIN, CLK
 	BitWrPortI(PDDDR, &PDDDRShadow, 1, 2);
 	BitWrPortI(PDDDR, &PDDDRShadow, 1, 3);
 
-	BitWrPortI(PEDDR, &PEDDRShadow, 1, 1); // sorties : 3 LEDs ; entrÃ©es : 4 boutons
+	BitWrPortI(PEDDR, &PEDDRShadow, 1, 1); // sorties : 3 LEDs ; entrées : 4 boutons
 	BitWrPortI(PEDDR, &PEDDRShadow, 1, 3);
 	BitWrPortI(PEDDR, &PEDDRShadow, 1, 6);
 }
@@ -628,16 +649,15 @@ int SPI_DOUT(void)   { return BitRdPortI(PCDR, 1); }
 #define SPI_CS(0)  BitWrPortI(PDDR, &PDDRShadow, 0, 0)
 #define SPI_CS(1)  BitWrPortI(PDDR, &PDDRShadow, 1, 0)*/
 
-void SPI_delay(int i)
+void SPI_delay(void)
 {                         
-	for(i = 0; i < i; i++)
-		cWAIT_5_us;
+	cWAIT_5_us;
 }
 
 
 int SPIread(char addr)
 {
-	int i, r;
+	int i, r = 0;
 	addr &= 0x03; // ne prend que les 2 derniers bits
 
 
@@ -646,80 +666,81 @@ int SPIread(char addr)
 	// bit de start
 	SPI_DIN(1);
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	// SGL/DIFF
 	SPI_DIN(1);
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	// addresse
 	SPI_DIN(0);
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	SPI_DIN((addr & 0x02) >> 1);
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	SPI_DIN(addr & 0x01);
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	SPI_DIN(0);
 
 	// attente conversion
 
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	// null bit
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
 	// bit de signe
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
+	SPI_delay();
 	SPI_CLK(1);
 
-	SPI_delay(20);
+	/*SPI_delay();
 	SPI_CLK(0);
-	SPI_delay(20);
-	SPI_CLK(1);
+	SPI_delay();
+	SPI_CLK(1);*/
 
-	// donnÃ©es
+	// données
 	for(i = 12; i > 0; i--)
 	{
-		r += SPI_DOUT() << i;
-
-		SPI_delay(20);
+		SPI_delay();
 		SPI_CLK(0);
-		SPI_delay(20);
+		SPI_delay();
+		
+		r += SPI_DOUT() << (i - 1);
+		
 		SPI_CLK(1);
 	}
 
-	// arrÃªte la communication
-	SPI_delay(20);
+	// arrête la communication
+	SPI_delay();
 	SPI_DIN(0);
 	SPI_CLK(0);
 	SPI_CS(1);
@@ -740,11 +761,11 @@ void lireCommandes(etat_commandes *s)
 	s->joystick_2y = SPIread(3);
 }
 
-void ecrireCommandes(etat_commandes s)
+void ecrireCommandes(etat_commandes *s)
 {
-	BitWrPortI(PEDR, &PEDRShadow, s.led_connecte, 1);
-	BitWrPortI(PEDR, &PEDRShadow, s.led_erreur, 3);
-	BitWrPortI(PEDR, &PEDRShadow, s.led_debug, 6);
+	BitWrPortI(PEDR, &PEDRShadow, s->led_connecte, 1);
+	BitWrPortI(PEDR, &PEDRShadow, s->led_erreur, 3);
+	BitWrPortI(PEDR, &PEDRShadow, s->led_debug, 6);
 }
 
 cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
@@ -766,7 +787,7 @@ cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
 		}
 	}
    else
-		printf("Paquet envoye :\n;;;%s\n", str);
+		//printf("Paquet envoye :\n;;;%s\n", str);
 
 	tcp_tick(NULL);
 	return true;
@@ -785,11 +806,11 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 
 	connect = RECHERCHE;
 
-	bss = data->bss;	// pointeur sur les points d'accÃ¨s disponibles
+	bss = data->bss;	// pointeur sur les points d'accès disponibles
 
 	_f_qsort(bss, data->count, sizeof(bss[0]), rxsignal_cmp);	// trie en fonction de la puissance du signal
 	printf("\nResultat du scan des points d'acces :\n");
-	for(i = 0; i < data->count; i++)	// affiche les points d'accÃ¨s disponibles
+	for(i = 0; i < data->count; i++)	// affiche les points d'accès disponibles
 	{
 		wifi_ssid_to_str(ssid_str, bss[i].ssid, bss[i].ssid_len);
 		printf("[%2d] trouve : %s\n", i, ssid_str);
@@ -798,17 +819,17 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 	printf("\nRecherche du drone :\n");
 	for(i = 0; i < data->count && connect != TROUVE; i++)
 	{
-		wifi_ssid_to_str(ssid_str, bss[i].ssid, bss[i].ssid_len);	// donne une chaÃ®ne de caractÃ¨re imprimable
+		wifi_ssid_to_str(ssid_str, bss[i].ssid, bss[i].ssid_len);	// donne une chaîne de caractère imprimable
 
 		printf("[%2d] comparaison de '%s' avec 'ardrone2_xxxxxx' : ", i, ssid_str);
 
-		ctemp = ssid_str[9];	// sauvegarde du caractÃ¨re
-		ssid_str[9] = '\0';		// tronque Ã  9 caractÃ¨res (ardrone2_)
+		ctemp = ssid_str[9];	// sauvegarde du caractère
+		ssid_str[9] = '\0';		// tronque à 9 caractères (ardrone2_)
 
 		if(!strcmp("ardrone2_", ssid_str))	// si le ssid correspond
 		{
 			printf("oui\n");
-			ssid_str[9] = ctemp;	// remet du caractÃ¨re enlevÃ©
+			ssid_str[9] = ctemp;	// remet du caractère enlevé
 
 			// Need near copy of SSID to call ifconfig.  ssid will be promoted to
 			// far for this call, but the results will be in ssid as a near
@@ -820,7 +841,7 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 			{
 				wifi_ssid_to_str(ssid, ssid, ssid_len);
 				printf(" => demande de connexion a %s...\n", ssid);
-				connect = TROUVE;	// indique que le drone est trouvÃ©
+				connect = TROUVE;	// indique que le drone est trouvé
 				// puis il faut attendre que la connexion soit effective (dans connexion())
 			}
 			else
@@ -836,7 +857,7 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 	}
 }
 
-void connexion(void)
+void connexion(etat_commandes *s)
 {
 	wifi_status status;
 	word waitms;
@@ -853,10 +874,10 @@ void connexion(void)
 		connect_timeout = 1;	// reset
 		tcp_tick(NULL);
 		ifdown(IF_WIFI0);
-		while(ifpending(IF_WIFI0) != IF_DOWN)	// attend que l'Ã©ventuelle ancienne connexion soit arrÃªtÃ©e
+		while(ifpending(IF_WIFI0) != IF_DOWN)	// attend que l'éventuelle ancienne connexion soit arrêtée
 		   tcp_tick(NULL);
 
-		// Donne la fonction de callback avant la requÃªte de scan
+		// Donne la fonction de callback avant la requête de scan
 		ifconfig(IF_WIFI0, IFS_WIFI_SCAN, scan_assoc_callback, IFS_END);
 		do
 		{
@@ -867,10 +888,12 @@ void connexion(void)
 			}
 			costate
 			{
-				connect_timeout++; // jusqu'Ã  l'overflow => sort de la boucle
-				waitfor(DelayMs(20)); // 5,10 secondes de tentatives de connexion
+				s->led_connecte = s->led_connecte ? 0 : 1;
+				ecrireCommandes(s);
+				connect_timeout++;
+				waitfor(DelayMs(100)); // 5 secondes de tentatives de connexion
 			}
-		} while(connect != TROUVE && connect_timeout); // attend que le drone soit trouvÃ©
+		} while(connect != TROUVE && connect_timeout < 50); // attend que le drone soit trouvé
 
 
 		if(connect == TROUVE)	// (pas de timeout)
@@ -883,16 +906,18 @@ void connexion(void)
 			{
 				costate
 				{
-					ifconfig(IF_WIFI0, IFG_WIFI_STATUS, &status, IFS_END);	// rÃ©cupere le statut
+					ifconfig(IF_WIFI0, IFG_WIFI_STATUS, &status, IFS_END);	// récupere le statut
 					while(!tcp_tick(NULL));
 					waitfor(DelayMs(1));
 				}
 				costate
 				{
-					connect_timeout++; // jusqu'Ã  l'overflow => sort de la boucle
-					waitfor(DelayMs(20)); // 5,10 secondes de tentatives de connexion
+					s->led_connecte = s->led_connecte ? 0 : 1;
+					ecrireCommandes(s);
+					connect_timeout++; // jusqu'à l'overflow => sort de la boucle
+					waitfor(DelayMs(100)); // 5 secondes de tentatives de connexion
 				}
-			} while(status.state != WLN_ST_ASSOC_ESS && connect_timeout); // attend que la connexion soit effective
+			} while(status.state != WLN_ST_ASSOC_ESS && connect_timeout < 50); // attend que la connexion soit effective
 
 			if(status.state == WLN_ST_ASSOC_ESS)	// (pas de timeout)
 			{
@@ -908,58 +933,58 @@ void connexion(void)
 		else
 			printf("\nTimeout de connexion...\n");
 	}
+	s->led_connecte = 1;
+	ecrireCommandes(s);
 }
 
-cppbool connectToDrone(far ardrone* dr)
+cppbool connectToDrone(ardrone* dr)
 {
-    // CrÃ©ation de la socket d'envoi des commande AT
-    if(!udp_open((udp_Socket*) &(dr->udpSocket_at), LOCAL_PORT, resolve(IPDRONE), 5556/*dr->port_at*/, NULL))
+    // Création de la socket d'envoi des commande AT
+    if(!udp_open((udp_Socket*) &(dr->udpSocket_at), dr->port_at, resolve(IPDRONE), dr->port_at, NULL))
 	{
-		printf("Failed to open udp socket with the drone on port %d!\n", 5556/*dr->port_at*/);
 		return false;
 	}
 
     return true;
 }
 
-cppbool sendAT(far ardrone* dr)
+cppbool sendAT(ardrone* dr)
 {
 	char lenght;
 	char tmp;
     (dr->ident)++;
 	sprintf(dr->buff, "%s%d%s", dr->bufferLeft, dr->ident, dr->bufferRight);
 	return send_packet(dr->buff, IPDRONE, dr->port_at, &dr->udpSocket_at);
-	cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock);
 }
 
-cppbool initDrone(far ardrone* dr)
+cppbool initDrone(ardrone* dr)
 {
     // Configure la hauteur maximale du drone
     strcpy(dr->bufferLeft, "AT*CONFIG=");
     strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
-    printf("#%5d - Config alt max - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Config alt max - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     sendAT(dr);
 
-    // Demande l'envoi de donnÃ©e de navigation
+    // Demande l'envoi de donnée de navigation
     strcpy(dr->bufferLeft, "AT*CONFIG=");
     strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
-    printf("#%5d - Start navdata flow - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Start navdata flow - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     sendAT(dr);
 
-    // Indique au drone qu'il est Ã  plat : le drone se calibre
+    // Indique au drone qu'il est à plat : le drone se calibre
     strcpy(dr->bufferLeft, "AT*FTRIM=");
     strcpy(dr->bufferRight, ",\r");
-    printf("#%5d - Ftrim - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Ftrim - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
     return sendAT(dr);
 }
 
-cppbool takeoff(far ardrone* dr)
+cppbool takeoff(ardrone* dr)
 {
-    // DÃ©collage du drone
+    // Décollage du drone
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290718208\r");
-    printf("#%5d - Take off - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Take off - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     sendAT(dr);
 
     // Passe en mode vol
@@ -976,48 +1001,41 @@ cppbool takeoff(far ardrone* dr)
     return true;
 }
 
-cppbool land(far ardrone* dr)
+cppbool land(ardrone* dr)
 {
     dr->fly = false;
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290717696\r");
-    printf("#%5d - Land - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Land - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
     return sendAT(dr);
 }
 
-cppbool aru(far ardrone* dr)
+cppbool aru(ardrone* dr)
 {
     dr->fly = false;
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290717952\r");
-    printf("#%5d - ArrÃªt d'urgence - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - Arret d'urgence - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
     return sendAT(dr);
 }
 
-cppbool volCommand(far ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
 {
-    char strBuff[50];
-    sprintf(strBuff, ",1,%d,%d,%d,%d\r", *(int*)(&tiltLeftRight_),
+    sprintf(dr->bufferRight, ",1,%u,%u,%u,%u\r", *(int*)(&tiltLeftRight_),
                                          *(int*)(&tiltFrontBack_),
                                          *(int*)(&goUpDown_),
                                          *(int*)(&turnLeftRight_));
     strcpy(dr->bufferLeft, "AT*PCMD=");
-    strcpy(dr->bufferRight, strBuff);
-    printf("#%5d - PCMD - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+    printf("#%5d - PCMD - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     return sendAT(dr);
 }
 
-far ardrone* newARDrone(void)
+void newARDrone(ardrone* tmp)
 {
-	far ardrone* tmp;
-	tmp = malloc(sizeof(ardrone));
-
     tmp->port_at = 5556;
 
     tmp->ident = 0;
     tmp->fly = false;
-
-    return tmp;
 }
