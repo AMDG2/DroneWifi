@@ -28,7 +28,7 @@
 
 #define TCPCONFIG 5
 
-//#define MODE_DEBUG
+//#define printf
 
 #use "dcrtcp.lib"
 
@@ -111,11 +111,51 @@ void print_etat_commandes(etat_commandes s);
 **/
 void init_etat_commandes(etat_commandes *s);
 
-// todo : doc
+
+/**	\fn int SPI_DOUT(void)
+	\ingroup IO
+	\brief lit l'état de l'entrée DOUT du convertisseur A/N SPI
+	\return 1 : +3.3V ; 0 : 0V
+	\author Thibaut Marty
+**/
+#define SPI_DOUT() 	BitRdPortI(PCDR, 1)
+
+/**	\fn void SPI_CLK(char v)
+	\ingroup IO
+	\brief modifie l'état de la sortie CLK pour le convertisseur A/N SPI
+	\param v 1 : +3.3V ; 0 : 0V
+	\author Thibaut Marty
+**/
 void SPI_CLK(char v);
+
+/**	\fn void SPI_DIN(char v)
+	\ingroup IO
+	\brief modifie l'état de la sortie DIN pour le convertisseur A/N SPI
+	\param v 1 : +3.3V ; 0 : 0V
+	\author Thibaut Marty
+**/
 void SPI_DIN(char v);
+
+/**	\fn void SPI_CS(char v)
+	\ingroup IO
+	\brief modifie l'état de la sortie CS pour le convertisseur A/N SPI
+	\param v 1 : +3.3V ; 0 : 0V
+	\author Thibaut Marty
+**/
 void SPI_CS(char v);
-void SPI_delay(void);
+
+#define cWAIT_5_us asm ld a,3 $\
+             sub 3 $\
+             ld b,a $\
+             db 0x10,-2
+
+/**	\fn void SPI_delay(int i)
+	\ingroup IO
+	\brief temps d'attente de 'i' * 5us
+	\param i : nombre d'attente de 5us
+	\author Thibaut Marty
+**/
+void SPI_delay(int i);
 
 /**	\fn int SPIread(char addr)
 	\ingroup IO
@@ -323,6 +363,11 @@ void closeARDrone(ardrone* dr);
  *      main         *
  *                   *
  *********************/
+
+/** \fn void main(void)
+	\brief Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties
+	\author Baudouin Feildel
+**/
 void main(void)
 {
 	etat_commandes ec;
@@ -476,68 +521,6 @@ void main(void)
 			}
 		}
 	}
-	/*etat_commandes ec;
-	udp_Socket sock;
-	//char buff[1025];
-	unsigned char v = 0;
-	
-	init_etat_commandes(&ec);
-	
-	brdInit();
-	
-	BRDInit();
-	
-	
-	for(;;)
-	{
-		costate
-		{
-			ec.led_connecte = v & 0x01;
-			ec.led_erreur = v & 0x02;
-			ec.led_debug = v & 0x04;
-			ecrireCommandes(ec);
-			v++;
-			lireCommandes(&ec);
-			//print_etat_commandes(ec);
-			//waitfor(DelayMs(100));
-		}
-	}
-	/*
-#ifdef MODE_DEBUG
-	printf("\n\nDEMARRAGE\n\n");
-#endif
-	connexion();
-#ifdef MODE_DEBUG
-	printf("\n\nCONNECTE\n\n");
-#endif
-	*/
-/*
-	
-	strcpy(buff, "AT*CONFIG=1,\"control:altitude_max\",\"2000\"\r");
-	
-	
-	if(!udp_open(&sock, LOCAL_PORT, resolve(REMOTE_IP), REMOTE_PORT, NULL))
-	{
-#ifdef MODE_DEBUG
-		printf("udp_open failed!\n");
-#endif
-	}
-	for(;;)
-	{
-		tcp_tick(NULL);
-		costate
-		{
-			waitfor(IntervalSec(HEARTBEAT_RATE));
-			send_packet(buff, REMOTE_IP, LOCAL_PORT, &sock);
-		}
-	}
-	
-	*/
-	/*sprintf(buf, "AT*CONFIG=%d,\"control:altitude_max\",\"2000\"\r", ++ident);
-	sprintf(buf, "AT*REF=%d,290718208\r", ++ident);
-	sprintf(buf, "AT*REF=%d,290717696\r", ++ident);*/
-	
-	for(;;);
 }
 
 /*********************
@@ -638,17 +621,11 @@ void SPI_CS(char v)  { BitWrPortI(PDDR, &PDDRShadow, v & 1, 0); }
 #define SPI_CLK(1) BitWrPortI(PDDR, &PDDRShadow, 1, 2)
 #define SPI_CS(0)  BitWrPortI(PDDR, &PDDRShadow, 0, 0)
 #define SPI_CS(1)  BitWrPortI(PDDR, &PDDRShadow, 1, 0)*/
-#define SPI_DOUT() 	BitRdPortI(PCDR, 1)
-
-#define cWAIT_5_us asm ld a,3 $\
-             sub 3 $\
-             ld b,a $\
-             db 0x10,-2
 			 
-void SPI_delay(void)
+void SPI_delay(int i)
 {
 	int i;
-	for(i = 0; i < 20; i++)
+	for(i = 0; i < i; i++)
 		cWAIT_5_us;
 }
 
@@ -664,65 +641,65 @@ int SPIread(char addr)
 	// bit de start
 	SPI_DIN(1);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	// SGL/DIFF
 	SPI_DIN(1);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	// addresse
 	SPI_DIN(0);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	SPI_DIN((addr & 0x02) >> 1);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	SPI_DIN(addr & 0x01);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	SPI_DIN(0);
 	
 	// attente conversion
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	// null bit
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	// bit de signe
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(0);
-	SPI_delay();
+	SPI_delay(20);
 	SPI_CLK(1);
 	
 	// données
@@ -730,14 +707,14 @@ int SPIread(char addr)
 	{
 		r += SPI_DOUT() << i;
 		
-		SPI_delay();
+		SPI_delay(20);
 		SPI_CLK(0);
-		SPI_delay();
+		SPI_delay(20);
 		SPI_CLK(1);
 	}
 	
 	// arrête la communication
-	SPI_delay();
+	SPI_delay(20);
 	SPI_DIN(0);
 	SPI_CLK(0);
 	SPI_CS(1);
@@ -770,29 +747,21 @@ int send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
 	// envoi le paquet
 	if(udp_send(sock, str, strlen(str) + 1) < 0) // s'il y a une erreur
 	{
-#ifdef MODE_DEBUG
 		printf("Erreur d'envoi du paquet :\n;;;%s\n", str);
-#endif
 		sock_close(sock);	// ferme la socket puis la re-ouvre
 		if(!udp_open(sock, port, resolve(ip), port, NULL))
 		{
-#ifdef MODE_DEBUG
 			printf("Erreur de reouverture de la socket\n");
-#endif
 			return -1;
 		}
 		else
 		{
-#ifdef MODE_DEBUG
 			printf("Erreur de reouverture de la socket\n");
-#endif
 			return -2;
 		}
 	}
-#ifdef MODE_DEBUG
    else
 		printf("Paquet envoye :\n;;;%s\n", str);
-#endif
 
 	tcp_tick(NULL);
 	return 0;
@@ -814,36 +783,26 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 	bss = data->bss;	// pointeur sur les points d'accès disponibles
 	
 	_f_qsort(bss, data->count, sizeof(bss[0]), rxsignal_cmp);	// trie en fonction de la puissance du signal
-#ifdef MODE_DEBUG
 	printf("\nResultat du scan des points d'acces :\n");
-#endif
 	for(i = 0; i < data->count; i++)	// affiche les points d'accès disponibles
 	{
 		wifi_ssid_to_str(ssid_str, bss[i].ssid, bss[i].ssid_len);
-#ifdef MODE_DEBUG
 		printf("[%2d] trouve : %s\n", i, ssid_str);
-#endif
 	}
 	
-#ifdef MODE_DEBUG
 	printf("\nRecherche du drone :\n");
-#endif
 	for(i = 0; i < data->count && connect != TROUVE; i++)
 	{
 		wifi_ssid_to_str(ssid_str, bss[i].ssid, bss[i].ssid_len);	// donne une chaîne de caractère imprimable
 		
-#ifdef MODE_DEBUG
 		printf("[%2d] comparaison de '%s' avec 'ardrone2_xxxxxx' : ", i, ssid_str);
-#endif
 		
 		ctemp = ssid_str[9];	// sauvegarde du caractère
 		ssid_str[9] = '\0';		// tronque à 9 caractères (ardrone2_)
 		
 		if(!strcmp("ardrone2_", ssid_str))	// si le ssid correspond
 		{
-#ifdef MODE_DEBUG
 			printf("oui\n");
-#endif
 			ssid_str[9] = ctemp;	// remet du caractère enlevé
 			
 			// Need near copy of SSID to call ifconfig.  ssid will be promoted to
@@ -855,29 +814,21 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 			if(!ifconfig(IF_WIFI0, IFS_WIFI_SSID, ssid_len, ssid, IFS_END))	// demande la connexion
 			{
 				wifi_ssid_to_str(ssid, ssid, ssid_len);
-#ifdef MODE_DEBUG
 				printf(" => demande de connexion a %s...\n", ssid);
-#endif
 				connect = TROUVE;	// indique que le drone est trouvé
 				// puis il faut attendre que la connexion soit effective (dans connexion())
 			}
-#ifdef MODE_DEBUG
 			else
 				printf("=> erreur de demande de connexion a %s", ssid_str);
-#endif
 		}
-#ifdef MODE_DEBUG
 		else
 			printf("non");
 		putchar('\n');
-#endif
 	}
-#ifdef MODE_DEBUG
 	if(connect != TROUVE)
 	{
 		printf("Aucun point d'acces de drone trouve\n");
 	}
-#endif
 }
 
 void connexion(void)
@@ -893,9 +844,7 @@ void connexion(void)
 	
 	while(connect != CONNECTE)	// status.state != WLN_ST_ASSOC_ESS)	// tant que la connexion n'est pas effective
 	{
-#ifdef MODE_DEBUG
 		printf("* Essai de connexion *\n");
-#endif
 		connect_timeout = 1;	// reset
 		tcp_tick(NULL);
 		ifdown(IF_WIFI0);
@@ -921,9 +870,7 @@ void connexion(void)
 		
 		if(connect == TROUVE)	// (pas de timeout)
 		{
-#ifdef MODE_DEBUG
 			printf("Attente pour que la connexion soit effective\n");
-#endif
 			connect_timeout = 1;	// reset
 			
 			ifup(IF_WIFI0);
@@ -944,23 +891,17 @@ void connexion(void)
 			
 			if(status.state == WLN_ST_ASSOC_ESS)	// (pas de timeout)
 			{
-#ifdef MODE_DEBUG
 				printf("connexion effective !\n");
-#endif
 				connect = CONNECTE;
 			}
 			else
 			{
-#ifdef MODE_DEBUG
 				printf("la tentative de connexion a echoue... Nouvel essai\n");
-#endif
 				connect = RECHERCHE;
 			}
 		}
-#ifdef MODE_DEBUG
 		else
 			printf("\nTimeout de connexion...\n");
-#endif
 	}
 }
 
@@ -969,9 +910,7 @@ cppbool connectToDrone(ardrone* dr)
     // Création de la socket d'envoi des commande AT
     if(!udp_open((udp_Socket*) &(dr->udpSocket_at), LOCAL_PORT, resolve(IPDRONE), dr->port_at, NULL))
 	{
-#ifdef MODE_DEBUG
 		printf("Failed to open udp socket with the drone on port %d!\n", dr->port_at);
-#endif
 		return false;
 	}
 
@@ -995,25 +934,19 @@ cppbool initDrone(ardrone* dr)
     // Configure la hauteur maximale du drone
     strcpy(dr->bufferLeft, "AT*CONFIG=");
     strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Config alt max - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
     sendAT(dr);
 
     // Demande l'envoi de donnée de navigation
     strcpy(dr->bufferLeft, "AT*CONFIG=");
     strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Start navdata flow - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
     sendAT(dr);
 
     // Indique au drone qu'il est à plat : le drone se calibre
     strcpy(dr->bufferLeft, "AT*FTRIM=");
     strcpy(dr->bufferRight, ",\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Ftrim - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
 
     return sendAT(dr);
 }
@@ -1023,9 +956,7 @@ cppbool takeoff(ardrone* dr)
     // Décollage du drone
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290718208\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Take off - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
     sendAT(dr);
 
     // Passe en mode vol
@@ -1047,9 +978,7 @@ cppbool land(ardrone* dr)
     dr->fly = false;
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290717696\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Land - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
 
     return sendAT(dr);
 }
@@ -1059,9 +988,7 @@ cppbool aru(ardrone* dr)
     dr->fly = false;
     strcpy(dr->bufferLeft, "AT*REF=");
     strcpy(dr->bufferRight, ",290717952\r");
-#ifdef MODE_DEBUG
     printf("#%5d - Arrêt d'urgence - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
 
     return sendAT(dr);
 }
@@ -1075,18 +1002,8 @@ cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, floa
                                          *(int*)(&turnLeftRight_));
     strcpy(dr->bufferLeft, "AT*PCMD=");
     strcpy(dr->bufferRight, strBuff);
-#ifdef MODE_DEBUG
     printf("#%5d - PCMD - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-#endif
     return sendAT(dr);
-}
-
-void run(ardrone* dr)
-{
-    while(dr->fly)
-    {
-        volCommand(dr, dr->tiltLeftRight, dr->tiltFrontBack, dr->goUpDown, dr->turnLeftRight);
-    }
 }
 
 far ardrone* newARDrone(void)
