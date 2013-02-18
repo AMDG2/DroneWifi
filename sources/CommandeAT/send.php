@@ -4,60 +4,53 @@
 // Ecrire fputs($sock, $str);
 
 $host = "192.168.1.1";
-$port = "5556";
+$port_at = "5556";
+$port_navdata = "5554";
 $ident = 0;
 $tmpAT;
 
 $stdin = fopen("php://stdin", "r");
 
-echo "Ouverture de la socket\n";
-$socket_at = fsockopen("udp://" .$host, $port);
+echo "Ouverture de la socket AT\n";
+$socket_at = fsockopen("udp://" .$host, $port_at);
 if(!$socket_at)
 {
-	echo "Erreur d'ouverture de la Socket\n";
+	echo "Erreur d'ouverture de la Socket AT\n";
 	echo "Goodbye\n";
 }
 else
 {
-	echo "Test d'envoi de donnée\n";
-
-	echo "Configuration du drone\n";
-	$tmpAT = "AT*CONFIG=" . ++$ident . ",\"control:altitude_max\",\"2000\"\r";
-	echo "Commande AT: " . $tmpAT . "\n";
-	fwrite($socket_at, $tmpAT);
-
-	echo "Configuration du drone\n";
-	$tmpAT = "AT*CONFIG=" . ++$ident . ",\"general:navdata_demo\",\"TRUE\"\r";
-	echo "Commande AT: " . $tmpAT . "\n";
-	fwrite($socket_at, $tmpAT);
-
-	echo "Configuration du drone\n";
-	$tmpAT = "AT*FTRIM=" . ++$ident . ",\r";
-	echo "Commande AT: " . $tmpAT . "\n";
-	fwrite($socket_at, $tmpAT);
-
-	echo "Décollage !!!\n";
-	echo "Commande AT: ";
-	$tmpAT = "AT*REF=" . ++$ident .",290718208\r";
-	echo $tmpAT . "\n";
-	fwrite($socket_at, $tmpAT);
-
-	for($i = 0 ; $i < 10 ; $i++)
+	echo "Ouverture de la socket Nav data\n";
+	$socket_navdata = fsockopen("udp://" .$host, $port_at);
+	if(!$socket_at)
 	{
-	  usleep(1000);
-
-	  echo "Vol stationnaire\n";
-	  $tmpAT = "AT*PCMD=" . ++$ident . ",1,0,0,0,0\r";
-	  echo "Commande AT: " . $tmpAT . "\n";
-	  fwrite($socket_at, $tmpAT);
+		echo "Erreur d'ouverture de la socket Nav data\n";
+		echo "Goodbye\n";
 	}
-
-	fgetc($stdin);
-
-	echo "Atterissage...\n";
-	$tmpAT = "AT*REF=" . ++$ident .",290717696\r";
-	echo "Commande AT: " . $tmpAT . "\n";
-	fwrite($socket_at, $tmpAT);
+	else
+	{
+		echo "Envoi sur le port NAVDATA d'une donnée\n";
+		$tmpAT = "12345";
+		echo "Trame : " . $tmpAT . "\n";
+		fwrite($socket_navdata, $tmpAT);
+		
+		echo "Envoi de l'activation des données de navigation\n";
+		$tmpAT = "AT*CONFIG=" . ++$ident . ",\"general:navdata_demo\",\"TRUE\"\r";
+		echo "Trame : " . $tmpAT . "\n";
+		fwrite($socket_at, $tmpAT);
+		
+		echo "Envoi d'un 1 sur le port NAVDATA\n";
+		$tmpAT = "12345\r";
+		fwrite($socket_navdata, $tmpAT);
+		
+		echo "Envoi d'un ACK\n";
+		$tmpAT = "AT*CTRL=" . ++$ident . ",5,0\r";
+		fwrite($socket_at, $tmpAT);
+		
+		echo "Envoi d'un 1 sur le port NAVDATA\n";
+		$tmpAT = "12345\r";
+		fwrite($socket_navdata, $tmpAT);
+	}
 }
 
 ?>
