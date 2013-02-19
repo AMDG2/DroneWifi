@@ -139,7 +139,14 @@ Séance extra du samedi 16 février 2013 - Portes ouvertes (Baudouin : 9h ; Thib
 Séance du lundi 18 février 2013 (4h + 1h)
 -----------------------------------------
 - Mise en commun des travaux pour le "programme final"
-- Résolutions des derniers problèmes
+- Résolution des derniers problèmes
 - Travail sur l'oral de mi-projet
 - Thibaut
 	- Finalisation de la conversion avec le SPI : réglage de bugs dans le programme
+
+Séance du mardi 19 février 2013 - Oraux de mi-parcours (3h + 2h30)
+------------------------------------------------------------------
+- Oral de mi-parcours : passage sur le projet et écoute du projet de Paul de Poix et Antoine Jouet
+- Résolution de problèmes du programme sur le Rabbit : le drone vole commandé avec la télécommande !
+- Test de vol : test des joysticks, test des boutons, test de toutes les procédures possibles
+- Résolution du sens des joysticks
