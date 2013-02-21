@@ -12,18 +12,21 @@
  * compile-time network configuration.
  */
 
+#define MAX_UDP_SOCKET_BUFFERS 1
+
 #define TCPCONFIG 5
+
+#define PORTDRONE_NAVDATA 5554
+#define PORTDRONE_VIDEO 5555
+
 
 #use "dcrtcp.lib"
 
 #use "rcm56xxW.lib"
 
-#define IPDRONE "192.168.1.1"
-
 #memmap xmem
 
-#define printf 1;
-
+//#define printf
 
 /** \typedef statut_connexion Permet de définir le statut de la connexion en cours
 	\ingroup Connexion
@@ -135,9 +138,9 @@ int SPI_DOUT(void);
 	\author Dynamic C
 **/
 #define cWAIT_5_us asm ld a,3 $\
-             sub 3 $\
-             ld b,a $\
-             db 0x10,-2
+	sub 3 $\
+	ld b,a $\
+	db 0x10,-2
 
 /**	\fn void SPI_delay(void)
 	\ingroup IO
@@ -171,17 +174,15 @@ void lireCommandes(etat_commandes *s);
 **/
 void ecrireCommandes(etat_commandes *s);
 
-/**	\fn cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
+/**	\fn int send_packet(char* str, udp_Socket *sock)
 	\ingroup UDP
-	\brief envoie une chaîne de caractère
+	\brief envoie une chaîne de caractère sur une socket (udp)
 	\param str chaîne à envoyé
-	\param ip ip destination
-	\param port port de l'envoi
 	\param sock pointeur sur udp_Socket utilisée
-	\return true : paquet envoyé ; false : erreur, la socket est fermée et ne se reouvre pas
+	\return >=0 nombre d'octets envoyés ; -1 : échec ; -2 échec à cause d'adresse non résolue
 	\author Thibaut Marty
 **/
-cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock);
+int send_packet(char* str, udp_Socket *sock);
 
 /**	\fn int rxsignal_cmp(far _wifi_wln_scan_bss *a, far _wifi_wln_scan_bss *b)
 	\ingroup Connexion
@@ -218,11 +219,12 @@ typedef struct
 {
 	char buff[200];					// Buffer de Stockage de trame
 	udp_Socket udpSocket_at;		// Handle de la socket d'envoi de commande AT
-	int port_at;					// Port de commande du drone
+	unsigned int port_at;			// Port de commande du drone
+	far char* ip_drone;				// Adresse IP du drone
 	char bufferLeft[20];			// Partie gauche du buffer
 	char bufferRight[150];			// Partie droite du buffer
 	int ident;						// Identifiant de la commande
-	cppbool fly;						// Mode vol
+	cppbool fly;					// Mode vol
 	float tiltFrontBack;			// Buffer de la commande d'inclinaison avant arrière
 	float tiltLeftRight;			// Buffer de la commande d'inclinaison gauche droite
 	float goUpDown;					// Buffer de la commande de vitesse verticale
@@ -361,24 +363,33 @@ void closeARDrone(ardrone* dr);
 void main(void)
 {
 	etat_commandes ec;
-	ardrone droneStruct;
-	ardrone* drone = &droneStruct;
+	ardrone droneV;
+	ardrone* drone = &droneV;
 	char cptPassErr = 0;
 	float j1x = 0, j2x = 0, j1y = 0, j2y = 0;
 	wifi_status status;
-
+	
+	newARDrone(drone);
+	
+	if(sock_init())
+		printf("erreur de sock_init()\n");
+		
+	if(udp_open(&(drone->udpSocket_at), drone->port_at, resolve(drone->ip_drone), drone->port_at, NULL))
+		printf("udp_open OK\n");
+	
 	// Initialisation de la carte
 	brdInit();
 	BRDInit();
 	init_etat_commandes(&ec);
 	
-	
 	// Connexion au réseau WiFi
 	connexion(&ec);
-
+	
 	// Connexion et Initialisation du drone
-	newARDrone(drone);
-	connectToDrone(drone);
+	if(!connectToDrone(drone))
+		printf("connectToDrone echoue !!!\n");
+	
+	
 	initDrone(drone);
 	
 	do
@@ -403,9 +414,12 @@ void main(void)
 	for(;;)
 	{
 		// Tache de gestion des entrées/sorties
-		//		et de l'envoi de commande au drone
+		// et de l'envoi de commande au drone
 		costate
 		{
+			tcp_tick(NULL);
+			
+			
 			// Lit les entrées
 			lireCommandes(&ec);
 
@@ -539,8 +553,10 @@ void main(void)
 				ecrireCommandes(&ec);
 
 				connexion(&ec);
-
-				ec.led_connecte = 1;
+				
+				connectToDrone(drone);
+				initDrone(drone);
+				
 				ec.led_erreur = 0;
 				ec.led_debug = 0;
 				ecrireCommandes(&ec);
@@ -575,6 +591,7 @@ void BRDInit(void)
 	BitWrPortI(PDDCR, &PDDCRShadow, 0, 0);
 	BitWrPortI(PDDCR, &PDDCRShadow, 0, 2);
 	BitWrPortI(PDDCR, &PDDCRShadow, 0, 3);
+
 
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 1);
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 3);
@@ -768,29 +785,14 @@ void ecrireCommandes(etat_commandes *s)
 	BitWrPortI(PEDR, &PEDRShadow, s->led_debug, 6);
 }
 
-cppbool send_packet(char* str, const char far * ip, word port, udp_Socket *sock)
+int send_packet(char* str, udp_Socket *sock)
 {
-	// envoi le paquet
-	if(udp_send(sock, str, strlen(str) + 1) < 0) // s'il y a une erreur
-	{
-		printf("Erreur d'envoi du paquet :\n;;;%s\n", str);
-		sock_close(sock);	// ferme la socket puis la re-ouvre
-		if(!udp_open(sock, port, resolve(ip), port, NULL))
-		{
-			printf("Erreur de reouverture de la socket\n");
-			return false;
-		}
-		else
-		{
-			printf("Reouverture de la socket reussien nouvel essai\n");
-			return send_packet(str, ip, port, sock);
-		}
-	}
-   else
-		//printf("Paquet envoye :\n;;;%s\n", str);
-
+	int ret;
+	
+	ret = udp_send(sock, str, strlen(str) + 1); // envoi le paquet
+	
 	tcp_tick(NULL);
-	return true;
+	return ret;
 }
 
 int rxsignal_cmp(far _wifi_wln_scan_bss *a, far _wifi_wln_scan_bss *b)
@@ -860,13 +862,12 @@ root void scan_assoc_callback(far wifi_scan_data* data)
 void connexion(etat_commandes *s)
 {
 	wifi_status status;
-	word waitms;
+	unsigned int waitms;
 	char connect_timeout; // pour la connexion
 
 	connect = RECHERCHE;
-	sock_init();
 
-	waitms = _SET_SHORT_TIMEOUT(300);
+	waitms = _SET_SHORT_TIMEOUT(300); // todo : utile ?
 
 	while(connect != CONNECTE)	// status.state != WLN_ST_ASSOC_ESS)	// tant que la connexion n'est pas effective
 	{
@@ -939,103 +940,114 @@ void connexion(etat_commandes *s)
 
 cppbool connectToDrone(ardrone* dr)
 {
-    // Création de la socket d'envoi des commande AT
-    if(!udp_open((udp_Socket*) &(dr->udpSocket_at), dr->port_at, resolve(IPDRONE), dr->port_at, NULL))
-	{
-		return false;
-	}
-
-    return true;
+	// Création de la socket d'envoi des commande AT
+	sock_close(&(dr->udpSocket_at));
+	return true;
+	//return udp_open(dr->udpSocket_at, dr->port_at, resolve(dr->ip_drone), dr->port_at, NULL);
 }
 
 cppbool sendAT(ardrone* dr)
 {
-	char lenght;
-	char tmp;
-    (dr->ident)++;
+	(dr->ident)++;
 	sprintf(dr->buff, "%s%d%s", dr->bufferLeft, dr->ident, dr->bufferRight);
-	return send_packet(dr->buff, IPDRONE, dr->port_at, &dr->udpSocket_at);
+	while(send_packet(dr->buff, &(dr->udpSocket_at)) < 0)
+	{
+		sock_close(&(dr->udpSocket_at));	// ferme la socket puis la re-ouvre
+		if(!udp_open(&(dr->udpSocket_at), dr->port_at, resolve(dr->ip_drone), dr->port_at, NULL))
+		{
+			printf("Erreur de reouverture de la socket\n");
+			return false;
+		}
+		else
+			printf("Reouverture de la socket reussi. Nouvel essai\n");
+	}
+	return true;
 }
 
 cppbool initDrone(ardrone* dr)
 {
-    // Configure la hauteur maximale du drone
-    strcpy(dr->bufferLeft, "AT*CONFIG=");
-    strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
-    printf("#%5d - Config alt max - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-    sendAT(dr);
+	// Configure la hauteur maximale du drone
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
+	//printf("#%5d - Config alt max - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	sendAT(dr);
 
-    // Demande l'envoi de donnée de navigation
-    strcpy(dr->bufferLeft, "AT*CONFIG=");
-    strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
-    printf("#%5d - Start navdata flow - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-    sendAT(dr);
+	// Demande l'envoi de donnée de navigation
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
+	//printf("#%5d - Start navdata flow - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	sendAT(dr);
 
-    // Indique au drone qu'il est à plat : le drone se calibre
-    strcpy(dr->bufferLeft, "AT*FTRIM=");
-    strcpy(dr->bufferRight, ",\r");
-    printf("#%5d - Ftrim - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	// Indique au drone qu'il est à plat : le drone se calibre
+	strcpy(dr->bufferLeft, "AT*FTRIM=");
+	strcpy(dr->bufferRight, ",\r");
+	//printf("#%5d - Ftrim - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
-    return sendAT(dr);
+	return sendAT(dr);
 }
 
 cppbool takeoff(ardrone* dr)
 {
-    // Décollage du drone
-    strcpy(dr->bufferLeft, "AT*REF=");
-    strcpy(dr->bufferRight, ",290718208\r");
-    printf("#%5d - Take off - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-    sendAT(dr);
+	// Décollage du drone
+	strcpy(dr->bufferLeft, "AT*REF=");
+	strcpy(dr->bufferRight, ",290718208\r");
+	//printf("#%5d - Take off - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	sendAT(dr);
 
-    // Passe en mode vol
-    strcpy(dr->bufferLeft, "AT*PCMD=");
-    strcpy(dr->bufferRight, ",1,0,0,0,0\r");
-    setGoUpDown(dr, 0);
-    setTurnLeftRight(dr, 0);
-    setTiltFrontBack(dr, 0);
-    setTiltLeftRight(dr, 0);
-    dr->fly = true;
-    // Voir comment lancer le thread du mode vol.
+	// Passe en mode vol
+	strcpy(dr->bufferLeft, "AT*PCMD=");
+	strcpy(dr->bufferRight, ",1,0,0,0,0\r");
+	setGoUpDown(dr, 0);
+	setTurnLeftRight(dr, 0);
+	setTiltFrontBack(dr, 0);
+	setTiltLeftRight(dr, 0);
+	dr->fly = true;
+	// Voir comment lancer le thread du mode vol.
 	//this->start();
 
-    return true;
+	return true;
 }
 
 cppbool land(ardrone* dr)
 {
-    dr->fly = false;
-    strcpy(dr->bufferLeft, "AT*REF=");
-    strcpy(dr->bufferRight, ",290717696\r");
-    printf("#%5d - Land - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	dr->fly = false;
+	strcpy(dr->bufferLeft, "AT*REF=");
+	strcpy(dr->bufferRight, ",290717696\r");
+	//printf("#%5d - Land - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
-    return sendAT(dr);
+	return sendAT(dr);
 }
 
 cppbool aru(ardrone* dr)
 {
-    dr->fly = false;
-    strcpy(dr->bufferLeft, "AT*REF=");
-    strcpy(dr->bufferRight, ",290717952\r");
-    printf("#%5d - Arret d'urgence - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	dr->fly = false;
+	strcpy(dr->bufferLeft, "AT*REF=");
+	strcpy(dr->bufferRight, ",290717952\r");
+	//printf("#%5d - Arret d'urgence - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 
-    return sendAT(dr);
+	return sendAT(dr);
 }
 
 cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
 {
-    sprintf(dr->bufferRight, ",1,%u,%u,%u,%u\r", *(int*)(&tiltLeftRight_),
-                                         *(int*)(&tiltFrontBack_),
-                                         *(int*)(&goUpDown_),
-                                         *(int*)(&turnLeftRight_));
-    strcpy(dr->bufferLeft, "AT*PCMD=");
-    printf("#%5d - PCMD - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-    return sendAT(dr);
+	tiltFrontBack_ = -tiltFrontBack_;
+	tiltLeftRight_ = -tiltLeftRight_;
+	turnLeftRight_ = -turnLeftRight_;
+	sprintf(dr->bufferRight, ",1,%ld,%ld,%ld,%ld\r",	*(long*)(&tiltLeftRight_),
+														*(long*)(&tiltFrontBack_),
+														*(long*)(&goUpDown_),
+														*(long*)(&turnLeftRight_));
+	strcpy(dr->bufferLeft, "AT*PCMD=");
+	//printf("#%5d - PCMD - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	return sendAT(dr);
 }
 
 void newARDrone(ardrone* tmp)
 {
-    tmp->port_at = 5556;
+	tmp->port_at = 5556;
+	strcpy(tmp->ip_drone, "255.255.255.255");
 
-    tmp->ident = 0;
-    tmp->fly = false;
+	tmp->ident = 0;
+	tmp->fly = false;
 }
+
