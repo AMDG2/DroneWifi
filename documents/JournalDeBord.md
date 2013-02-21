@@ -150,3 +150,11 @@ Séance du mardi 19 février 2013 - Oraux de mi-parcours (3h + 2h30)
 - Résolution de problèmes du programme sur le Rabbit : le drone vole commandé avec la télécommande !
 - Test de vol : test des joysticks, test des boutons, test de toutes les procédures possibles
 - Résolution du sens des joysticks
+
+Séance extra du jeudi 21 février 2013 (2h (+ 4h pour Thibaut))
+--------------------------------------------------------------
+- Baudouin
+- Thibaut
+	- Modification du programme pour plus de sureté de fonctionnement
+	- Tests de la carte, les conversions ne fonctionnent plus. Après test, il semble que tout fonctionne (horloge, choix du canal) même la réponse du convertisseur jusqu'à la patte. Cependant, le programme lit uniquement des 1 sur la patte Dout pendant quelques secondes (ce qui fait une conversion égale à 4095) puis que des 0 (conversion égale à 0)
+	- Création d'une nouvelle carte plus ergonomique, avec convertisseur SPI, grand connecteur, boutons des joysticsk pris en compte, et sans les erreurs de la première.
