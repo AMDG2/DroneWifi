@@ -158,3 +158,21 @@ Séance extra du jeudi 21 février 2013 (2h (+ 4h pour Thibaut))
 	- Modification du programme pour plus de sureté de fonctionnement
 	- Tests de la carte, les conversions ne fonctionnent plus. Après test, il semble que tout fonctionne (horloge, choix du canal) même la réponse du convertisseur jusqu'à la patte. Cependant, le programme lit uniquement des 1 sur la patte Dout pendant quelques secondes (ce qui fait une conversion égale à 4095) puis que des 0 (conversion égale à 0)
 	- Création d'une nouvelle carte plus ergonomique, avec convertisseur SPI, grand connecteur, boutons des joysticsk pris en compte, et sans les erreurs de la première.
+
+Séance du vendredi 22 février (4h)
+-----------------------------------
+
+Séance du lundi 25 février (4h)
+--------------------------------
+
+Séance du mardi 26 février (3h)
+-------------------------------
+
+Séance du vendredi 1er mars (4h pour Thibaut)
+----------------------------------------------
+
+Séance du lundi 11 mars (4h)
+----------------------------
+
+Séance du mardi 12 mars (3h)
+----------------------------
