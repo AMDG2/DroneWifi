@@ -21,6 +21,8 @@
 #define PORTDRONE_NAVDATA 5554
 #define PORTDRONE_VIDEO 5555
 
+#define ALTITUDEMAX "2000"
+
 
 #use "dcrtcp.lib"
 
@@ -53,10 +55,12 @@ typedef struct
 	char led_erreur;
 	char led_debug;
 	/* accessibles en lecture */
-	char bp_arret_urgence;	// 1 : actif
+	char bp_arret_urgence;	// 0 : actif
 	char bp_video;
 	char bp_trim;
-	char switch_land;	// 1 : position bas
+	char bpj1;
+	char bpj2;
+	char switch_land;	// 1 : position basse
 
 	int joystick_1x;
 	int joystick_1y;
@@ -241,14 +245,15 @@ typedef struct
 **/
 cppbool connectToDrone(ardrone* dr);
 
-/** \fn cppbool initDrone(ardrone* dr)
+/** \fn cppbool initDrone(ardrone* dr, etat_commandes *s)
 	\ingroup ATCommands
 	\brief Initialisation du drone dr pour permettre un décollage en toute sécurité.
 	\param ardrone* dr : Handle du drone
+	\param etat_commandes *s structure de l'état des commandes
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
 **/
-cppbool initDrone(ardrone* dr);
+cppbool initDrone(ardrone* dr, etat_commandes *s);
 
 /** \fn cppbool takeoff(ardrone* dr)
 	\ingroup ATCommands
@@ -367,7 +372,6 @@ void main(void)
 	ardrone droneV;
 	ardrone* drone = &droneV;
 	char cptPassErr = 0;
-	float j1x = 0, j2x = 0, j1y = 0, j2y = 0;
 	wifi_status status;
 	int initOk;
 	
@@ -375,6 +379,22 @@ void main(void)
 	brdInit();
 	BRDInit();
 	init_etat_commandes(&ec);
+	lireCommandes(&ec);
+	
+	/*for(;;)
+	{
+		costate
+		{
+			cptPassErr++;
+			ec.led_debug = cptPassErr & 0x01;
+			ec.led_erreur = (cptPassErr & 0x02) >> 1;
+			ec.led_connecte = (cptPassErr & 0x04) >> 2;
+			ecrireCommandes(&ec);
+			lireCommandes(&ec);
+			print_etat_commandes(&ec);
+			waitfor(DelayMs(100));
+		}
+	}*/
 	
 	// crée la structure
 	newARDrone(drone);
@@ -403,34 +423,11 @@ void main(void)
 			initOk++;
 		
 		// Initialisation du drone
-		if(!initDrone(drone))
+		if(!initDrone(drone, &ec))
 			printf("erreur initDrone()\n");
 		else
 			initOk++;
 	} while(initOk < 3);
-	
-	if(sock_init())
-		printf("erreur de sock_init()\n");
-		
-	if(udp_open(&(drone->udpSocket_at), drone->port_at, resolve(IPDRONE), drone->port_at, NULL))
-		printf("udp_open OK\n");
-	
-	// Initialisation de la carte
-	brdInit();
-	BRDInit();
-	init_etat_commandes(&ec);
-	
-	// Connexion au réseau WiFi
-	connexion(&ec);
-	
-	// Connexion et Initialisation du drone
-	newARDrone(drone);
-	if(!connectToDrone(drone))
-		printf("connectToDrone echoue !!!\n");
-	
-	
-	initDrone(drone);
-	
 	
 	printf("tentative d'initialisation reussie\n");
 	
@@ -500,11 +497,11 @@ void main(void)
 				// }
 
 				if(!ec.bp_trim && !drone->fly)
-					initDrone(drone);
+					initDrone(drone, &ec);
 
 				if(ec.switch_land == 0 && !drone->fly)	// Si le switch est en position haute et que l'on ne vole pas
 				{
-					if(!(initDrone(drone) && takeoff(drone)) )
+					if(!(initDrone(drone, &ec) && takeoff(drone)) )
 					{
 						// attend que l'utilisateur passe le switch en position bas
 						do
@@ -556,10 +553,10 @@ void main(void)
 					// Traiter la valeur des joystick
 					// Et stocker cette valeur dans l'objet drone
 					
-					     setGoUpDown(drone, j1x = (float)(ec.joystick_1x - 2048) / 2048);
-					setTurnLeftRight(drone, j1y = (float)(ec.joystick_1y - 2048) / 2048);
-					setTiltFrontBack(drone, j2x = (float)(ec.joystick_2x - 2048) / 2048);
-					setTiltLeftRight(drone, j2y = (float)(ec.joystick_2y - 2048) / 2048);
+					     setGoUpDown(drone, (float)(ec.joystick_2x - 2048) / 2048);
+					setTurnLeftRight(drone, (float)(ec.joystick_2y - 2048) / 2048);
+					setTiltFrontBack(drone, (float)(ec.joystick_1x - 2048) / 2048);
+					setTiltLeftRight(drone, (float)(ec.joystick_1y - 2048) / 2048);
 
 					// Envoyer la commande
 					if(!(volCommand(drone, drone->tiltLeftRight, drone->tiltFrontBack, drone->goUpDown, drone->turnLeftRight)))
@@ -608,7 +605,7 @@ void main(void)
 					
 					if(connectToDrone(drone))
 						initOk++;
-					if(initDrone(drone))
+					if(initDrone(drone, &ec))
 						initOk++;
 				}
 				while(initOk < 2);
@@ -636,54 +633,78 @@ void main(void)
 void BRDInit(void)
 {
 	// Fonction normale pour tous les bits
+	BitWrPortI(PCFR,  &PCFRShadow, 0, 0);
 	BitWrPortI(PCFR,  &PCFRShadow, 0, 1);
+	BitWrPortI(PCFR,  &PCFRShadow, 0, 2);
+	BitWrPortI(PCFR,  &PCFRShadow, 0, 3);
 
-	BitWrPortI(PDFR,  &PDFRShadow, 0, 0);
 	BitWrPortI(PDFR,  &PDFRShadow, 0, 2);
 	BitWrPortI(PDFR,  &PDFRShadow, 0, 3);
 
+	BitWrPortI(PEFR,  &PEFRShadow, 0, 0);
 	BitWrPortI(PEFR,  &PEFRShadow, 0, 1);
+	BitWrPortI(PEFR,  &PEFRShadow, 0, 2);
 	BitWrPortI(PEFR,  &PEFRShadow, 0, 3);
+	BitWrPortI(PEFR,  &PEFRShadow, 0, 5);
 	BitWrPortI(PEFR,  &PEFRShadow, 0, 6);
+	BitWrPortI(PEFR,  &PEFRShadow, 0, 7);
 
 	// Niveaux haut et bas (pas de drain ouvert)
+	BitWrPortI(PCDCR, &PCDCRShadow, 0, 0);
 	BitWrPortI(PCDCR, &PCDCRShadow, 0, 1);
+	BitWrPortI(PCDCR, &PCDCRShadow, 0, 2);
+	BitWrPortI(PCDCR, &PCDCRShadow, 0, 3);
 
-	BitWrPortI(PDDCR, &PDDCRShadow, 0, 0);
 	BitWrPortI(PDDCR, &PDDCRShadow, 0, 2);
 	BitWrPortI(PDDCR, &PDDCRShadow, 0, 3);
 
 
+	BitWrPortI(PEDCR, &PEDCRShadow, 0, 0);
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 1);
+	BitWrPortI(PEDCR, &PEDCRShadow, 0, 2);
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 3);
+	BitWrPortI(PEDCR, &PEDCRShadow, 0, 5);
 	BitWrPortI(PEDCR, &PEDCRShadow, 0, 6);
+	BitWrPortI(PEDCR, &PEDCRShadow, 0, 7);
 
 	// Niveaux logiques de sortie : tout à 1
+	BitWrPortI(PCDR, &PCDRShadow, 1, 0);
 	BitWrPortI(PCDR, &PCDRShadow, 1, 1);
+	BitWrPortI(PCDR, &PCDRShadow, 1, 2);
+	BitWrPortI(PCDR, &PCDRShadow, 1, 3);
 
-	BitWrPortI(PDDR, &PDDRShadow, 1, 0);
 	BitWrPortI(PDDR, &PDDRShadow, 1, 2);
 	BitWrPortI(PDDR, &PDDRShadow, 1, 3);
 
+	BitWrPortI(PEDR, &PEDRShadow, 1, 0);
 	BitWrPortI(PEDR, &PEDRShadow, 1, 1);
+	BitWrPortI(PEDR, &PEDRShadow, 1, 2);
 	BitWrPortI(PEDR, &PEDRShadow, 1, 3);
+	BitWrPortI(PEDR, &PEDRShadow, 1, 5);
 	BitWrPortI(PEDR, &PEDRShadow, 1, 6);
+	BitWrPortI(PEDR, &PEDRShadow, 1, 7);
 
-	// Entrées / Sorties
-	BitWrPortI(PCDDR, &PCDDRShadow, 0, 1); // entrée : DOUT
+	// Entrées (0) / Sorties (1)
+	BitWrPortI(PCDDR, &PCDDRShadow, 1, 0); // sortie : leder
+	BitWrPortI(PCDDR, &PCDDRShadow, 0, 1); // entrée : bpj2
+	BitWrPortI(PCDDR, &PCDDRShadow, 1, 2); // sortie : ledde
+	BitWrPortI(PCDDR, &PCDDRShadow, 0, 3); // entrée : bptr
 
-	BitWrPortI(PDDDR, &PDDDRShadow, 1, 0); // sorties : /CS, DIN, CLK
-	BitWrPortI(PDDDR, &PDDDRShadow, 1, 2);
-	BitWrPortI(PDDDR, &PDDDRShadow, 1, 3);
+	BitWrPortI(PDDDR, &PDDDRShadow, 1, 2); // sortie : ledco
+	BitWrPortI(PDDDR, &PDDDRShadow, 0, 3); // entrée : bpau
 
-	BitWrPortI(PEDDR, &PEDDRShadow, 1, 1); // sorties : 3 LEDs ; entrées : 4 boutons
-	BitWrPortI(PEDDR, &PEDDRShadow, 1, 3);
-	BitWrPortI(PEDDR, &PEDDRShadow, 1, 6);
+	BitWrPortI(PEDDR, &PEDDRShadow, 0, 0); // entrée : SPIDOUT
+	BitWrPortI(PEDDR, &PEDDRShadow, 0, 1); // entrée : bpj1
+	BitWrPortI(PEDDR, &PEDDRShadow, 1, 2); // sortie : SPICLK
+	BitWrPortI(PEDDR, &PEDDRShadow, 0, 3); // entrée : bpvi
+	BitWrPortI(PEDDR, &PEDDRShadow, 1, 5); // sortie : SPICS
+	BitWrPortI(PEDDR, &PEDDRShadow, 0, 6); // entrée : land
+	BitWrPortI(PEDDR, &PEDDRShadow, 1, 7); // sortie : SPIDIN
 }
 
 void print_etat_commandes(etat_commandes *s)
 {
-	printf("\nLED connecte : %s\nLED erreur : %s\nLED debug : %s\nBP arret d'urgence : %s\nBP video : %s\nBP trim : %s\nSWITCH land : %s\nJ1 x : %d\nJ1 y : %d\nJ2 x : %d\nJ2 y : %d\n",
+	printf("\nLED connecte : %s\nLED erreur : %s\nLED debug : %s\nBP arret d'urgence : %s\nBP video : %s\nBP trim : %s\nBP bpj1 : %s\nBP bpj2 : %s\nSWITCH land : %s\nJ1 x : %d\nJ1 y : %d\nJ2 x : %d\nJ2 y : %d\n",
 
 	s->led_connecte ? "allumee" : "eteinte",
 	s->led_erreur ? "allumee" : "eteinte",
@@ -692,6 +713,8 @@ void print_etat_commandes(etat_commandes *s)
 	s->bp_arret_urgence ? "inactif" : "actif",
 	s->bp_video ? "inactif" : "actif",
 	s->bp_trim ? "inactif" : "actif",
+	s->bpj1 ? "inactif" : "actif",
+	s->bpj2 ? "inactif" : "actif",
 	s->switch_land ? "bas" : "haut",
 
 	s->joystick_1x,
@@ -702,30 +725,32 @@ void print_etat_commandes(etat_commandes *s)
 
 void init_etat_commandes(etat_commandes *s)
 {
+	// leds éteintes
 	s->led_connecte = 0;
 	s->led_erreur = 0;
 	s->led_debug = 0;
 
+	// boutons inactifs
 	s->bp_arret_urgence = 1;
 	s->bp_video = 1;
 	s->bp_trim = 1;
+	s->bpj1 = 1;
+	s->bpj2 = 1;
+	
+	// switch land en position basse
 	s->switch_land = 1;
 
+	// valeurs analogiques à 0
 	s->joystick_1x = 0;
 	s->joystick_1y = 0;
 	s->joystick_2x = 0;
 	s->joystick_2y = 0;
 }
 
-void SPI_DIN(char v) { BitWrPortI(PDDR, &PDDRShadow, v & 1, 3); }
-void SPI_CLK(char v) { BitWrPortI(PDDR, &PDDRShadow, v & 1, 2); }
-void SPI_CS(char v)  { BitWrPortI(PDDR, &PDDRShadow, v & 1, 0); }
-int SPI_DOUT(void)   { return BitRdPortI(PCDR, 1); }
-
-/*#define SPI_CLK(0) BitWrPortI(PDDR, &PDDRShadow, 0, 2)
-#define SPI_CLK(1) BitWrPortI(PDDR, &PDDRShadow, 1, 2)
-#define SPI_CS(0)  BitWrPortI(PDDR, &PDDRShadow, 0, 0)
-#define SPI_CS(1)  BitWrPortI(PDDR, &PDDRShadow, 1, 0)*/
+void SPI_DIN(char v) { BitWrPortI(PEDR, &PEDRShadow, v & 1, 7); }
+void SPI_CLK(char v) { BitWrPortI(PEDR, &PEDRShadow, v & 1, 2); }
+void SPI_CS(char v)  { BitWrPortI(PEDR, &PEDRShadow, v & 1, 5); }
+int SPI_DOUT(void)   { return BitRdPortI(PEDR, 0); }
 
 void SPI_delay(void)
 {                         
@@ -828,10 +853,12 @@ int SPIread(char addr)
 
 void lireCommandes(etat_commandes *s)
 {
-	s->bp_arret_urgence = BitRdPortI(PEDR, 2);
-	s->bp_video = BitRdPortI(PEDR, 0);
-	s->bp_trim = BitRdPortI(PEDR, 5);
-	s->switch_land = BitRdPortI(PEDR, 7);
+	s->bp_arret_urgence = BitRdPortI(PDDR, 3);
+	s->bp_video = BitRdPortI(PEDR, 3);
+	s->bp_trim = BitRdPortI(PCDR, 3);
+	s->bpj1 = BitRdPortI(PEDR, 1);
+	s->bpj2 = BitRdPortI(PCDR, 1);
+	s->switch_land = BitRdPortI(PEDR, 6);
 
 	s->joystick_1x = SPIread(0);
 	s->joystick_1y = SPIread(1);
@@ -841,9 +868,9 @@ void lireCommandes(etat_commandes *s)
 
 void ecrireCommandes(etat_commandes *s)
 {
-	BitWrPortI(PEDR, &PEDRShadow, s->led_connecte, 1);
-	BitWrPortI(PEDR, &PEDRShadow, s->led_erreur, 3);
-	BitWrPortI(PEDR, &PEDRShadow, s->led_debug, 6);
+	BitWrPortI(PDDR, &PDDRShadow, s->led_connecte, 2);
+	BitWrPortI(PCDR, &PCDRShadow, s->led_erreur, 0);
+	BitWrPortI(PCDR, &PCDRShadow, s->led_debug, 2);
 }
 
 int send_packet(char* str, udp_Socket *sock)
@@ -1009,6 +1036,7 @@ cppbool sendAT(ardrone* dr)
 	sprintf(dr->buff, "%s%d%s", dr->bufferLeft, dr->ident, dr->bufferRight);
 	while(send_packet(dr->buff, &(dr->udpSocket_at)) < 0)
 	{
+		// todo : faire clignoter une led d'erreur ici...
 		sock_close(&(dr->udpSocket_at));	// ferme la socket puis la re-ouvre
 		if(!udp_open(&(dr->udpSocket_at), dr->port_at, resolve(IPDRONE), dr->port_at, NULL))
 		{
@@ -1016,23 +1044,75 @@ cppbool sendAT(ardrone* dr)
 			return false;
 		}
 		else
-			printf("Reouverture de la socket reussi. Nouvel essai\n");
+			printf("Reouverture de la socket reussie. Nouvel essai\n");
 	}
 	return true;
 }
 
-cppbool initDrone(ardrone* dr)
+cppbool initDrone(ardrone* dr, etat_commandes *s)
 {
+	// Configure l'application ID pour pouvoir modifier les paramètres de la vidéo
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	strcpy(dr->bufferRight, ",\"custom:session_id\",\"0a1b2c30\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	strcpy(dr->bufferRight, ",\"custom:profile_id\",\"0a1b2c31\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	strcpy(dr->bufferRight, ",\"custom:application_id\",\"0a1b2c32\"");
+	if(!sendAT(dr))/*
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",0a1b2c30,0a1b2c31,0a1b2c32");
+	if(!sendAT(dr))
+		return false;*/
+	
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
+	
 	// Configure la hauteur maximale du drone
-	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
+	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"");
+	strcat(dr->bufferRight, ALTITUDEMAX);
+	strcat(dr->bufferRight, "\"\r");
+	
 	//printf("#%5d - Config alt max - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
-	sendAT(dr);
-
-	// Demande l'envoi de donnée de navigation
-	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	strcpy(dr->bufferRight, ",\"general:navdata_demo\",\"TRUE\"\r");
-	//printf("#%5d - Start navdata flow - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
+	if(!sendAT(dr))
+		return false;
+	
+	// configure à l'intérieur / à l'extérieur
+	strcpy(dr->bufferRight, ",\"control:outdoor\",\"");
+	if(s->bp_video)
+		strcat(dr->bufferRight, "FALSE\"\r");
+	else
+		strcat(dr->bufferRight, "TRUE\"\r");
+	if(!sendAT(dr))
+		return false;
+	//printf("\n\n%s%d%s\n\n", dr->bufferLeft, dr->ident, dr->bufferRight);
+		
+	// configure les fps du flux vidéo
+	strcpy(dr->bufferRight, ",\"video:codec_fps\",\"15\"\r");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferRight, ",\"video:camif_fps\",\"15\"\r");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferRight, ",\"video:max_bitrate\",\"1000\"\r");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferRight, ",\"video:bitrate\",\"1000\"\r");
 	if(!sendAT(dr))
 		return false;
 
@@ -1107,4 +1187,3 @@ void newARDrone(ardrone* tmp)
 	tmp->ident = 0;
 	tmp->fly = false;
 }
-
