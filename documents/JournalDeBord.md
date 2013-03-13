@@ -157,22 +157,39 @@ Séance extra du jeudi 21 février 2013 (2h (+ 4h pour Thibaut))
 - Thibaut
 	- Modification du programme pour plus de sureté de fonctionnement
 	- Tests de la carte, les conversions ne fonctionnent plus. Après test, il semble que tout fonctionne (horloge, choix du canal) même la réponse du convertisseur jusqu'à la patte. Cependant, le programme lit uniquement des 1 sur la patte Dout pendant quelques secondes (ce qui fait une conversion égale à 4095) puis que des 0 (conversion égale à 0)
-	- Création d'une nouvelle carte plus ergonomique, avec convertisseur SPI, grand connecteur, boutons des joysticsk pris en compte, et sans les erreurs de la première.
+	- Création d'une nouvelle carte plus ergonomique, avec convertisseur SPI, grand connecteur, boutons des joysticsk pris en compte, et sans les erreurs de la première carte.
 
 Séance du vendredi 22 février (4h)
 -----------------------------------
+- Thibaut
+	- Réparation de la première carte : c'était un problème de contact
 
 Séance du lundi 25 février (4h)
 --------------------------------
+- Thibaut
+	- Soudure de la seconde carte
+	- Tests
 
 Séance du mardi 26 février (3h)
 -------------------------------
+- Thibaut
+	- Modification du programme pour fonctionner avec la seconde carte
+	- Tests
 
 Séance du vendredi 1er mars (4h pour Thibaut)
 ----------------------------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+	- Tests croisés avec un ordinateur plus puissant : résultats incohérents
 
 Séance du lundi 11 mars (4h)
 ----------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+	- Tests de configuration du drone pour baisser le nombre de frames par seconde de la vidéo
 
 Séance du mardi 12 mars (3h)
 ----------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+	- Tests de configuration du drone : il faut avant obtenir le droit de changer ces configurations... Tentatives
