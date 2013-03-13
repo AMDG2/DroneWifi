@@ -154,6 +154,8 @@ Séance du mardi 19 février 2013 - Oraux de mi-parcours (3h + 2h30)
 Séance extra du jeudi 21 février 2013 (2h (+ 4h pour Thibaut))
 --------------------------------------------------------------
 - Baudouin
+	- Récupération des données de navigation
+	- Socket de réception
 - Thibaut
 	- Modification du programme pour plus de sureté de fonctionnement
 	- Tests de la carte, les conversions ne fonctionnent plus. Après test, il semble que tout fonctionne (horloge, choix du canal) même la réponse du convertisseur jusqu'à la patte. Cependant, le programme lit uniquement des 1 sur la patte Dout pendant quelques secondes (ce qui fait une conversion égale à 4095) puis que des 0 (conversion égale à 0)
@@ -161,17 +163,27 @@ Séance extra du jeudi 21 février 2013 (2h (+ 4h pour Thibaut))
 
 Séance du vendredi 22 février (4h)
 -----------------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Ouverture de socket d'écoute en C avec la bibliothèque standard
+	- Configuration du drone pour qu'il émette vers une seule adresse IP
 - Thibaut
 	- Réparation de la première carte : c'était un problème de contact
 
 Séance du lundi 25 février (4h)
 --------------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Utilisation du multicast pour la réception
 - Thibaut
 	- Soudure de la seconde carte
 	- Tests
 
 Séance du mardi 26 février (3h)
 -------------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- étude du multicast
 - Thibaut
 	- Modification du programme pour fonctionner avec la seconde carte
 	- Tests
@@ -184,12 +196,18 @@ Séance du vendredi 1er mars (4h pour Thibaut)
 
 Séance du lundi 11 mars (4h)
 ----------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Correction de bug, vérification des trames reçues.
 - Thibaut
 	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 	- Tests de configuration du drone pour baisser le nombre de frames par seconde de la vidéo
 
 Séance du mardi 12 mars (3h)
 ----------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Analyse des trames reçues.
 - Thibaut
 	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 	- Tests de configuration du drone : il faut avant obtenir le droit de changer ces configurations... Tentatives
