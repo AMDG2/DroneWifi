@@ -216,6 +216,17 @@ root void scan_assoc_callback(far wifi_scan_data* data);
 **/
 void connexion(etat_commandes *s);
 
+/** \typedef joystick
+	\ingroup ATCommands
+	\brief union permettant l'envoie d'une valeur flottante en tant que long (empreinte binaire selon un long)
+	\author Thibaut Marty
+**/
+typedef union
+{
+	float f;
+	long l;
+} joystick;
+
 /** \typedef ardrone
 	\ingroup ATCommands
 	\brief Structure contenant les informations nécéssaires à la commande d'un drone
@@ -230,10 +241,10 @@ typedef struct
 	char bufferRight[150];			// Partie droite du buffer
 	int ident;						// Identifiant de la commande
 	cppbool fly;					// Mode vol
-	float tiltFrontBack;			// Buffer de la commande d'inclinaison avant arrière
-	float tiltLeftRight;			// Buffer de la commande d'inclinaison gauche droite
-	float goUpDown;					// Buffer de la commande de vitesse verticale
-	float turnLeftRight;			// Buffer de la commande de vitesse angulaire
+	joystick tiltFrontBack;			// Buffer de la commande d'inclinaison avant arrière
+	joystick tiltLeftRight;			// Buffer de la commande d'inclinaison gauche droite
+	joystick goUpDown;					// Buffer de la commande de vitesse verticale
+	joystick turnLeftRight;			// Buffer de la commande de vitesse angulaire
 } ardrone;
 
 /** \fn cppbool connectToDrone(ardrone* dr)
@@ -282,18 +293,18 @@ cppbool land(ardrone* dr);
 **/
 cppbool aru(ardrone* dr);
 
-/** \fn cppbool volCommand(ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+/** \fn cppbool volCommand(ardrone* dr, joystick tiltLeftIrght_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
 	\ingroup ATCommands
 	\brief Envoi de la commande de vol au drone dr
 	\param ardrone* dr : Handle du drone
-	\param float tiltLeftRight : commande l'inclinaison avant/arrière du drone
-	\param float tiltFrontBack : commande l'inclinaison gauche/droite du drone
-	\param float goUpDown : commande vitesse verticale du drone
-	\param float turnLeftRight : commande vitesse angulaire du drone
+	\param joystick tiltLeftRight : commande l'inclinaison avant/arrière du drone
+	\param joystick tiltFrontBack : commande l'inclinaison gauche/droite du drone
+	\param joystick goUpDown : commande vitesse verticale du drone
+	\param joystick turnLeftRight : commande vitesse angulaire du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
+cppbool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_);
 
 /** \fn void setGoUpDown(ardrone* dr, float val)
 	\ingroup ATCommands
@@ -302,7 +313,7 @@ cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, floa
 	\param float val : valeur à inserer
 	\author Baudouin Feildel
 **/
-void setGoUpDown(ardrone* dr, float val) { dr->goUpDown = (val <= 1 && val >= -1) ? val:0; }
+void setGoUpDown(ardrone* dr, float val) { dr->goUpDown.f = (val <= 1 && val >= -1) ? val:0; }
 
 /** \fn void setTurnLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
@@ -311,7 +322,7 @@ void setGoUpDown(ardrone* dr, float val) { dr->goUpDown = (val <= 1 && val >= -1
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight = (val <= 1 && val >= -1) ? val:0; }
+void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
 
 /** \fn void setTiltFrontBack(ardrone* dr, float val)
 	\ingroup ATCommands
@@ -320,7 +331,7 @@ void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight = (val <= 1 &&
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 && val >= -1) ? val:0; }
+void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack.f = (val <= 1 && val >= -1) ? val:0; }
 
 /** \fn void setTiltLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
@@ -329,7 +340,7 @@ void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 &&
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
 **/
-void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
+void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
 
 /** \fn cppbool sendAT(ardrone* dr)
 	\ingroup ATCommands
@@ -1034,6 +1045,7 @@ cppbool sendAT(ardrone* dr)
 {
 	(dr->ident)++;
 	sprintf(dr->buff, "%s%d%s", dr->bufferLeft, dr->ident, dr->bufferRight);
+	//printf("\n\nenvoi de :\n%s\n\n", dr->buff);
 	while(send_packet(dr->buff, &(dr->udpSocket_at)) < 0)
 	{
 		// todo : faire clignoter une led d'erreur ici...
@@ -1053,46 +1065,49 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 {
 	// Configure l'application ID pour pouvoir modifier les paramètres de la vidéo
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
-	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	strcpy(dr->bufferRight, ",\"custom:session_id\",\"0a1b2c30\"");
+	strcpy(dr->bufferRight, ",\"custom:session_id\",\"5686c78e\"");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
-	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	strcpy(dr->bufferRight, ",\"custom:profile_id\",\"0a1b2c31\"");
+	strcpy(dr->bufferRight, ",\"custom:profile_id\",\"2aff28b9\"");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
-	strcpy(dr->bufferRight, ",\"0a1b2c30\",\"0a1b2c31\",\"0a1b2c32\"");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	strcpy(dr->bufferRight, ",\"custom:application_id\",\"0a1b2c32\"");
-	if(!sendAT(dr))/*
-		return false;
-	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
-	strcpy(dr->bufferRight, ",0a1b2c30,0a1b2c31,0a1b2c32");
+	strcpy(dr->bufferRight, ",\"custom:application_id\",\"355fda13\"");
 	if(!sendAT(dr))
-		return false;*/
+		return false;
 	
-	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	
+/*
 	// Configure la hauteur maximale du drone
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"");
 	strcat(dr->bufferRight, ALTITUDEMAX);
 	strcat(dr->bufferRight, "\"\r");
-	
-	//printf("#%5d - Config alt max - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 	if(!sendAT(dr))
 		return false;
 	
 	// configure à l'intérieur / à l'extérieur
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"control:outdoor\",\"");
 	if(s->bp_video)
 		strcat(dr->bufferRight, "FALSE\"\r");
@@ -1101,20 +1116,30 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	if(!sendAT(dr))
 		return false;
 	//printf("\n\n%s%d%s\n\n", dr->bufferLeft, dr->ident, dr->bufferRight);
-		
+*/
 	// configure les fps du flux vidéo
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"video:codec_fps\",\"15\"\r");
 	if(!sendAT(dr))
 		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
+	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
+	if(!sendAT(dr))
+		return false;
+	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"video:camif_fps\",\"15\"\r");
 	if(!sendAT(dr))
 		return false;
-	strcpy(dr->bufferRight, ",\"video:max_bitrate\",\"1000\"\r");
+	/*strcpy(dr->bufferRight, ",\"video:max_bitrate\",\"1000\"\r");
 	if(!sendAT(dr))
 		return false;
 	strcpy(dr->bufferRight, ",\"video:bitrate\",\"1000\"\r");
 	if(!sendAT(dr))
-		return false;
+		return false;*/
 
 	// Indique au drone qu'il est à plat : le drone se calibre
 	strcpy(dr->bufferLeft, "AT*FTRIM=");
@@ -1166,15 +1191,15 @@ cppbool aru(ardrone* dr)
 	return sendAT(dr);
 }
 
-cppbool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+cppbool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
 {
-	tiltFrontBack_ = -tiltFrontBack_;
-	tiltLeftRight_ = -tiltLeftRight_;
-	turnLeftRight_ = -turnLeftRight_;
-	sprintf(dr->bufferRight, ",1,%ld,%ld,%ld,%ld\r",	*(long*)(&tiltLeftRight_),
-														*(long*)(&tiltFrontBack_),
-														*(long*)(&goUpDown_),
-														*(long*)(&turnLeftRight_));
+	tiltFrontBack_.f = -tiltFrontBack_.f;
+	tiltLeftRight_.f = -tiltLeftRight_.f;
+	turnLeftRight_.f = -turnLeftRight_.f;
+	sprintf(dr->bufferRight, ",1,%ld,%ld,%ld,%ld\r",	tiltLeftRight_.l,
+														tiltFrontBack_.l,
+														goUpDown_.l,
+														turnLeftRight_.l);
 	strcpy(dr->bufferLeft, "AT*PCMD=");
 	//printf("#%5d - PCMD - %s%d%s\n", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
 	return sendAT(dr);
@@ -1187,3 +1212,4 @@ void newARDrone(ardrone* tmp)
 	tmp->ident = 0;
 	tmp->fly = false;
 }
+
