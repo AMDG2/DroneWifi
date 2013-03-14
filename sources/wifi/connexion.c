@@ -1089,7 +1089,7 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	if(!sendAT(dr))
 		return false;
 	
-/*
+
 	// Configure la hauteur maximale du drone
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
@@ -1116,7 +1116,7 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	if(!sendAT(dr))
 		return false;
 	//printf("\n\n%s%d%s\n\n", dr->bufferLeft, dr->ident, dr->bufferRight);
-*/
+
 	// configure les fps du flux vidéo
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
