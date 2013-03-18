@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QKeyEvent>
 #include "ardrone.h"
-#include "navdatawindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +15,6 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    navdataWindow *navdata;
     ~MainWindow();
 
 private slots:
@@ -49,8 +47,6 @@ private slots:
     void on_btnARU_clicked();
 
     void on_btnTakeOffLand_clicked();
-
-    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

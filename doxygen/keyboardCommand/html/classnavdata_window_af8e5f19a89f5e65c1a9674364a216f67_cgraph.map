@@ -1,0 +1,5 @@
+<map id="navdataWindow::navdataWindow" name="navdataWindow::navdataWindow">
+<area shape="rect" id="node3" href="$class_a_r_drone.html#a2fe1afa1efc4ed2306fba14eb9295ebe" title="Initialise la connexion au drone." alt="" coords="270,5,450,32"/>
+<area shape="rect" id="node5" href="$class_a_r_drone.html#ae1a1249d580e6fcd235ac0e171987948" title="Initialise le fux de données." alt="" coords="283,56,437,83"/>
+<area shape="rect" id="node7" href="$class_a_r_drone.html#a534090497b9f3a959218e2edfe8cda25" title="Envoyer une commande AT." alt="" coords="499,56,629,83"/>
+</map>

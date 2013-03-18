@@ -1,0 +1,5 @@
+<map id="rxsignal_cmp" name="rxsignal_cmp">
+<area shape="rect" id="node3" href="$group___connexion.html#gad60eefc83c0bcc85273af32869e49f5d" title="fonction de callback qui traite les points d&#39;accès donnés : recherche le point d&#39;accès du drone et se..." alt="" coords="152,5,299,32"/>
+<area shape="rect" id="node5" href="$group___connexion.html#ga4316deed036a20c32186612b0e2ed7f2" title="fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective" alt="" coords="347,5,429,32"/>
+<area shape="rect" id="node7" href="$connexion_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667" title="Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties." alt="" coords="477,5,528,32"/>
+</map>

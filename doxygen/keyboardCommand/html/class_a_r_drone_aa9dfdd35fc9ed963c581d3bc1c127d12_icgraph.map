@@ -1,0 +1,10 @@
+<map id="ARDrone::setTiltLeftRight" name="ARDrone::setTiltLeftRight">
+<area shape="rect" id="node3" href="$class_a_r_drone.html#a990dcded2f78b03960887e6c2bf3e717" title="Demande de décollage." alt="" coords="269,20,393,47"/>
+<area shape="rect" id="node7" href="$class_main_window.html#a7f44c594db41845d68cd08a64f5b6601" title="MainWindow::keyPressEvent" alt="" coords="483,71,677,97"/>
+<area shape="rect" id="node9" href="$class_main_window.html#ad0b15e75d6ace91df066500b048c89ca" title="MainWindow::on_btnStat\l_clicked" alt="" coords="247,122,415,163"/>
+<area shape="rect" id="node11" href="$class_main_window.html#a89998d2db841a6c1c4d9d6dc43484cf7" title="MainWindow::on_btnStat1\l_clicked" alt="" coords="243,187,418,229"/>
+<area shape="rect" id="node13" href="$class_main_window.html#a0a6451b2a2229e065f647304e826c568" title="MainWindow::on_btnTiltLeft\l_clicked" alt="" coords="239,253,423,294"/>
+<area shape="rect" id="node15" href="$class_main_window.html#af628b3728c2c24cacfd2f91583f8948e" title="MainWindow::on_btnTiltRight\l_clicked" alt="" coords="234,318,427,359"/>
+<area shape="rect" id="node18" href="$class_main_window.html#abacefb8ef74a2a9ef1e8fc2fe1c68c95" title="MainWindow::keyReleaseEvent" alt="" coords="227,384,435,411"/>
+<area shape="rect" id="node5" href="$class_main_window.html#acd4f5cba500696e45b76a309361f905e" title="MainWindow::on_btnTakeOff\lLand_clicked" alt="" coords="485,5,675,46"/>
+</map>

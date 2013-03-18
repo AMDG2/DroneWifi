@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.3.1"/>
+<title>DroneWifi: Référence du fichier /media/DEVEL/ProjetIUT/DroneWifi/sources/wifi/connexion.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">DroneWifi
+   &#160;<span id="projectnumber">0.5</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.3.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Espaces&#160;de&#160;nommage</span></a></li>
+      <li><a href="annotated.html"><span>Structures&#160;de&#160;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Variables&#160;globale</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Structures de données</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Espaces de nommage</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Fichiers</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Fonctions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Énumérations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Valeurs énumérées</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groupes</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_08d237fc27d4ecd563f71c5d52f2fecc.html">sources</a></li><li class="navelem"><a class="el" href="dir_3128d70dbbd3c9310e6e64aa233c0400.html">wifi</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Énumérations</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier connexion.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><a href="connexion_8c_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structetat__commandes.html">etat_commandes</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structardrone.html">ardrone</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:af46219462f0da78b25d5d693e325f865"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#af46219462f0da78b25d5d693e325f865">LOCAL_PORT</a>&#160;&#160;&#160;5556</td></tr>
+<tr class="separator:af46219462f0da78b25d5d693e325f865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1adf860adf915687d9063e8a19fc2a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#ab1adf860adf915687d9063e8a19fc2a6">REMOTE_IP</a>&#160;&#160;&#160;&quot;255.255.255.255&quot; /*broadcast*/</td></tr>
+<tr class="separator:ab1adf860adf915687d9063e8a19fc2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa27dfcf9c5badbcdb4f87febf8ffed8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#aa27dfcf9c5badbcdb4f87febf8ffed8d">REMOTE_PORT</a>&#160;&#160;&#160;<a class="el" href="connexion_8c.html#af46219462f0da78b25d5d693e325f865">LOCAL_PORT</a></td></tr>
+<tr class="separator:aa27dfcf9c5badbcdb4f87febf8ffed8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13322faf91898e76cf7857e23136615d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a13322faf91898e76cf7857e23136615d">TCPCONFIG</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a13322faf91898e76cf7857e23136615d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972172a830ac4cb6319037de9fdcec96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a972172a830ac4cb6319037de9fdcec96">IPDRONE</a>&#160;&#160;&#160;&quot;192.168.1.1&quot;</td></tr>
+<tr class="separator:a972172a830ac4cb6319037de9fdcec96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41f9c5fb8b08eb5dc3edce4dcb37fee7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="separator:a41f9c5fb8b08eb5dc3edce4dcb37fee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65e9886d74aaee76545e83dd09011727"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a65e9886d74aaee76545e83dd09011727">false</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="separator:a65e9886d74aaee76545e83dd09011727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58b930fb43c5cd2fc89a84647e6fe51c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;&#160;&#160;char</td></tr>
+<tr class="memdesc:ga58b930fb43c5cd2fc89a84647e6fe51c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation du type c++ bool en c.  <a href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga58b930fb43c5cd2fc89a84647e6fe51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8d73a31b3d7e5ed74e525e198cc78f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#gad8d73a31b3d7e5ed74e525e198cc78f3">cWAIT_5_us</a></td></tr>
+<tr class="memdesc:gad8d73a31b3d7e5ed74e525e198cc78f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">pause de 5 µs  <a href="group___i_o.html#gad8d73a31b3d7e5ed74e525e198cc78f3">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gad8d73a31b3d7e5ed74e525e198cc78f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:a6e7539fec119487042de45d22b1efca7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7">statut_connexion</a> { <a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7a66a4cbb7d89a1ddbd9a1df3a0484ac24">INOCCUPE</a>, 
+<a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7ae33abe2273c178ffb3f8567308ee831d">RECHERCHE</a>, 
+<a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7a50404969b4b67c138ceb4d93314d9fea">TROUVE</a>, 
+<a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7a0c8506530b77c355a33f900ed83b8e06">CONNECTE</a>
+ }</td></tr>
+<tr class="separator:a6e7539fec119487042de45d22b1efca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ga9cb15ec1781380780672afe306a163ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga9cb15ec1781380780672afe306a163ec">BRDInit</a> (void)</td></tr>
+<tr class="memdesc:ga9cb15ec1781380780672afe306a163ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise tous les ports d'entreés sorties pour la carte joystick.  <a href="group___i_o.html#ga9cb15ec1781380780672afe306a163ec">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga9cb15ec1781380780672afe306a163ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba1669c59c764f752e4759af60633240"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#gaba1669c59c764f752e4759af60633240">print_etat_commandes</a> (<a class="el" href="structetat__commandes.html">etat_commandes</a> s)</td></tr>
+<tr class="memdesc:gaba1669c59c764f752e4759af60633240"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialise la structure structure de l'état des commandes  <a href="group___i_o.html#gaba1669c59c764f752e4759af60633240">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gaba1669c59c764f752e4759af60633240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga47503442984c9244a27e7b95ffa472c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga47503442984c9244a27e7b95ffa472c3">init_etat_commandes</a> (<a class="el" href="structetat__commandes.html">etat_commandes</a> *s)</td></tr>
+<tr class="memdesc:ga47503442984c9244a27e7b95ffa472c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialise la structure structure de l'état des commandes  <a href="group___i_o.html#ga47503442984c9244a27e7b95ffa472c3">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga47503442984c9244a27e7b95ffa472c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf61e8f99c1568bc62cd24251e4cc0fa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#gaf61e8f99c1568bc62cd24251e4cc0fa2">SPI_CLK</a> (char v)</td></tr>
+<tr class="memdesc:gaf61e8f99c1568bc62cd24251e4cc0fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">modifie l'état de la sortie CLK pour le convertisseur A/N SPI  <a href="group___i_o.html#gaf61e8f99c1568bc62cd24251e4cc0fa2">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gaf61e8f99c1568bc62cd24251e4cc0fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga831fe77ab7ce75ba9a41ecb3c08a97d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga831fe77ab7ce75ba9a41ecb3c08a97d9">SPI_DIN</a> (char v)</td></tr>
+<tr class="memdesc:ga831fe77ab7ce75ba9a41ecb3c08a97d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">modifie l'état de la sortie DIN pour le convertisseur A/N SPI  <a href="group___i_o.html#ga831fe77ab7ce75ba9a41ecb3c08a97d9">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga831fe77ab7ce75ba9a41ecb3c08a97d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab5cfdcd0547c9f87516a805b4849d64f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#gab5cfdcd0547c9f87516a805b4849d64f">SPI_CS</a> (char v)</td></tr>
+<tr class="memdesc:gab5cfdcd0547c9f87516a805b4849d64f"><td class="mdescLeft">&#160;</td><td class="mdescRight">modifie l'état de la sortie CS pour le convertisseur A/N SPI  <a href="group___i_o.html#gab5cfdcd0547c9f87516a805b4849d64f">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gab5cfdcd0547c9f87516a805b4849d64f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga837457e63fcbfcc6e59b6d4c59bd7252"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga837457e63fcbfcc6e59b6d4c59bd7252">SPI_DOUT</a> (void)</td></tr>
+<tr class="memdesc:ga837457e63fcbfcc6e59b6d4c59bd7252"><td class="mdescLeft">&#160;</td><td class="mdescRight">lit l'état de l'entrée DOUT du convertisseur A/N SPI  <a href="group___i_o.html#ga837457e63fcbfcc6e59b6d4c59bd7252">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga837457e63fcbfcc6e59b6d4c59bd7252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2574e1f1506d0a5313c21891bef79aca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga2574e1f1506d0a5313c21891bef79aca">SPI_delay</a> (int i)</td></tr>
+<tr class="memdesc:ga2574e1f1506d0a5313c21891bef79aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">temps d'attente de 'i' * 5 µs  <a href="group___i_o.html#ga2574e1f1506d0a5313c21891bef79aca">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga2574e1f1506d0a5313c21891bef79aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5232f075d5cd2577d072721a1494eb03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga5232f075d5cd2577d072721a1494eb03">SPIread</a> (char addr)</td></tr>
+<tr class="memdesc:ga5232f075d5cd2577d072721a1494eb03"><td class="mdescLeft">&#160;</td><td class="mdescRight">demande au convertisseur A/N SPI de convertir le canal addr  <a href="group___i_o.html#ga5232f075d5cd2577d072721a1494eb03">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga5232f075d5cd2577d072721a1494eb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga91ea6d792c13305827a81e66a1eedf87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga91ea6d792c13305827a81e66a1eedf87">lireCommandes</a> (<a class="el" href="structetat__commandes.html">etat_commandes</a> *s)</td></tr>
+<tr class="memdesc:ga91ea6d792c13305827a81e66a1eedf87"><td class="mdescLeft">&#160;</td><td class="mdescRight">remplie la structure de l'état des commandes avec de nouvelles valeurs lues  <a href="group___i_o.html#ga91ea6d792c13305827a81e66a1eedf87">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga91ea6d792c13305827a81e66a1eedf87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga85dc4c920777870405563fe56611b457"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___i_o.html#ga85dc4c920777870405563fe56611b457">ecrireCommandes</a> (<a class="el" href="structetat__commandes.html">etat_commandes</a> s)</td></tr>
+<tr class="memdesc:ga85dc4c920777870405563fe56611b457"><td class="mdescLeft">&#160;</td><td class="mdescRight">écris les valeurs de la structure de l'état des commandes en sortie.  <a href="group___i_o.html#ga85dc4c920777870405563fe56611b457">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga85dc4c920777870405563fe56611b457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga303d5a717d50385e7908c735d5bddff7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___u_d_p.html#ga303d5a717d50385e7908c735d5bddff7">send_packet</a> (char *str, const char far *ip, word port, udp_Socket *sock)</td></tr>
+<tr class="memdesc:ga303d5a717d50385e7908c735d5bddff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">envoie une chaîne de caractère  <a href="group___u_d_p.html#ga303d5a717d50385e7908c735d5bddff7">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga303d5a717d50385e7908c735d5bddff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga933f44b3a816d407be7ad49f7544342e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___connexion.html#ga933f44b3a816d407be7ad49f7544342e">rxsignal_cmp</a> (far _wifi_wln_scan_bss *a, far _wifi_wln_scan_bss *b)</td></tr>
+<tr class="memdesc:ga933f44b3a816d407be7ad49f7544342e"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui permet le trie les points d'accès WiFi par puissance du signal  <a href="group___connexion.html#ga933f44b3a816d407be7ad49f7544342e">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga933f44b3a816d407be7ad49f7544342e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad60eefc83c0bcc85273af32869e49f5d"><td class="memItemLeft" align="right" valign="top">root void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___connexion.html#gad60eefc83c0bcc85273af32869e49f5d">scan_assoc_callback</a> (far wifi_scan_data *data)</td></tr>
+<tr class="memdesc:gad60eefc83c0bcc85273af32869e49f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction de callback qui traite les points d'accès donnés : recherche le point d'accès du drone et se connecte  <a href="group___connexion.html#gad60eefc83c0bcc85273af32869e49f5d">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gad60eefc83c0bcc85273af32869e49f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4316deed036a20c32186612b0e2ed7f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___connexion.html#ga4316deed036a20c32186612b0e2ed7f2">connexion</a> (void)</td></tr>
+<tr class="memdesc:ga4316deed036a20c32186612b0e2ed7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective  <a href="group___connexion.html#ga4316deed036a20c32186612b0e2ed7f2">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga4316deed036a20c32186612b0e2ed7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab107cb405a02a0e16ee50f68347c6d4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#gab107cb405a02a0e16ee50f68347c6d4d">connectToDrone</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:gab107cb405a02a0e16ee50f68347c6d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initie la connexion avec le drone dr.  <a href="group___a_t_commands.html#gab107cb405a02a0e16ee50f68347c6d4d">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gab107cb405a02a0e16ee50f68347c6d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4daa3ada04813c5a99503bd329c6be2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga4daa3ada04813c5a99503bd329c6be2c">initDrone</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:ga4daa3ada04813c5a99503bd329c6be2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialisation du drone dr pour permettre un décollage en toute sécurité.  <a href="group___a_t_commands.html#ga4daa3ada04813c5a99503bd329c6be2c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga4daa3ada04813c5a99503bd329c6be2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga565736370f76ee54efe74f65acb3ccc4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga565736370f76ee54efe74f65acb3ccc4">takeoff</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:ga565736370f76ee54efe74f65acb3ccc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commande le décollage du drone dr.  <a href="group___a_t_commands.html#ga565736370f76ee54efe74f65acb3ccc4">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga565736370f76ee54efe74f65acb3ccc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga89c4cd20c1bb10d5624cdcc2154efdd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga89c4cd20c1bb10d5624cdcc2154efdd1">land</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:ga89c4cd20c1bb10d5624cdcc2154efdd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commande l'atterissage du drone dr.  <a href="group___a_t_commands.html#ga89c4cd20c1bb10d5624cdcc2154efdd1">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga89c4cd20c1bb10d5624cdcc2154efdd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab16c7bf6e0f5d8df9f422308cb958b2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#gab16c7bf6e0f5d8df9f422308cb958b2d">aru</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:gab16c7bf6e0f5d8df9f422308cb958b2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoi un arrêt d'urgence au drone dr.  <a href="group___a_t_commands.html#gab16c7bf6e0f5d8df9f422308cb958b2d">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gab16c7bf6e0f5d8df9f422308cb958b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafba5305bd996ecb4332a17cf68e79928"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#gafba5305bd996ecb4332a17cf68e79928">volCommand</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)</td></tr>
+<tr class="memdesc:gafba5305bd996ecb4332a17cf68e79928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoi de la commande de vol au drone dr.  <a href="group___a_t_commands.html#gafba5305bd996ecb4332a17cf68e79928">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gafba5305bd996ecb4332a17cf68e79928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9d9aece95d737ed64ba8e9131ff0065c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga9d9aece95d737ed64ba8e9131ff0065c">setGoUpDown</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr, float val)</td></tr>
+<tr class="memdesc:ga9d9aece95d737ed64ba8e9131ff0065c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr.  <a href="group___a_t_commands.html#ga9d9aece95d737ed64ba8e9131ff0065c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga9d9aece95d737ed64ba8e9131ff0065c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0d757863caf7f9c4110ab6e71cac1a4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga0d757863caf7f9c4110ab6e71cac1a4c">setTurnLeftRight</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr, float val)</td></tr>
+<tr class="memdesc:ga0d757863caf7f9c4110ab6e71cac1a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr.  <a href="group___a_t_commands.html#ga0d757863caf7f9c4110ab6e71cac1a4c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga0d757863caf7f9c4110ab6e71cac1a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9a290eee046f983fc53d282c0bc53aff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga9a290eee046f983fc53d282c0bc53aff">setTiltFrontBack</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr, float val)</td></tr>
+<tr class="memdesc:ga9a290eee046f983fc53d282c0bc53aff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr.  <a href="group___a_t_commands.html#ga9a290eee046f983fc53d282c0bc53aff">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga9a290eee046f983fc53d282c0bc53aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28a6f7458f7dbcdf7068b26236f10e2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga28a6f7458f7dbcdf7068b26236f10e2c">setTiltLeftRight</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr, float val)</td></tr>
+<tr class="memdesc:ga28a6f7458f7dbcdf7068b26236f10e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr.  <a href="group___a_t_commands.html#ga28a6f7458f7dbcdf7068b26236f10e2c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga28a6f7458f7dbcdf7068b26236f10e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4a88a78f2b094bcce69b749a845e11c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___a_t_commands.html#ga58b930fb43c5cd2fc89a84647e6fe51c">cppbool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#gad4a88a78f2b094bcce69b749a845e11c">sendAT</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:gad4a88a78f2b094bcce69b749a845e11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoyer la commande AT qui est dans le buffer du drone dr.  <a href="group___a_t_commands.html#gad4a88a78f2b094bcce69b749a845e11c">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gad4a88a78f2b094bcce69b749a845e11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f1e46bbcb882594c8442c75ae3dedf8"><td class="memItemLeft" align="right" valign="top">far <a class="el" href="structardrone.html">ardrone</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#ga6f1e46bbcb882594c8442c75ae3dedf8">newARDrone</a> (void)</td></tr>
+<tr class="memdesc:ga6f1e46bbcb882594c8442c75ae3dedf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de l'objet ardrone.  <a href="group___a_t_commands.html#ga6f1e46bbcb882594c8442c75ae3dedf8">Plus de détails...</a><br/></td></tr>
+<tr class="separator:ga6f1e46bbcb882594c8442c75ae3dedf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad550dbbb88a791f7e8d64c801ce06bf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___a_t_commands.html#gad550dbbb88a791f7e8d64c801ce06bf6">closeARDrone</a> (far <a class="el" href="structardrone.html">ardrone</a> *dr)</td></tr>
+<tr class="memdesc:gad550dbbb88a791f7e8d64c801ce06bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur de l'objet ardrone.  <a href="group___a_t_commands.html#gad550dbbb88a791f7e8d64c801ce06bf6">Plus de détails...</a><br/></td></tr>
+<tr class="separator:gad550dbbb88a791f7e8d64c801ce06bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667">main</a> (void)</td></tr>
+<tr class="memdesc:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties.  <a href="#a6288eba0f8e8ad3ab1544ad731eb7667">Plus de détails...</a><br/></td></tr>
+<tr class="separator:a6288eba0f8e8ad3ab1544ad731eb7667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6c0592b34aa72ee716e9c0b939038faa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7">statut_connexion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="connexion_8c.html#a6c0592b34aa72ee716e9c0b939038faa">connect</a> = <a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7a66a4cbb7d89a1ddbd9a1df3a0484ac24">INOCCUPE</a></td></tr>
+<tr class="separator:a6c0592b34aa72ee716e9c0b939038faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a class="anchor" id="a65e9886d74aaee76545e83dd09011727"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define false&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00082">82</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a972172a830ac4cb6319037de9fdcec96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IPDRONE&#160;&#160;&#160;&quot;192.168.1.1&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00037">37</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af46219462f0da78b25d5d693e325f865"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOCAL_PORT&#160;&#160;&#160;5556</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00010">10</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab1adf860adf915687d9063e8a19fc2a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REMOTE_IP&#160;&#160;&#160;&quot;255.255.255.255&quot; /*broadcast*/</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00017">17</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa27dfcf9c5badbcdb4f87febf8ffed8d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REMOTE_PORT&#160;&#160;&#160;<a class="el" href="connexion_8c.html#af46219462f0da78b25d5d693e325f865">LOCAL_PORT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00020">20</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a13322faf91898e76cf7857e23136615d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TCPCONFIG&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00029">29</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a41f9c5fb8b08eb5dc3edce4dcb37fee7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define true&#160;&#160;&#160;(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00081">81</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a class="anchor" id="a6e7539fec119487042de45d22b1efca7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7">statut_connexion</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><em><a class="anchor" id="a6e7539fec119487042de45d22b1efca7a66a4cbb7d89a1ddbd9a1df3a0484ac24"></a>INOCCUPE</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a6e7539fec119487042de45d22b1efca7ae33abe2273c178ffb3f8567308ee831d"></a>RECHERCHE</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a6e7539fec119487042de45d22b1efca7a50404969b4b67c138ceb4d93314d9fea"></a>TROUVE</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><em><a class="anchor" id="a6e7539fec119487042de45d22b1efca7a0c8506530b77c355a33f900ed83b8e06"></a>CONNECTE</em>&nbsp;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00046">46</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a class="anchor" id="a6288eba0f8e8ad3ab1544ad731eb7667"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Baudouin Feildel </dd></dl>
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00375">375</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+<p><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Voici le graphe d'appel pour cette fonction :</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="connexion_8c_a6288eba0f8e8ad3ab1544ad731eb7667_cgraph.svg" width="598" height="899"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a class="anchor" id="a6c0592b34aa72ee716e9c0b939038faa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7">statut_connexion</a> connect = <a class="el" href="connexion_8c.html#a6e7539fec119487042de45d22b1efca7a66a4cbb7d89a1ddbd9a1df3a0484ac24">INOCCUPE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Définition à la ligne <a class="el" href="connexion_8c_source.html#l00089">89</a> du fichier <a class="el" href="connexion_8c_source.html">connexion.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré le Lundi Février 18 2013 13:47:06 pour DroneWifi par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.3.1
+</small></address>
+</body>
+</html>

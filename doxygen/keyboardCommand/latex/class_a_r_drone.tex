@@ -1,0 +1,718 @@
+\hypertarget{class_a_r_drone}{\section{Référence de la classe A\-R\-Drone}
+\label{class_a_r_drone}\index{A\-R\-Drone@{A\-R\-Drone}}
+}
+
+
+{\ttfamily \#include $<$ardrone.\-h$>$}
+
+
+
+Graphe d'héritage de A\-R\-Drone\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{class_a_r_drone__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Graphe de collaboration de A\-R\-Drone\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Fonctions membres publiques}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_a_r_drone_ae979c9bd8b2e45c7f2ad79b61677c95d}{A\-R\-Drone} (Q\-Object $\ast$parent=0)
+\item 
+bool \hyperlink{class_a_r_drone_a2fe1afa1efc4ed2306fba14eb9295ebe}{connect\-To\-Drone} (void)
+\begin{DoxyCompactList}\small\item\em Initialise la connexion au drone. \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_a6eeff4af7dcbb8088930f6cdca0e453c}{init\-Drone} (void)
+\begin{DoxyCompactList}\small\item\em Initialise le drone (à utiliser avant de lancer la navigation) \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_ae1a1249d580e6fcd235ac0e171987948}{init\-Nav\-Data} (void)
+\begin{DoxyCompactList}\small\item\em Initialise le fux de données. \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_a990dcded2f78b03960887e6c2bf3e717}{takeoff} (void)
+\begin{DoxyCompactList}\small\item\em Demande de décollage. \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_aa978fd9336466eb938ac12b774adc8d6}{land} (void)
+\begin{DoxyCompactList}\small\item\em Demande d'atterrissage. \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_ae230bca8378a15312d53936b988b30be}{aru} (void)
+\begin{DoxyCompactList}\small\item\em Demande d'arrêt d'urgence. \end{DoxyCompactList}\item 
+bool \hyperlink{class_a_r_drone_a8d86f42ad281754122fa0fb07e009cfd}{vol\-Command} (float tilt\-Left\-Right\-\_\-, float tilt\-Front\-Back\-\_\-, float go\-Up\-Down\-\_\-, float turn\-Left\-Right\-\_\-)
+\begin{DoxyCompactList}\small\item\em Pilotage du drone en vol. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_drone_a6d49175397dcce8b90fb2f7200525080}{set\-Go\-Up\-Down} (float val)
+\begin{DoxyCompactList}\small\item\em Setter sécurisé de la valeur de la vitesse verticale. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_drone_a89b56f0ae2e6f9e9103f05fd4c4b8e78}{set\-Turn\-Left\-Right} (float val)
+\begin{DoxyCompactList}\small\item\em Setter sécurisé de la valeur de la vitesse angulaire. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_drone_af59edbd15b6110cd78272fbcef16769d}{set\-Tilt\-Front\-Back} (float val)
+\begin{DoxyCompactList}\small\item\em Setter sécurisé de la valeur de l'inclinaison avant arrière. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_drone_aa9dfdd35fc9ed963c581d3bc1c127d12}{set\-Tilt\-Left\-Right} (float val)
+\begin{DoxyCompactList}\small\item\em Setter sécurisé de la valeur de l'inclinaison gauche droite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Fonctions membres privées}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_a_r_drone_a534090497b9f3a959218e2edfe8cda25}{send\-A\-T} (void)
+\begin{DoxyCompactList}\small\item\em Envoyer une commande A\-T. \end{DoxyCompactList}\item 
+void \hyperlink{class_a_r_drone_ac961be4818d8d0b14d3b4d958590211c}{run} (void)
+\end{DoxyCompactItemize}
+\subsection*{Attributs privés}
+\begin{DoxyCompactItemize}
+\item 
+Q\-Udp\-Socket $\ast$ \hyperlink{class_a_r_drone_ad782b7e11364e26df56385c91c77dca5}{udp\-Socket\-\_\-at}
+\item 
+Q\-Udp\-Socket $\ast$ \hyperlink{class_a_r_drone_ac4bc7a85d5b0ad4ed7631d37fed1304e}{udp\-Socket\-\_\-navdata}
+\item 
+Q\-Host\-Address $\ast$ \hyperlink{class_a_r_drone_abe1f9338191b05ef8ba8db9340b9c43f}{host}
+\item 
+int \hyperlink{class_a_r_drone_a573c1ae46b8facf60d0abb94ea4cdb64}{port\-\_\-at}
+\item 
+int \hyperlink{class_a_r_drone_a077d0256466bb8b40a5739a6d556bddf}{port\-\_\-navdata}
+\item 
+Q\-String \hyperlink{class_a_r_drone_aae2300ce3535a758fd413b27d998a3e2}{buffer\-Left}
+\item 
+Q\-String \hyperlink{class_a_r_drone_aa865842de35bdb04ffa21805d4c4c9c4}{buffer\-Right}
+\item 
+int \hyperlink{class_a_r_drone_a4ad30308ac96408493b6dbe426281c42}{ident}
+\item 
+bool \hyperlink{class_a_r_drone_abf1aad9db871e16087c3529814287b96}{fly}
+\item 
+float \hyperlink{class_a_r_drone_a674129a2cb1f57f285fcb75b3ccfe196}{tilt\-Front\-Back}
+\item 
+float \hyperlink{class_a_r_drone_ae9442e072e260cf4e216849561cedfe7}{tilt\-Left\-Right}
+\item 
+float \hyperlink{class_a_r_drone_a10e045b2d41b960d6029f8ac1509eb90}{go\-Up\-Down}
+\item 
+float \hyperlink{class_a_r_drone_a2e5ccfe94f6112399641f0cf0d97231e}{turn\-Left\-Right}
+\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+
+
+Définition à la ligne 9 du fichier ardrone.\-h.
+
+
+
+\subsection{Documentation des constructeurs et destructeur}
+\hypertarget{class_a_r_drone_ae979c9bd8b2e45c7f2ad79b61677c95d}{\index{A\-R\-Drone@{A\-R\-Drone}!A\-R\-Drone@{A\-R\-Drone}}
+\index{A\-R\-Drone@{A\-R\-Drone}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{A\-R\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}A\-R\-Drone\-::\-A\-R\-Drone (
+\begin{DoxyParamCaption}
+\item[{Q\-Object $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{class_a_r_drone_ae979c9bd8b2e45c7f2ad79b61677c95d}
+
+
+Définition à la ligne 3 du fichier ardrone.\-cpp.
+
+
+
+\subsection{Documentation des fonctions membres}
+\hypertarget{class_a_r_drone_ae230bca8378a15312d53936b988b30be}{\index{A\-R\-Drone@{A\-R\-Drone}!aru@{aru}}
+\index{aru@{aru}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{aru}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::aru (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_ae230bca8378a15312d53936b988b30be}
+
+
+Demande d'arrêt d'urgence. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: demande envoyée ; false \-: demande non-\/envoyée 
+\end{DoxyReturn}
+
+
+Définition à la ligne 111 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{class_a_r_drone_ae230bca8378a15312d53936b988b30be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{class_a_r_drone_ae230bca8378a15312d53936b988b30be_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a2fe1afa1efc4ed2306fba14eb9295ebe}{\index{A\-R\-Drone@{A\-R\-Drone}!connect\-To\-Drone@{connect\-To\-Drone}}
+\index{connect\-To\-Drone@{connect\-To\-Drone}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{connect\-To\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::connect\-To\-Drone (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_a2fe1afa1efc4ed2306fba14eb9295ebe}
+
+
+Initialise la connexion au drone. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: Connexion réussie ; false \-: Connexion échouée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 15 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a2fe1afa1efc4ed2306fba14eb9295ebe_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a6eeff4af7dcbb8088930f6cdca0e453c}{\index{A\-R\-Drone@{A\-R\-Drone}!init\-Drone@{init\-Drone}}
+\index{init\-Drone@{init\-Drone}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{init\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::init\-Drone (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_a6eeff4af7dcbb8088930f6cdca0e453c}
+
+
+Initialise le drone (à utiliser avant de lancer la navigation) 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: Initialisation réussie ; false \-: Initialisation échouée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 35 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{class_a_r_drone_a6eeff4af7dcbb8088930f6cdca0e453c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a6eeff4af7dcbb8088930f6cdca0e453c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_ae1a1249d580e6fcd235ac0e171987948}{\index{A\-R\-Drone@{A\-R\-Drone}!init\-Nav\-Data@{init\-Nav\-Data}}
+\index{init\-Nav\-Data@{init\-Nav\-Data}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{init\-Nav\-Data}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::init\-Nav\-Data (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_ae1a1249d580e6fcd235ac0e171987948}
+
+
+Initialise le fux de données. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: Initialisation réussie ; false \-: Initialisation échouée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 51 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{class_a_r_drone_ae1a1249d580e6fcd235ac0e171987948_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_ae1a1249d580e6fcd235ac0e171987948_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_aa978fd9336466eb938ac12b774adc8d6}{\index{A\-R\-Drone@{A\-R\-Drone}!land@{land}}
+\index{land@{land}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{land}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::land (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_aa978fd9336466eb938ac12b774adc8d6}
+
+
+Demande d'atterrissage. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: demande envoyée ; false \-: demande non-\/envoyée 
+\end{DoxyReturn}
+
+
+Définition à la ligne 101 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{class_a_r_drone_aa978fd9336466eb938ac12b774adc8d6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{class_a_r_drone_aa978fd9336466eb938ac12b774adc8d6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_ac961be4818d8d0b14d3b4d958590211c}{\index{A\-R\-Drone@{A\-R\-Drone}!run@{run}}
+\index{run@{run}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}void A\-R\-Drone\-::run (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_ac961be4818d8d0b14d3b4d958590211c}
+
+
+Définition à la ligne 136 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_ac961be4818d8d0b14d3b4d958590211c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a534090497b9f3a959218e2edfe8cda25}{\index{A\-R\-Drone@{A\-R\-Drone}!send\-A\-T@{send\-A\-T}}
+\index{send\-A\-T@{send\-A\-T}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{send\-A\-T}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::send\-A\-T (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a534090497b9f3a959218e2edfe8cda25}
+
+
+Envoyer une commande A\-T. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: commande envoyée ; false \-: commande non-\/envoyée 
+\end{DoxyReturn}
+
+
+Définition à la ligne 23 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a534090497b9f3a959218e2edfe8cda25_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a6d49175397dcce8b90fb2f7200525080}{\index{A\-R\-Drone@{A\-R\-Drone}!set\-Go\-Up\-Down@{set\-Go\-Up\-Down}}
+\index{set\-Go\-Up\-Down@{set\-Go\-Up\-Down}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{set\-Go\-Up\-Down}]{\setlength{\rightskip}{0pt plus 5cm}void A\-R\-Drone\-::set\-Go\-Up\-Down (
+\begin{DoxyParamCaption}
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_a_r_drone_a6d49175397dcce8b90fb2f7200525080}
+
+
+Setter sécurisé de la valeur de la vitesse verticale. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em float} & val \-: valeur à écrire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 79 du fichier ardrone.\-h.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a6d49175397dcce8b90fb2f7200525080_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_af59edbd15b6110cd78272fbcef16769d}{\index{A\-R\-Drone@{A\-R\-Drone}!set\-Tilt\-Front\-Back@{set\-Tilt\-Front\-Back}}
+\index{set\-Tilt\-Front\-Back@{set\-Tilt\-Front\-Back}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{set\-Tilt\-Front\-Back}]{\setlength{\rightskip}{0pt plus 5cm}void A\-R\-Drone\-::set\-Tilt\-Front\-Back (
+\begin{DoxyParamCaption}
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_a_r_drone_af59edbd15b6110cd78272fbcef16769d}
+
+
+Setter sécurisé de la valeur de l'inclinaison avant arrière. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em float} & val \-: valeur à écrire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 95 du fichier ardrone.\-h.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_af59edbd15b6110cd78272fbcef16769d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_aa9dfdd35fc9ed963c581d3bc1c127d12}{\index{A\-R\-Drone@{A\-R\-Drone}!set\-Tilt\-Left\-Right@{set\-Tilt\-Left\-Right}}
+\index{set\-Tilt\-Left\-Right@{set\-Tilt\-Left\-Right}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{set\-Tilt\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}void A\-R\-Drone\-::set\-Tilt\-Left\-Right (
+\begin{DoxyParamCaption}
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_a_r_drone_aa9dfdd35fc9ed963c581d3bc1c127d12}
+
+
+Setter sécurisé de la valeur de l'inclinaison gauche droite. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em float} & val \-: valeur à écrire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 103 du fichier ardrone.\-h.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_aa9dfdd35fc9ed963c581d3bc1c127d12_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a89b56f0ae2e6f9e9103f05fd4c4b8e78}{\index{A\-R\-Drone@{A\-R\-Drone}!set\-Turn\-Left\-Right@{set\-Turn\-Left\-Right}}
+\index{set\-Turn\-Left\-Right@{set\-Turn\-Left\-Right}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{set\-Turn\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}void A\-R\-Drone\-::set\-Turn\-Left\-Right (
+\begin{DoxyParamCaption}
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_a_r_drone_a89b56f0ae2e6f9e9103f05fd4c4b8e78}
+
+
+Setter sécurisé de la valeur de la vitesse angulaire. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em float} & val \-: valeur à écrire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 87 du fichier ardrone.\-h.
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a89b56f0ae2e6f9e9103f05fd4c4b8e78_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a990dcded2f78b03960887e6c2bf3e717}{\index{A\-R\-Drone@{A\-R\-Drone}!takeoff@{takeoff}}
+\index{takeoff@{takeoff}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{takeoff}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::takeoff (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_a990dcded2f78b03960887e6c2bf3e717}
+
+
+Demande de décollage. 
+
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: demande envoyée ; false \-: demande non-\/envoyée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 80 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{class_a_r_drone_a990dcded2f78b03960887e6c2bf3e717_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_a_r_drone_a990dcded2f78b03960887e6c2bf3e717_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_a_r_drone_a8d86f42ad281754122fa0fb07e009cfd}{\index{A\-R\-Drone@{A\-R\-Drone}!vol\-Command@{vol\-Command}}
+\index{vol\-Command@{vol\-Command}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{vol\-Command}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::vol\-Command (
+\begin{DoxyParamCaption}
+\item[{float}]{tilt\-Left\-Right\-\_\-, }
+\item[{float}]{tilt\-Front\-Back\-\_\-, }
+\item[{float}]{go\-Up\-Down\-\_\-, }
+\item[{float}]{turn\-Left\-Right\-\_\-}
+\end{DoxyParamCaption}
+)}}\label{class_a_r_drone_a8d86f42ad281754122fa0fb07e009cfd}
+
+
+Pilotage du drone en vol. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em float} & tilt\-Left\-Right\-\_\- Inclinaison gauche droite ; \mbox{[}-\/1,1\mbox{]} \\
+\hline
+{\em float} & tilt\-Front\-Back\-\_\- Inclinaison avant arrière ; \mbox{[}-\/1;1\mbox{]} \\
+\hline
+{\em float} & go\-Up\-Down\-\_\- Vitesse verticale ; \mbox{[}-\/1;1\mbox{]} \\
+\hline
+{\em float} & turn\-Left\-Right\-\_\- Vitesse angulaire ; \mbox{[}-\/1;1\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+(bool) true \-: commande envoyée ; false \-: commande non-\/envoyée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 121 du fichier ardrone.\-cpp.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{class_a_r_drone_a8d86f42ad281754122fa0fb07e009cfd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{class_a_r_drone_a8d86f42ad281754122fa0fb07e009cfd_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Documentation des données membres}
+\hypertarget{class_a_r_drone_aae2300ce3535a758fd413b27d998a3e2}{\index{A\-R\-Drone@{A\-R\-Drone}!buffer\-Left@{buffer\-Left}}
+\index{buffer\-Left@{buffer\-Left}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{buffer\-Left}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String A\-R\-Drone\-::buffer\-Left\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_aae2300ce3535a758fd413b27d998a3e2}
+
+
+Définition à la ligne 111 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_aa865842de35bdb04ffa21805d4c4c9c4}{\index{A\-R\-Drone@{A\-R\-Drone}!buffer\-Right@{buffer\-Right}}
+\index{buffer\-Right@{buffer\-Right}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{buffer\-Right}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String A\-R\-Drone\-::buffer\-Right\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_aa865842de35bdb04ffa21805d4c4c9c4}
+
+
+Définition à la ligne 112 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_abf1aad9db871e16087c3529814287b96}{\index{A\-R\-Drone@{A\-R\-Drone}!fly@{fly}}
+\index{fly@{fly}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{fly}]{\setlength{\rightskip}{0pt plus 5cm}bool A\-R\-Drone\-::fly\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_abf1aad9db871e16087c3529814287b96}
+
+
+Définition à la ligne 114 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a10e045b2d41b960d6029f8ac1509eb90}{\index{A\-R\-Drone@{A\-R\-Drone}!go\-Up\-Down@{go\-Up\-Down}}
+\index{go\-Up\-Down@{go\-Up\-Down}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{go\-Up\-Down}]{\setlength{\rightskip}{0pt plus 5cm}float A\-R\-Drone\-::go\-Up\-Down\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a10e045b2d41b960d6029f8ac1509eb90}
+
+
+Définition à la ligne 124 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_abe1f9338191b05ef8ba8db9340b9c43f}{\index{A\-R\-Drone@{A\-R\-Drone}!host@{host}}
+\index{host@{host}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{host}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Host\-Address$\ast$ A\-R\-Drone\-::host\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_abe1f9338191b05ef8ba8db9340b9c43f}
+
+
+Définition à la ligne 108 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a4ad30308ac96408493b6dbe426281c42}{\index{A\-R\-Drone@{A\-R\-Drone}!ident@{ident}}
+\index{ident@{ident}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{ident}]{\setlength{\rightskip}{0pt plus 5cm}int A\-R\-Drone\-::ident\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a4ad30308ac96408493b6dbe426281c42}
+
+
+Définition à la ligne 113 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a573c1ae46b8facf60d0abb94ea4cdb64}{\index{A\-R\-Drone@{A\-R\-Drone}!port\-\_\-at@{port\-\_\-at}}
+\index{port\-\_\-at@{port\-\_\-at}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{port\-\_\-at}]{\setlength{\rightskip}{0pt plus 5cm}int A\-R\-Drone\-::port\-\_\-at\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a573c1ae46b8facf60d0abb94ea4cdb64}
+
+
+Définition à la ligne 109 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a077d0256466bb8b40a5739a6d556bddf}{\index{A\-R\-Drone@{A\-R\-Drone}!port\-\_\-navdata@{port\-\_\-navdata}}
+\index{port\-\_\-navdata@{port\-\_\-navdata}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{port\-\_\-navdata}]{\setlength{\rightskip}{0pt plus 5cm}int A\-R\-Drone\-::port\-\_\-navdata\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a077d0256466bb8b40a5739a6d556bddf}
+
+
+Définition à la ligne 110 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a674129a2cb1f57f285fcb75b3ccfe196}{\index{A\-R\-Drone@{A\-R\-Drone}!tilt\-Front\-Back@{tilt\-Front\-Back}}
+\index{tilt\-Front\-Back@{tilt\-Front\-Back}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{tilt\-Front\-Back}]{\setlength{\rightskip}{0pt plus 5cm}float A\-R\-Drone\-::tilt\-Front\-Back\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a674129a2cb1f57f285fcb75b3ccfe196}
+
+
+Définition à la ligne 122 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_ae9442e072e260cf4e216849561cedfe7}{\index{A\-R\-Drone@{A\-R\-Drone}!tilt\-Left\-Right@{tilt\-Left\-Right}}
+\index{tilt\-Left\-Right@{tilt\-Left\-Right}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{tilt\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}float A\-R\-Drone\-::tilt\-Left\-Right\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_ae9442e072e260cf4e216849561cedfe7}
+
+
+Définition à la ligne 123 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_a2e5ccfe94f6112399641f0cf0d97231e}{\index{A\-R\-Drone@{A\-R\-Drone}!turn\-Left\-Right@{turn\-Left\-Right}}
+\index{turn\-Left\-Right@{turn\-Left\-Right}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{turn\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}float A\-R\-Drone\-::turn\-Left\-Right\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_a2e5ccfe94f6112399641f0cf0d97231e}
+
+
+Définition à la ligne 125 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_ad782b7e11364e26df56385c91c77dca5}{\index{A\-R\-Drone@{A\-R\-Drone}!udp\-Socket\-\_\-at@{udp\-Socket\-\_\-at}}
+\index{udp\-Socket\-\_\-at@{udp\-Socket\-\_\-at}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{udp\-Socket\-\_\-at}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Udp\-Socket$\ast$ A\-R\-Drone\-::udp\-Socket\-\_\-at\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_ad782b7e11364e26df56385c91c77dca5}
+
+
+Définition à la ligne 106 du fichier ardrone.\-h.
+
+\hypertarget{class_a_r_drone_ac4bc7a85d5b0ad4ed7631d37fed1304e}{\index{A\-R\-Drone@{A\-R\-Drone}!udp\-Socket\-\_\-navdata@{udp\-Socket\-\_\-navdata}}
+\index{udp\-Socket\-\_\-navdata@{udp\-Socket\-\_\-navdata}!ARDrone@{A\-R\-Drone}}
+\subsubsection[{udp\-Socket\-\_\-navdata}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Udp\-Socket$\ast$ A\-R\-Drone\-::udp\-Socket\-\_\-navdata\hspace{0.3cm}{\ttfamily [private]}}}\label{class_a_r_drone_ac4bc7a85d5b0ad4ed7631d37fed1304e}
+
+
+Définition à la ligne 107 du fichier ardrone.\-h.
+
+
+
+La documentation de cette classe a été générée à partir des fichiers suivants \-:\begin{DoxyCompactItemize}
+\item 
+/media/\-D\-E\-V\-E\-L/\-Projet\-I\-U\-T/\-Drone\-Wifi/sources/keyboard\-Command/\hyperlink{ardrone_8h}{ardrone.\-h}\item 
+/media/\-D\-E\-V\-E\-L/\-Projet\-I\-U\-T/\-Drone\-Wifi/sources/keyboard\-Command/\hyperlink{ardrone_8cpp}{ardrone.\-cpp}\end{DoxyCompactItemize}

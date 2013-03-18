@@ -1,0 +1,4 @@
+<map id="QMainWindow" name="QMainWindow">
+<area shape="rect" id="node3" href="$class_main_window.html" title="{MainWindow\n|+ navdata\l&#45; ui\l&#45; mode\l&#45; drone\l|+ MainWindow()\l+ ~MainWindow()\l&#45; keyPressEvent()\l&#45; keyReleaseEvent()\l&#45; on_btnKeyboardMode\l_clicked()\l&#45; on_btnMouseMode_clicked()\l&#45; on_btnUp_clicked()\l&#45; on_btnStat_clicked()\l&#45; on_btnStat1_clicked()\l&#45; on_btnLeft_clicked()\l&#45; on_btnRight_clicked()\l&#45; on_btnDown_clicked()\l&#45; on_btnFront_clicked()\l&#45; on_btnBack_clicked()\land 6 more...\l}" alt="" coords="5,131,200,472"/>
+<area shape="rect" id="node5" href="$classnavdata_window.html" title="{navdataWindow\n|&#45; ui\l&#45; navdataFlow\l|+ navdataWindow()\l+ ~navdataWindow()\l}" alt="" coords="225,248,367,355"/>
+</map>

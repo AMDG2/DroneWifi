@@ -1,0 +1,5 @@
+<map id="MainWindow::on_btnConnect_clicked" name="MainWindow::on_btnConnect_clicked">
+<area shape="rect" id="node3" href="$class_a_r_drone.html#a2fe1afa1efc4ed2306fba14eb9295ebe" title="Initialise la connexion au drone." alt="" coords="249,5,429,32"/>
+<area shape="rect" id="node5" href="$class_a_r_drone.html#a6eeff4af7dcbb8088930f6cdca0e453c" title="Initialise le drone (à utiliser avant de lancer la navigation)" alt="" coords="271,56,407,83"/>
+<area shape="rect" id="node7" href="$class_a_r_drone.html#a534090497b9f3a959218e2edfe8cda25" title="Envoyer une commande AT." alt="" coords="478,56,607,83"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="MainWindow::on_btnStat1_clicked" name="MainWindow::on_btnStat1_clicked">
+<area shape="rect" id="node3" href="$class_a_r_drone.html#a6d49175397dcce8b90fb2f7200525080" title="Setter sécurisé de la valeur de la vitesse verticale." alt="" coords="235,5,405,32"/>
+<area shape="rect" id="node5" href="$class_a_r_drone.html#af59edbd15b6110cd78272fbcef16769d" title="Setter sécurisé de la valeur de l&#39;inclinaison avant arrière." alt="" coords="230,56,410,83"/>
+<area shape="rect" id="node7" href="$class_a_r_drone.html#aa9dfdd35fc9ed963c581d3bc1c127d12" title="Setter sécurisé de la valeur de l&#39;inclinaison gauche droite." alt="" coords="233,107,407,133"/>
+<area shape="rect" id="node9" href="$class_a_r_drone.html#a89b56f0ae2e6f9e9103f05fd4c4b8e78" title="Setter sécurisé de la valeur de la vitesse angulaire." alt="" coords="229,157,411,184"/>
+</map>

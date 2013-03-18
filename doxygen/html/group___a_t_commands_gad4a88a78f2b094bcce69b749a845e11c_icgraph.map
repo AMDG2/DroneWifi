@@ -1,0 +1,8 @@
+<map id="sendAT" name="sendAT">
+<area shape="rect" id="node3" href="$group___a_t_commands.html#ga4daa3ada04813c5a99503bd329c6be2c" title="Initialisation du drone dr pour permettre un décollage en toute sécurité." alt="" coords="132,5,207,32"/>
+<area shape="rect" id="node7" href="$group___a_t_commands.html#ga565736370f76ee54efe74f65acb3ccc4" title="Commande le décollage du drone dr." alt="" coords="138,56,201,83"/>
+<area shape="rect" id="node10" href="$group___a_t_commands.html#ga89c4cd20c1bb10d5624cdcc2154efdd1" title="Commande l&#39;atterissage du drone dr." alt="" coords="146,107,193,133"/>
+<area shape="rect" id="node13" href="$group___a_t_commands.html#gab16c7bf6e0f5d8df9f422308cb958b2d" title="Envoi un arrêt d&#39;urgence au drone dr." alt="" coords="149,157,189,184"/>
+<area shape="rect" id="node16" href="$group___a_t_commands.html#gafba5305bd996ecb4332a17cf68e79928" title="Envoi de la commande de vol au drone dr." alt="" coords="120,208,219,235"/>
+<area shape="rect" id="node5" href="$connexion_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667" title="Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties." alt="" coords="267,107,317,133"/>
+</map>

@@ -1,0 +1,140 @@
+\hypertarget{group___connexion}{\section{Connexion}
+\label{group___connexion}\index{Connexion@{Connexion}}
+}
+\subsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{group___connexion_ga933f44b3a816d407be7ad49f7544342e}{rxsignal\-\_\-cmp} (far \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss $\ast$a, far \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss $\ast$b)
+\begin{DoxyCompactList}\small\item\em fonction qui permet le trie les points d'accès Wi\-Fi par puissance du signal \end{DoxyCompactList}\item 
+root void \hyperlink{group___connexion_gad60eefc83c0bcc85273af32869e49f5d}{scan\-\_\-assoc\-\_\-callback} (far wifi\-\_\-scan\-\_\-data $\ast$data)
+\begin{DoxyCompactList}\small\item\em fonction de callback qui traite les points d'accès donnés \-: recherche le point d'accès du drone et se connecte \end{DoxyCompactList}\item 
+void \hyperlink{group___connexion_ga4316deed036a20c32186612b0e2ed7f2}{connexion} (void)
+\begin{DoxyCompactList}\small\item\em fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+
+
+\subsection{Documentation des fonctions}
+\hypertarget{group___connexion_ga4316deed036a20c32186612b0e2ed7f2}{\index{Connexion@{Connexion}!connexion@{connexion}}
+\index{connexion@{connexion}!Connexion@{Connexion}}
+\subsubsection[{connexion}]{\setlength{\rightskip}{0pt plus 5cm}void connexion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{group___connexion_ga4316deed036a20c32186612b0e2ed7f2}
+
+
+fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective 
+
+\begin{DoxyAuthor}{Auteur}
+Thibaut Marty 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 839 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___connexion_ga4316deed036a20c32186612b0e2ed7f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{group___connexion_ga4316deed036a20c32186612b0e2ed7f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___connexion_ga933f44b3a816d407be7ad49f7544342e}{\index{Connexion@{Connexion}!rxsignal\-\_\-cmp@{rxsignal\-\_\-cmp}}
+\index{rxsignal\-\_\-cmp@{rxsignal\-\_\-cmp}!Connexion@{Connexion}}
+\subsubsection[{rxsignal\-\_\-cmp}]{\setlength{\rightskip}{0pt plus 5cm}int rxsignal\-\_\-cmp (
+\begin{DoxyParamCaption}
+\item[{far \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss $\ast$}]{a, }
+\item[{far \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}\label{group___connexion_ga933f44b3a816d407be7ad49f7544342e}
+
+
+fonction qui permet le trie les points d'accès Wi\-Fi par puissance du signal 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em a} & un \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss qui correspond à un point d'accès \\
+\hline
+{\em b} & un \-\_\-wifi\-\_\-wln\-\_\-scan\-\_\-bss qui correspond à un point d'accès \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Dynamic C 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 775 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___connexion_ga933f44b3a816d407be7ad49f7544342e_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___connexion_gad60eefc83c0bcc85273af32869e49f5d}{\index{Connexion@{Connexion}!scan\-\_\-assoc\-\_\-callback@{scan\-\_\-assoc\-\_\-callback}}
+\index{scan\-\_\-assoc\-\_\-callback@{scan\-\_\-assoc\-\_\-callback}!Connexion@{Connexion}}
+\subsubsection[{scan\-\_\-assoc\-\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}root void scan\-\_\-assoc\-\_\-callback (
+\begin{DoxyParamCaption}
+\item[{far wifi\-\_\-scan\-\_\-data $\ast$}]{data}
+\end{DoxyParamCaption}
+)}}\label{group___connexion_gad60eefc83c0bcc85273af32869e49f5d}
+
+
+fonction de callback qui traite les points d'accès donnés \-: recherche le point d'accès du drone et se connecte 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em data} & liste des points d'accès \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Thibaut Marty 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 780 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{group___connexion_gad60eefc83c0bcc85273af32869e49f5d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___connexion_gad60eefc83c0bcc85273af32869e49f5d_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,3 @@
+<map id="QThread" name="QThread">
+<area shape="rect" id="node3" href="$class_a_r_drone.html" title="{ARDrone\n|&#45; udpSocket_at\l&#45; udpSocket_navdata\l&#45; host\l&#45; port_at\l&#45; port_navdata\l&#45; bufferLeft\l&#45; bufferRight\l&#45; ident\l&#45; fly\l&#45; tiltFrontBack\l&#45; tiltLeftRight\l&#45; goUpDown\l&#45; turnLeftRight\l|+ ARDrone()\l+ connectToDrone()\l+ initDrone()\l+ initNavData()\l+ takeoff()\l+ land()\l+ aru()\l+ volCommand()\l+ setGoUpDown()\l+ setTurnLeftRight()\l+ setTiltFrontBack()\l+ setTiltLeftRight()\l&#45; sendAT()\l&#45; run()\l}" alt="" coords="5,131,149,575"/>
+</map>

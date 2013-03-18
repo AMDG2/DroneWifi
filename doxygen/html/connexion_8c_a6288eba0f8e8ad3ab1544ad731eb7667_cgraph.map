@@ -1,0 +1,28 @@
+<map id="main" name="main">
+<area shape="rect" id="node3" href="$group___i_o.html#ga9cb15ec1781380780672afe306a163ec" title="Initialise tous les ports d&#39;entreés sorties pour la carte joystick." alt="" coords="143,5,212,32"/>
+<area shape="rect" id="node5" href="$group___i_o.html#ga47503442984c9244a27e7b95ffa472c3" title="initialise la structure structure de l&#39;état des commandes" alt="" coords="104,56,251,83"/>
+<area shape="rect" id="node7" href="$group___connexion.html#ga4316deed036a20c32186612b0e2ed7f2" title="fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective" alt="" coords="137,107,218,133"/>
+<area shape="rect" id="node13" href="$group___a_t_commands.html#ga6f1e46bbcb882594c8442c75ae3dedf8" title="Constructeur de l&#39;objet ardrone." alt="" coords="127,157,227,184"/>
+<area shape="rect" id="node15" href="$group___a_t_commands.html#gab107cb405a02a0e16ee50f68347c6d4d" title="Initie la connexion avec le drone dr." alt="" coords="118,208,237,235"/>
+<area shape="rect" id="node17" href="$group___a_t_commands.html#ga4daa3ada04813c5a99503bd329c6be2c" title="Initialisation du drone dr pour permettre un décollage en toute sécurité." alt="" coords="140,259,215,285"/>
+<area shape="rect" id="node23" href="$group___i_o.html#ga85dc4c920777870405563fe56611b457" title="écris les valeurs de la structure de l&#39;état des commandes en sortie." alt="" coords="113,715,241,741"/>
+<area shape="rect" id="node25" href="$group___i_o.html#ga91ea6d792c13305827a81e66a1eedf87" title="remplie la structure de l&#39;état des commandes avec de nouvelles valeurs lues" alt="" coords="121,765,234,792"/>
+<area shape="rect" id="node39" href="$group___a_t_commands.html#gab16c7bf6e0f5d8df9f422308cb958b2d" title="Envoi un arrêt d&#39;urgence au drone dr." alt="" coords="157,309,197,336"/>
+<area shape="rect" id="node42" href="$group___a_t_commands.html#ga565736370f76ee54efe74f65acb3ccc4" title="Commande le décollage du drone dr." alt="" coords="146,512,209,539"/>
+<area shape="rect" id="node45" href="$group___a_t_commands.html#ga9d9aece95d737ed64ba8e9131ff0065c" title="Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr..." alt="" coords="318,487,426,513"/>
+<area shape="rect" id="node47" href="$group___a_t_commands.html#ga0d757863caf7f9c4110ab6e71cac1a4c" title="Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr..." alt="" coords="313,537,431,564"/>
+<area shape="rect" id="node49" href="$group___a_t_commands.html#ga9a290eee046f983fc53d282c0bc53aff" title="Mettre une valeur de manière sécurisé dans le buffer de l&#39;inclinaison avant/arrière du drone dr..." alt="" coords="313,588,431,615"/>
+<area shape="rect" id="node51" href="$group___a_t_commands.html#ga28a6f7458f7dbcdf7068b26236f10e2c" title="Mettre une valeur de manière sécurisée dans le buffer de l&#39;inclinaison gauche/droite du drone dr..." alt="" coords="317,639,427,665"/>
+<area shape="rect" id="node53" href="$group___a_t_commands.html#ga89c4cd20c1bb10d5624cdcc2154efdd1" title="Commande l&#39;atterissage du drone dr." alt="" coords="154,360,201,387"/>
+<area shape="rect" id="node60" href="$group___a_t_commands.html#gafba5305bd996ecb4332a17cf68e79928" title="Envoi de la commande de vol au drone dr." alt="" coords="128,411,227,437"/>
+<area shape="rect" id="node9" href="$group___connexion.html#gad60eefc83c0bcc85273af32869e49f5d" title="fonction de callback qui traite les points d&#39;accès donnés : recherche le point d&#39;accès du drone et se..." alt="" coords="299,107,445,133"/>
+<area shape="rect" id="node11" href="$group___connexion.html#ga933f44b3a816d407be7ad49f7544342e" title="fonction qui permet le trie les points d&#39;accès WiFi par puissance du signal" alt="" coords="493,107,592,133"/>
+<area shape="rect" id="node19" href="$group___a_t_commands.html#gad4a88a78f2b094bcce69b749a845e11c" title="Envoyer la commande AT qui est dans le buffer du drone dr." alt="" coords="339,360,405,387"/>
+<area shape="rect" id="node21" href="$group___u_d_p.html#ga303d5a717d50385e7908c735d5bddff7" title="envoie une chaîne de caractère" alt="" coords="495,360,591,387"/>
+<area shape="rect" id="node27" href="$group___i_o.html#ga5232f075d5cd2577d072721a1494eb03" title="demande au convertisseur A/N SPI de convertir le canal addr" alt="" coords="337,765,407,792"/>
+<area shape="rect" id="node29" href="$group___i_o.html#gab5cfdcd0547c9f87516a805b4849d64f" title="modifie l&#39;état de la sortie CS pour le convertisseur A/N SPI" alt="" coords="507,715,578,741"/>
+<area shape="rect" id="node31" href="$group___i_o.html#ga831fe77ab7ce75ba9a41ecb3c08a97d9" title="modifie l&#39;état de la sortie DIN pour le convertisseur A/N SPI" alt="" coords="505,765,580,792"/>
+<area shape="rect" id="node33" href="$group___i_o.html#ga2574e1f1506d0a5313c21891bef79aca" title="temps d&#39;attente de &#39;i&#39; * 5 µs" alt="" coords="501,816,584,843"/>
+<area shape="rect" id="node35" href="$group___i_o.html#gaf61e8f99c1568bc62cd24251e4cc0fa2" title="modifie l&#39;état de la sortie CLK pour le convertisseur A/N SPI" alt="" coords="504,867,581,893"/>
+<area shape="rect" id="node37" href="$group___i_o.html#ga837457e63fcbfcc6e59b6d4c59bd7252" title="lit l&#39;état de l&#39;entrée DOUT du convertisseur A/N SPI" alt="" coords="498,664,587,691"/>
+</map>

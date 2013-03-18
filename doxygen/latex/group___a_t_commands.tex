@@ -1,0 +1,596 @@
+\hypertarget{group___a_t_commands}{\section{A\-T\-Commands}
+\label{group___a_t_commands}\index{A\-T\-Commands@{A\-T\-Commands}}
+}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool}~char
+\begin{DoxyCompactList}\small\item\em Implementation du type c++ bool en c. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_gab107cb405a02a0e16ee50f68347c6d4d}{connect\-To\-Drone} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Initie la connexion avec le drone dr. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_ga4daa3ada04813c5a99503bd329c6be2c}{init\-Drone} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Initialisation du drone dr pour permettre un décollage en toute sécurité. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_ga565736370f76ee54efe74f65acb3ccc4}{takeoff} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Commande le décollage du drone dr. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_ga89c4cd20c1bb10d5624cdcc2154efdd1}{land} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Commande l'atterissage du drone dr. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_gab16c7bf6e0f5d8df9f422308cb958b2d}{aru} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Envoi un arrêt d'urgence au drone dr. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_gafba5305bd996ecb4332a17cf68e79928}{vol\-Command} (far \hyperlink{structardrone}{ardrone} $\ast$dr, float tilt\-Left\-Right\-\_\-, float tilt\-Front\-Back\-\_\-, float go\-Up\-Down\-\_\-, float turn\-Left\-Right\-\_\-)
+\begin{DoxyCompactList}\small\item\em Envoi de la commande de vol au drone dr. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_t_commands_ga9d9aece95d737ed64ba8e9131ff0065c}{set\-Go\-Up\-Down} (far \hyperlink{structardrone}{ardrone} $\ast$dr, float val)
+\begin{DoxyCompactList}\small\item\em Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_t_commands_ga0d757863caf7f9c4110ab6e71cac1a4c}{set\-Turn\-Left\-Right} (far \hyperlink{structardrone}{ardrone} $\ast$dr, float val)
+\begin{DoxyCompactList}\small\item\em Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_t_commands_ga9a290eee046f983fc53d282c0bc53aff}{set\-Tilt\-Front\-Back} (far \hyperlink{structardrone}{ardrone} $\ast$dr, float val)
+\begin{DoxyCompactList}\small\item\em Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_t_commands_ga28a6f7458f7dbcdf7068b26236f10e2c}{set\-Tilt\-Left\-Right} (far \hyperlink{structardrone}{ardrone} $\ast$dr, float val)
+\begin{DoxyCompactList}\small\item\em Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr. \end{DoxyCompactList}\item 
+\hyperlink{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{cppbool} \hyperlink{group___a_t_commands_gad4a88a78f2b094bcce69b749a845e11c}{send\-A\-T} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Envoyer la commande A\-T qui est dans le buffer du drone dr. \end{DoxyCompactList}\item 
+far \hyperlink{structardrone}{ardrone} $\ast$ \hyperlink{group___a_t_commands_ga6f1e46bbcb882594c8442c75ae3dedf8}{new\-A\-R\-Drone} (void)
+\begin{DoxyCompactList}\small\item\em Constructeur de l'objet ardrone. \end{DoxyCompactList}\item 
+void \hyperlink{group___a_t_commands_gad550dbbb88a791f7e8d64c801ce06bf6}{close\-A\-R\-Drone} (far \hyperlink{structardrone}{ardrone} $\ast$dr)
+\begin{DoxyCompactList}\small\item\em Destructeur de l'objet ardrone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+
+
+\subsection{Documentation des macros}
+\hypertarget{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}{\index{A\-T\-Commands@{A\-T\-Commands}!cppbool@{cppbool}}
+\index{cppbool@{cppbool}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{cppbool}]{\setlength{\rightskip}{0pt plus 5cm}cppbool~char}}\label{group___a_t_commands_ga58b930fb43c5cd2fc89a84647e6fe51c}
+
+
+Implementation du type c++ bool en c. 
+
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 83 du fichier connexion.\-c.
+
+
+
+\subsection{Documentation des fonctions}
+\hypertarget{group___a_t_commands_gab16c7bf6e0f5d8df9f422308cb958b2d}{\index{A\-T\-Commands@{A\-T\-Commands}!aru@{aru}}
+\index{aru@{aru}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{aru}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} aru (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_gab16c7bf6e0f5d8df9f422308cb958b2d}
+
+
+Envoi un arrêt d'urgence au drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: arrêt d'urgence envoyé ; false \-: arrêt d'urgence non-\/envoyé 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 989 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{group___a_t_commands_gab16c7bf6e0f5d8df9f422308cb958b2d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{group___a_t_commands_gab16c7bf6e0f5d8df9f422308cb958b2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_gad550dbbb88a791f7e8d64c801ce06bf6}{\index{A\-T\-Commands@{A\-T\-Commands}!close\-A\-R\-Drone@{close\-A\-R\-Drone}}
+\index{close\-A\-R\-Drone@{close\-A\-R\-Drone}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{close\-A\-R\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}void close\-A\-R\-Drone (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_gad550dbbb88a791f7e8d64c801ce06bf6}
+
+
+Destructeur de l'objet ardrone. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du objet drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+\hypertarget{group___a_t_commands_gab107cb405a02a0e16ee50f68347c6d4d}{\index{A\-T\-Commands@{A\-T\-Commands}!connect\-To\-Drone@{connect\-To\-Drone}}
+\index{connect\-To\-Drone@{connect\-To\-Drone}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{connect\-To\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} connect\-To\-Drone (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_gab107cb405a02a0e16ee50f68347c6d4d}
+
+
+Initie la connexion avec le drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: handle de drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: Connexion réussie ; false \-: Connexion échouée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 913 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{group___a_t_commands_gab107cb405a02a0e16ee50f68347c6d4d_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga4daa3ada04813c5a99503bd329c6be2c}{\index{A\-T\-Commands@{A\-T\-Commands}!init\-Drone@{init\-Drone}}
+\index{init\-Drone@{init\-Drone}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{init\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} init\-Drone (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga4daa3ada04813c5a99503bd329c6be2c}
+
+
+Initialisation du drone dr pour permettre un décollage en toute sécurité. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: initialisation réussie ; false \-: initialisation échouée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 935 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{group___a_t_commands_ga4daa3ada04813c5a99503bd329c6be2c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{group___a_t_commands_ga4daa3ada04813c5a99503bd329c6be2c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga89c4cd20c1bb10d5624cdcc2154efdd1}{\index{A\-T\-Commands@{A\-T\-Commands}!land@{land}}
+\index{land@{land}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{land}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} land (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga89c4cd20c1bb10d5624cdcc2154efdd1}
+
+
+Commande l'atterissage du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: commande envoyée ; false \-: commande non-\/envoyée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 979 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{group___a_t_commands_ga89c4cd20c1bb10d5624cdcc2154efdd1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{group___a_t_commands_ga89c4cd20c1bb10d5624cdcc2154efdd1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga6f1e46bbcb882594c8442c75ae3dedf8}{\index{A\-T\-Commands@{A\-T\-Commands}!new\-A\-R\-Drone@{new\-A\-R\-Drone}}
+\index{new\-A\-R\-Drone@{new\-A\-R\-Drone}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{new\-A\-R\-Drone}]{\setlength{\rightskip}{0pt plus 5cm}far {\bf ardrone} $\ast$ new\-A\-R\-Drone (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga6f1e46bbcb882594c8442c75ae3dedf8}
+
+
+Constructeur de l'objet ardrone. 
+
+\begin{DoxyReturn}{Renvoie}
+Handle sur drone 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 1012 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{group___a_t_commands_ga6f1e46bbcb882594c8442c75ae3dedf8_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_gad4a88a78f2b094bcce69b749a845e11c}{\index{A\-T\-Commands@{A\-T\-Commands}!send\-A\-T@{send\-A\-T}}
+\index{send\-A\-T@{send\-A\-T}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{send\-A\-T}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} send\-A\-T (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_gad4a88a78f2b094bcce69b749a845e11c}
+
+
+Envoyer la commande A\-T qui est dans le buffer du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: buffer envoyé ; false buffer non-\/envoyé 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 925 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{group___a_t_commands_gad4a88a78f2b094bcce69b749a845e11c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{group___a_t_commands_gad4a88a78f2b094bcce69b749a845e11c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga9d9aece95d737ed64ba8e9131ff0065c}{\index{A\-T\-Commands@{A\-T\-Commands}!set\-Go\-Up\-Down@{set\-Go\-Up\-Down}}
+\index{set\-Go\-Up\-Down@{set\-Go\-Up\-Down}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{set\-Go\-Up\-Down}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Go\-Up\-Down (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr, }
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga9d9aece95d737ed64ba8e9131ff0065c}
+
+
+Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+{\em float} & val \-: valeur à inserer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 311 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{group___a_t_commands_ga9d9aece95d737ed64ba8e9131ff0065c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga9a290eee046f983fc53d282c0bc53aff}{\index{A\-T\-Commands@{A\-T\-Commands}!set\-Tilt\-Front\-Back@{set\-Tilt\-Front\-Back}}
+\index{set\-Tilt\-Front\-Back@{set\-Tilt\-Front\-Back}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{set\-Tilt\-Front\-Back}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Tilt\-Front\-Back (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr, }
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga9a290eee046f983fc53d282c0bc53aff}
+
+
+Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+{\em float} & val \-: valeur à insérer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 329 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{group___a_t_commands_ga9a290eee046f983fc53d282c0bc53aff_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga28a6f7458f7dbcdf7068b26236f10e2c}{\index{A\-T\-Commands@{A\-T\-Commands}!set\-Tilt\-Left\-Right@{set\-Tilt\-Left\-Right}}
+\index{set\-Tilt\-Left\-Right@{set\-Tilt\-Left\-Right}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{set\-Tilt\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Tilt\-Left\-Right (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr, }
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga28a6f7458f7dbcdf7068b26236f10e2c}
+
+
+Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+{\em float} & val \-: valeur à insérer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 338 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{group___a_t_commands_ga28a6f7458f7dbcdf7068b26236f10e2c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga0d757863caf7f9c4110ab6e71cac1a4c}{\index{A\-T\-Commands@{A\-T\-Commands}!set\-Turn\-Left\-Right@{set\-Turn\-Left\-Right}}
+\index{set\-Turn\-Left\-Right@{set\-Turn\-Left\-Right}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{set\-Turn\-Left\-Right}]{\setlength{\rightskip}{0pt plus 5cm}void set\-Turn\-Left\-Right (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr, }
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga0d757863caf7f9c4110ab6e71cac1a4c}
+
+
+Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr\-: Handle du drone \\
+\hline
+{\em float} & val \-: valeur à insérer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 320 du fichier connexion.\-c.
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{group___a_t_commands_ga0d757863caf7f9c4110ab6e71cac1a4c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_ga565736370f76ee54efe74f65acb3ccc4}{\index{A\-T\-Commands@{A\-T\-Commands}!takeoff@{takeoff}}
+\index{takeoff@{takeoff}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{takeoff}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} takeoff (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_ga565736370f76ee54efe74f65acb3ccc4}
+
+
+Commande le décollage du drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: commande envoyée ; false \-: commande non-\/envoyée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 957 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___a_t_commands_ga565736370f76ee54efe74f65acb3ccc4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{group___a_t_commands_ga565736370f76ee54efe74f65acb3ccc4_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___a_t_commands_gafba5305bd996ecb4332a17cf68e79928}{\index{A\-T\-Commands@{A\-T\-Commands}!vol\-Command@{vol\-Command}}
+\index{vol\-Command@{vol\-Command}!ATCommands@{A\-T\-Commands}}
+\subsubsection[{vol\-Command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cppbool} vol\-Command (
+\begin{DoxyParamCaption}
+\item[{far {\bf ardrone} $\ast$}]{dr, }
+\item[{float}]{tilt\-Left\-Irght\-\_\-, }
+\item[{float}]{tilt\-Front\-Back\-\_\-, }
+\item[{float}]{go\-Up\-Down\-\_\-, }
+\item[{float}]{turn\-Left\-Right\-\_\-}
+\end{DoxyParamCaption}
+)}}\label{group___a_t_commands_gafba5305bd996ecb4332a17cf68e79928}
+
+
+Envoi de la commande de vol au drone dr. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em far} & ardrone$\ast$ dr \-: Handle du drone \\
+\hline
+{\em float} & tilt\-Left\-Right \-: commande l'inclinaison avant/arrière du drone \\
+\hline
+{\em float} & tilt\-Front\-Back \-: commande l'inclinaison gauche/droite du drone \\
+\hline
+{\em float} & go\-Up\-Down \-: commande vitesse verticale du drone \\
+\hline
+{\em float} & turn\-Left\-Right \-: commande vitesse angulaire du drone \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+true \-: commande envoyée ; false \-: commande non-\/envoyée 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Auteur}
+Baudouin Feildel 
+\end{DoxyAuthor}
+
+
+Définition à la ligne 999 du fichier connexion.\-c.
+
+
+
+Voici le graphe d'appel pour cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{group___a_t_commands_gafba5305bd996ecb4332a17cf68e79928_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Voici le graphe des appelants de cette fonction \-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{group___a_t_commands_gafba5305bd996ecb4332a17cf68e79928_icgraph}
+\end{center}
+\end{figure}
+
+

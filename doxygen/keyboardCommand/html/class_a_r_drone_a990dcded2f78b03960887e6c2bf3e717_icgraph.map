@@ -1,0 +1,4 @@
+<map id="ARDrone::takeoff" name="ARDrone::takeoff">
+<area shape="rect" id="node3" href="$class_main_window.html#acd4f5cba500696e45b76a309361f905e" title="MainWindow::on_btnTakeOff\lLand_clicked" alt="" coords="181,5,371,46"/>
+<area shape="rect" id="node5" href="$class_main_window.html#a7f44c594db41845d68cd08a64f5b6601" title="MainWindow::keyPressEvent" alt="" coords="179,71,373,97"/>
+</map>

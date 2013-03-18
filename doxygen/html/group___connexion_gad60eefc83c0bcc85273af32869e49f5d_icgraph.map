@@ -1,0 +1,4 @@
+<map id="scan_assoc_callback" name="scan_assoc_callback">
+<area shape="rect" id="node3" href="$group___connexion.html#ga4316deed036a20c32186612b0e2ed7f2" title="fonction qui se connecte au drone. Elle se quitte uniquement si la connexion est effective" alt="" coords="201,5,282,32"/>
+<area shape="rect" id="node5" href="$connexion_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667" title="Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties." alt="" coords="331,5,381,32"/>
+</map>

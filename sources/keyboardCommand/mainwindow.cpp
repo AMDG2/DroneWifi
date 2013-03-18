@@ -287,9 +287,3 @@ void MainWindow::keyReleaseEvent(QKeyEvent *k)
     else
         qDebug("Mode clavier desactive");
 }
-
-void MainWindow::on_pushButton_clicked()
-{
-    navdata = new navdataWindow(drone, this);
-    navdata->show();
-}

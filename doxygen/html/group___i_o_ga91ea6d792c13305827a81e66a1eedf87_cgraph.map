@@ -1,0 +1,8 @@
+<map id="lireCommandes" name="lireCommandes">
+<area shape="rect" id="node3" href="$group___i_o.html#ga5232f075d5cd2577d072721a1494eb03" title="demande au convertisseur A/N SPI de convertir le canal addr" alt="" coords="168,107,237,133"/>
+<area shape="rect" id="node5" href="$group___i_o.html#gab5cfdcd0547c9f87516a805b4849d64f" title="modifie l&#39;état de la sortie CS pour le convertisseur A/N SPI" alt="" coords="295,5,366,32"/>
+<area shape="rect" id="node7" href="$group___i_o.html#ga831fe77ab7ce75ba9a41ecb3c08a97d9" title="modifie l&#39;état de la sortie DIN pour le convertisseur A/N SPI" alt="" coords="293,56,368,83"/>
+<area shape="rect" id="node9" href="$group___i_o.html#ga2574e1f1506d0a5313c21891bef79aca" title="temps d&#39;attente de &#39;i&#39; * 5 µs" alt="" coords="289,107,372,133"/>
+<area shape="rect" id="node11" href="$group___i_o.html#gaf61e8f99c1568bc62cd24251e4cc0fa2" title="modifie l&#39;état de la sortie CLK pour le convertisseur A/N SPI" alt="" coords="292,157,369,184"/>
+<area shape="rect" id="node13" href="$group___i_o.html#ga837457e63fcbfcc6e59b6d4c59bd7252" title="lit l&#39;état de l&#39;entrée DOUT du convertisseur A/N SPI" alt="" coords="286,208,375,235"/>
+</map>

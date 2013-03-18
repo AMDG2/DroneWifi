@@ -1,0 +1,5 @@
+<map id="SPI_delay" name="SPI_delay">
+<area shape="rect" id="node3" href="$group___i_o.html#ga5232f075d5cd2577d072721a1494eb03" title="demande au convertisseur A/N SPI de convertir le canal addr" alt="" coords="136,5,205,32"/>
+<area shape="rect" id="node5" href="$group___i_o.html#ga91ea6d792c13305827a81e66a1eedf87" title="remplie la structure de l&#39;état des commandes avec de nouvelles valeurs lues" alt="" coords="254,5,367,32"/>
+<area shape="rect" id="node7" href="$connexion_8c.html#a6288eba0f8e8ad3ab1544ad731eb7667" title="Fonction principal : gestion du pilotage du drone en fonctions des entrées/sorties." alt="" coords="416,5,467,32"/>
+</map>

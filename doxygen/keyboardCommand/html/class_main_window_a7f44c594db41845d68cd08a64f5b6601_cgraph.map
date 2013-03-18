@@ -1,0 +1,10 @@
+<map id="MainWindow::keyPressEvent" name="MainWindow::keyPressEvent">
+<area shape="rect" id="node3" href="$class_a_r_drone.html#a6d49175397dcce8b90fb2f7200525080" title="Setter sécurisé de la valeur de la vitesse verticale." alt="" coords="427,5,597,32"/>
+<area shape="rect" id="node5" href="$class_a_r_drone.html#a89b56f0ae2e6f9e9103f05fd4c4b8e78" title="Setter sécurisé de la valeur de la vitesse angulaire." alt="" coords="421,63,603,89"/>
+<area shape="rect" id="node7" href="$class_a_r_drone.html#af59edbd15b6110cd78272fbcef16769d" title="Setter sécurisé de la valeur de l&#39;inclinaison avant arrière." alt="" coords="422,125,602,152"/>
+<area shape="rect" id="node9" href="$class_a_r_drone.html#aa9dfdd35fc9ed963c581d3bc1c127d12" title="Setter sécurisé de la valeur de l&#39;inclinaison gauche droite." alt="" coords="425,201,599,228"/>
+<area shape="rect" id="node11" href="$class_a_r_drone.html#ae230bca8378a15312d53936b988b30be" title="Demande d&#39;arrêt d&#39;urgence." alt="" coords="259,305,362,332"/>
+<area shape="rect" id="node15" href="$class_a_r_drone.html#a990dcded2f78b03960887e6c2bf3e717" title="Demande de décollage." alt="" coords="249,153,373,180"/>
+<area shape="rect" id="node22" href="$class_a_r_drone.html#aa978fd9336466eb938ac12b774adc8d6" title="Demande d&#39;atterrissage." alt="" coords="257,255,365,281"/>
+<area shape="rect" id="node13" href="$class_a_r_drone.html#a534090497b9f3a959218e2edfe8cda25" title="Envoyer une commande AT." alt="" coords="447,255,577,281"/>
+</map>

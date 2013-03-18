@@ -141,7 +141,7 @@ void ARDrone::run(void)
     }
 }
 
-int ARDrone::receiveNavData(QHostAddress *sender, qint64 *senderPort, char *buffer, qint64 bufferLenght)
+int ARDrone::receiveNavData(QHostAddress *sender, qint64 senderPort, char *buffer, qint64 bufferLenght)
 {
     int ret = 0;
 
@@ -150,12 +150,12 @@ int ARDrone::receiveNavData(QHostAddress *sender, qint64 *senderPort, char *buff
     bufferRight = ",\r";
     if(!sendAT())
     {
-        qdebug("##     - Unable to reset the Watchdog.\n");
+        qDebug("##     - Unable to reset the Watchdog.\n");
         return -1;
     }
 
     ret = udpSocket_navdata->readDatagram(buffer, bufferLenght, sender, senderPort);
     if(ret <= 0)
-        qdebug("Impossible de réceptionner les données : %d\n", ret);
+        qDebug("Impossible de réceptionner les données : %d\n", ret);
     return ret;
 }
