@@ -244,15 +244,15 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
     {
         switch(k->key())
         {
-        case Qt::Key_Z: drone->setGoUpDown(0.5); break;
-        case Qt::Key_S: drone->setGoUpDown(-0.5); break;
-        case Qt::Key_Q: drone->setTurnLeftRight(-0.5); break;
-        case Qt::Key_D: drone->setTurnLeftRight(0.5); break;
+        case Qt::Key_Z: drone->setGoUpDown(1); break;
+        case Qt::Key_S: drone->setGoUpDown(-1); break;
+        case Qt::Key_Q: drone->setTurnLeftRight(-1); break;
+        case Qt::Key_D: drone->setTurnLeftRight(1); break;
 
-        case Qt::Key_I: drone->setTiltFrontBack(-0.5); break;
-        case Qt::Key_K: drone->setTiltFrontBack(0.5); break;
-        case Qt::Key_J: drone->setTiltLeftRight(-0.5); break;
-        case Qt::Key_L: drone->setTiltLeftRight(0.5); break;
+        case Qt::Key_I: drone->setTiltFrontBack(-1); break;
+        case Qt::Key_K: drone->setTiltFrontBack(1); break;
+        case Qt::Key_J: drone->setTiltLeftRight(-1); break;
+        case Qt::Key_L: drone->setTiltLeftRight(1); break;
 
         case Qt::Key_Space: drone->aru(); break;
         case Qt::Key_T: drone->takeoff(); break;
@@ -290,6 +290,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *k)
 
 void MainWindow::on_pushButton_clicked()
 {
-    navdata = new navdataWindow(this);
+    navdata = new navdataWindow(drone, this);
     navdata->show();
 }

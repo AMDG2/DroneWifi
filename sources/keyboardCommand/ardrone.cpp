@@ -24,7 +24,8 @@ bool ARDrone::sendAT(void)
 {
     ident++;
     int length = bufferLeft.length() + bufferRight.length() + QString::number(ident).length();
-    int tmp = udpSocket_at->writeDatagram(qPrintable(bufferLeft + QString::number(ident) + bufferRight),
+    int tmp = length;
+    tmp = udpSocket_at->writeDatagram(qPrintable(bufferLeft + QString::number(ident) + bufferRight),
                                        (qint64)length, *host, (qint16)port_at);
     if(tmp == -1 || tmp != length)
         return false;
@@ -56,13 +57,14 @@ bool ARDrone::initNavData()
     udpSocket_navdata->bind(port_navdata);
 
     // Send a packet to navdata port
-    udpSocket_at->writeDatagram("", 0, *host, (qint16)port_navdata);
-    qint64 tmp;
+    qDebug("Send 'Hello World !'\n");
+    udpSocket_at->writeDatagram("Hello World !", 13, *host, (qint16)port_navdata);
+    /*qint64 tmp;
     char buffer[500];
     //while(-1 == udpSocket_navdata->pendingDatagramSize());
-    tmp = udpSocket_navdata->pendingDatagramSize();
+    /*tmp = udpSocket_navdata->pendingDatagramSize();
     udpSocket_navdata->readDatagram(buffer, tmp);
-    qDebug(buffer);
+    qDebug(buffer);*/
 
     // Demande l'envoi de donnée de navigation
     bufferLeft = "AT*CONFIG=";
@@ -72,6 +74,10 @@ bool ARDrone::initNavData()
 
     // Démarre l'envoi de donnée de navigation
     udpSocket_at->writeDatagram("AT*CTRL=0\r", 10, *host, (qint16)port_at);
+
+    // Demande l'envoi des données en BroadCast
+    char un[14] = {'1','0','0','0','0','0','0','0','0','0','0','0','0','0'};
+    udpSocket_navdata->writeDatagram(un, 14, *host, (qint16)port_navdata);
 
     return true;
 }

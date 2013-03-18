@@ -14,11 +14,12 @@ class navdataWindow : public QMainWindow
 
 public:
     explicit navdataWindow(QWidget *parent = 0);
+    explicit navdataWindow(ARDrone *drone_, QWidget *parent = 0);
     ~navdataWindow();
 
 private:
     Ui::navdataWindow *ui;
-    ARDrone *navdataFlow;
+    ARDrone *drone;
 };
 
 #endif // NAVDATAWINDOW_H
