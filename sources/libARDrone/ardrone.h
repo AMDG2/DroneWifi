@@ -16,8 +16,20 @@
 #include <netdb.h>
 #include <unistd.h>
 
+/**	\typedef joystick
+	\ingroup ardrone
+	\brief union permettant l'envoie d'une valeur flottante en tant que long/int (empreinte binaire selon un long)
+	\author Thibaut Marty
+**/
+typedef union
+{
+	float f;
+	long l;
+	int i;
+} joystick;
 
 /** \typedef bool
+	\ingroup ardrone
 	\brief Implementation du type c++ bool en c
 	\author Baudouin Feildel
 **/
@@ -45,22 +57,15 @@ typedef struct ardrone
 	char bufferRight[50];			/*!< Partie droite du buffer */
 	int ident;						/*!< Identifiant de la commande */
 	bool fly;						/*!< Mode vol */
-	float tiltFrontBack;			/*!< Buffer de la commande d'inclinaison avant arrière */
-	float tiltLeftRight;			/*!< Buffer de la commande d'inclinaison gauche droite */
-	float goUpDown;					/*!< Buffer de la commande de vitesse verticale */
-	float turnLeftRight;			/*!< Buffer de la commande de vitesse angulaire */
+	joystick tiltFrontBack;			/*!< Buffer de la commande d'inclinaison avant arrière */
+	joystick tiltLeftRight;			/*!< Buffer de la commande d'inclinaison gauche droite */
+	joystick goUpDown;				/*!< Buffer de la commande de vitesse verticale */
+	joystick turnLeftRight;			/*!< Buffer de la commande de vitesse angulaire */
 } ardrone;
 
 // Some typedef to be compatible with ardrone SDK Code
 typedef float float32_t;
 
-/*typedef matrix33 {
-	char a[33];
-}matrix33_t;
-
-typedef vector31 {
-	char a[31]
-} vector31_t;*/
 /**
  *	@typedef _navdata_option_t
  *	@ingroup ardrone Navdata

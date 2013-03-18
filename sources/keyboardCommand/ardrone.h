@@ -102,6 +102,17 @@ public:
      */
     void setTiltLeftRight(float val) { tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
 
+    /**
+     * @fn int receiveNavData()
+     * @brief Reçoit les données de navigation et remplie le buffer de réception.
+     * @param QHostAddress* sender : Adresse de l'expéditeur
+     * @param qint64* senderPort : port de l'expéditeur
+     * @param char* buffer : Buffer de stockage de la trame reçue
+     * @param bufferLenght : Taille du buffer
+     * @return Nombre de bytes reçu
+     */
+    int receiveNavData(QHostAddress* sender, qint64* senderPort, char* buffer, qint64 bufferLenght);
+
 private:
     QUdpSocket *udpSocket_at;
     QUdpSocket *udpSocket_navdata;
@@ -126,9 +137,83 @@ private:
     void run(void);
 
 signals:
+    void updateNavData(char *data, )
 
 public slots:
 
 };
+
+// Some typedef to be compatible with ardrone SDK Code
+typedef float float32_t;
+
+/**
+ *	@typedef _navdata_option_t
+ *	@ingroup ardrone Navdata
+ *	@brief Données de navigation
+ *	@author Parrot
+ */
+typedef struct _navdata_option_t {
+    uint16_t  tag;
+    uint16_t  size;
+    #if defined _MSC_VER || defined (__ARMCC_VERSION)
+        /* Do not use flexible arrays (C99 feature) with these compilers */
+        uint8_t   data[1];
+    #else
+        uint8_t   data[];
+    #endif
+} navdata_option_t;
+
+/**
+ * @typedef _navdata_t
+ * @ingroup ardrone Navdata
+ * @brief Navdata structure sent over the network.
+ * @author Parrot
+ */
+typedef struct _navdata_t {
+    uint32_t    header;			/*!< Always set to NAVDATA_HEADER */
+    uint32_t    ardrone_state;    /*!< Bit mask built from def_ardrone_state_mask_t */
+    uint32_t    sequence;         /*!< Sequence number, incremented for each sent packet */
+    bool      vision_defined;
+
+    navdata_option_t  options[1];
+}/*_ATTRIBUTE_PACKED_*/ navdata_t;
+
+/*----------------------------------------------------------------------------*/
+/**
+ * @typedef _navdata_demo_t
+ * @ingroup ardrone Navdata
+ * @brief Minimal navigation data for all flights.
+ * @author Parrot
+ */
+typedef struct _navdata_demo_t {
+    uint16_t    tag;					  /*!< Navdata block ('option') identifier */
+    uint16_t    size;					  /*!< set this to the size of this structure */
+
+    uint32_t    ctrl_state;             /*!< Flying state (landed, flying, hovering, etc.) defined in CTRL_STATES enum. */
+    uint32_t    vbat_flying_percentage; /*!< battery voltage filtered (mV) */
+
+    float32_t   theta;                  /*!< UAV's pitch in milli-degrees */
+    float32_t   phi;                    /*!< UAV's roll  in milli-degrees */
+    float32_t   psi;                    /*!< UAV's yaw   in milli-degrees */
+
+    int32_t     altitude;               /*!< UAV's altitude in centimeters */
+
+    float32_t   vx;                     /*!< UAV's estimated linear velocity */
+    float32_t   vy;                     /*!< UAV's estimated linear velocity */
+    float32_t   vz;                     /*!< UAV's estimated linear velocity */
+
+    uint32_t    num_frames;			  /*!< streamed frame index */ // Not used -> To integrate in video stage.
+
+    // Camera parameters compute by detection
+    //  matrix33_t  detection_camera_rot;   /*!<  Deprecated ! Don't use ! */
+    //  vector31_t  detection_camera_trans; /*!<  Deprecated ! Don't use ! */
+    //  uint32_t	  detection_tag_index;    /*!<  Deprecated ! Don't use ! */
+
+    //  uint32_t	  detection_camera_type;  /*!<  Type of tag searched in detection */
+
+    //  // Camera parameters compute by drone
+    //  matrix33_t  drone_camera_rot;		  /*!<  Deprecated ! Don't use ! */
+    //  vector31_t  drone_camera_trans;	  /*!<  Deprecated ! Don't use ! */
+}/*_ATTRIBUTE_PACKED_*/ navdata_demo_t;
 
 #endif // ARDRONE_H

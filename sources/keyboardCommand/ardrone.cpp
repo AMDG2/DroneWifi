@@ -17,6 +17,11 @@ bool ARDrone::connectToDrone()
     // Création de la socket d'envoi des commande AT
     udpSocket_at = new QUdpSocket(this);
 
+    // Création de la socket de réception des données
+    udpSocket_navdata =  new QUdpSocket(this);
+    // Écoute sur le port des données de navigation
+    udpSocket_navdata->bind(port_navdata);
+
     return true;
 }
 
@@ -50,32 +55,21 @@ bool ARDrone::initDrone(void)
 
 bool ARDrone::initNavData()
 {
-
-    // Création de la socket de réception des données
-    udpSocket_navdata =  new QUdpSocket(this);
-    // Écoute sur le port des données de navigation
-    udpSocket_navdata->bind(port_navdata);
-
     // Send a packet to navdata port
     qDebug("Send 'Hello World !'\n");
-    udpSocket_at->writeDatagram("Hello World !", 13, *host, (qint16)port_navdata);
-    /*qint64 tmp;
-    char buffer[500];
-    //while(-1 == udpSocket_navdata->pendingDatagramSize());
-    /*tmp = udpSocket_navdata->pendingDatagramSize();
-    udpSocket_navdata->readDatagram(buffer, tmp);
-    qDebug(buffer);*/
+    udpSocket_navdata->writeDatagram("Hello World !", 13, *host, (qint16)port_navdata);
 
     // Demande l'envoi de donnée de navigation
     bufferLeft = "AT*CONFIG=";
     bufferRight = ",\"general:navdata_demo\",\"FALSE\"\r";
     qDebug("#%5d - Ask for navdata flow - %s%d%s", ident+1, qPrintable(bufferLeft), ident+1, qPrintable(bufferRight));
-    sendAT();
+    if(!sendAT())
+        return false;
 
     // Démarre l'envoi de donnée de navigation
     udpSocket_at->writeDatagram("AT*CTRL=0\r", 10, *host, (qint16)port_at);
 
-    // Demande l'envoi des données en BroadCast
+    // Demande l'envoi des données en MultiCast
     char un[14] = {'1','0','0','0','0','0','0','0','0','0','0','0','0','0'};
     udpSocket_navdata->writeDatagram(un, 14, *host, (qint16)port_navdata);
 
@@ -145,4 +139,23 @@ void ARDrone::run(void)
         volCommand(tiltLeftRight, tiltFrontBack, goUpDown, turnLeftRight);
         msleep(30);
     }
+}
+
+int ARDrone::receiveNavData(QHostAddress *sender, qint64 *senderPort, char *buffer, qint64 bufferLenght)
+{
+    int ret = 0;
+
+    // Réveiller le watchdog pour demander l'envoi de données
+    bufferLeft = "AT*COMWDG=";
+    bufferRight = ",\r";
+    if(!sendAT())
+    {
+        qdebug("##     - Unable to reset the Watchdog.\n");
+        return -1;
+    }
+
+    ret = udpSocket_navdata->readDatagram(buffer, bufferLenght, sender, senderPort);
+    if(ret <= 0)
+        qdebug("Impossible de réceptionner les données : %d\n", ret);
+    return ret;
 }

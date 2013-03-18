@@ -2,7 +2,7 @@
 	\defgroup Connexion
 	\defgroup UDP
 	\defgroup IO
-	\defgroup ATCommands // Non commenté ici !!
+	//\defgroup ATCommands // Non commenté ici !!
 **/
 
 /* ******************************** */
@@ -36,7 +36,7 @@
 	\ingroup Connexion
 	\author Thibaut Marty
 **/
-typedef enum
+typedef enum statut_connexion
 {
 	INOCCUPE,
 	RECHERCHE,
@@ -48,7 +48,7 @@ typedef enum
 	\ingroup IO
 	\author Thibaut Marty
 **/
-typedef struct
+typedef struct etat_commandes
 {
 	/* accessibles en écriture */
 	char led_connecte;	// 1 : allumée
@@ -221,7 +221,7 @@ void connexion(etat_commandes *s);
 	\brief union permettant l'envoie d'une valeur flottante en tant que long (empreinte binaire selon un long)
 	\author Thibaut Marty
 **/
-typedef union
+typedef union joystick
 {
 	float f;
 	long l;
@@ -232,7 +232,7 @@ typedef union
 	\brief Structure contenant les informations nécéssaires à la commande d'un drone
 	\author Baudouin Feildel
 **/
-typedef struct
+typedef struct ardrone
 {
 	char buff[200];					// Buffer de Stockage de trame
 	udp_Socket udpSocket_at;		// Handle de la socket d'envoi de commande AT

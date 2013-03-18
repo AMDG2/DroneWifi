@@ -192,23 +192,23 @@ bool aru(ardrone* dr)
     return sendAT(dr);
 }
 
-bool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
+bool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
 {
     char strBuff[50];
-    sprintf(strBuff, ",1,%d,%d,%d,%d\r", *(int*)(&tiltLeftRight_),
-                                         *(int*)(&tiltFrontBack_),
-                                         *(int*)(&goUpDown_),
-                                         *(int*)(&turnLeftRight_));
+    sprintf(strBuff, ",1,%d,%d,%d,%d\r", tiltLeftRight_.i,
+                                         tiltFrontBack_.i,
+                                         goUpDown_.i,
+                                         turnLeftRight_.i);
     strcpy(dr->bufferLeft, "AT*PCMD=");
     strcpy(dr->bufferRight, strBuff);
     fprintf(stdout, "#%5d - PCMD - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     return sendAT(dr);
 }
 
-void      setGoUpDown(ardrone* dr, float val) {      dr->goUpDown = (val <= 1 && val >= -1) ? val:0; }
-void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight = (val <= 1 && val >= -1) ? val:0; }
-void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack = (val <= 1 && val >= -1) ? val:0; }
-void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
+void      setGoUpDown(ardrone* dr, float val) {      dr->goUpDown.f = (val <= 1 && val >= -1) ? val:0; }
+void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
+void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack.f = (val <= 1 && val >= -1) ? val:0; }
+void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
 
 ardrone* newARDrone(void)
 {
