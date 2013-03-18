@@ -211,3 +211,15 @@ Séance du mardi 12 mars (3h)
 - Thibaut
 	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 	- Tests de configuration du drone : il faut avant obtenir le droit de changer ces configurations... Tentatives
+
+Séance du jeudi 14 mars (2h)
+----------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Analyse des trames reçues
+
+Séance du vendredi 16 mars (2h)
+-------------------------------
+- Baudouin
+	- Récupération des données de navigation
+	- Analyse des trames reçues
