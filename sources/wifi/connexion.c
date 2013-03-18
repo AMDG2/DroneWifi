@@ -2,7 +2,7 @@
 	\defgroup Connexion
 	\defgroup UDP
 	\defgroup IO
-	\defgroup ATCommands
+	\defgroup ATCommands // Non commenté ici !!
 **/
 
 /* ******************************** */
@@ -68,7 +68,7 @@ typedef struct
 	int joystick_2y;
 } etat_commandes;
 
-/** \typedef cppbool
+/* \typedef cppbool
 	\ingroup ATCommands
 	\brief Implementation du type c++ bool en c
 	\author Baudouin Feildel
@@ -216,7 +216,7 @@ root void scan_assoc_callback(far wifi_scan_data* data);
 **/
 void connexion(etat_commandes *s);
 
-/** \typedef joystick
+/* \typedef joystick
 	\ingroup ATCommands
 	\brief union permettant l'envoie d'une valeur flottante en tant que long (empreinte binaire selon un long)
 	\author Thibaut Marty
@@ -227,7 +227,7 @@ typedef union
 	long l;
 } joystick;
 
-/** \typedef ardrone
+/* \typedef ardrone
 	\ingroup ATCommands
 	\brief Structure contenant les informations nécéssaires à la commande d'un drone
 	\author Baudouin Feildel
@@ -247,7 +247,7 @@ typedef struct
 	joystick turnLeftRight;			// Buffer de la commande de vitesse angulaire
 } ardrone;
 
-/** \fn cppbool connectToDrone(ardrone* dr)
+/* \fn cppbool connectToDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Initie la connexion avec le drone dr
 	\param ardrone* dr : handle de drone
@@ -256,7 +256,7 @@ typedef struct
 **/
 cppbool connectToDrone(ardrone* dr);
 
-/** \fn cppbool initDrone(ardrone* dr, etat_commandes *s)
+/* \fn cppbool initDrone(ardrone* dr, etat_commandes *s)
 	\ingroup ATCommands
 	\brief Initialisation du drone dr pour permettre un décollage en toute sécurité.
 	\param ardrone* dr : Handle du drone
@@ -266,7 +266,7 @@ cppbool connectToDrone(ardrone* dr);
 **/
 cppbool initDrone(ardrone* dr, etat_commandes *s);
 
-/** \fn cppbool takeoff(ardrone* dr)
+/* \fn cppbool takeoff(ardrone* dr)
 	\ingroup ATCommands
 	\brief Commande le décollage du drone dr
 	\param ardrone* dr : Handle du drone
@@ -275,7 +275,7 @@ cppbool initDrone(ardrone* dr, etat_commandes *s);
 **/
 cppbool takeoff(ardrone* dr);
 
-/** \fn cppbool land(ardrone* dr)
+/* \fn cppbool land(ardrone* dr)
 	\ingroup ATCommands
 	\brief Commande l'atterissage du drone dr
 	\param ardrone* dr : Handle du drone
@@ -284,7 +284,7 @@ cppbool takeoff(ardrone* dr);
 **/
 cppbool land(ardrone* dr);
 
-/** \fn cppbool aru(ardrone* dr)
+/* \fn cppbool aru(ardrone* dr)
 	\ingroup ATCommands
 	\brief Envoi un arrêt d'urgence au drone dr
 	\param ardrone* dr : Handle du drone
@@ -293,7 +293,7 @@ cppbool land(ardrone* dr);
 **/
 cppbool aru(ardrone* dr);
 
-/** \fn cppbool volCommand(ardrone* dr, joystick tiltLeftIrght_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
+/* \fn cppbool volCommand(ardrone* dr, joystick tiltLeftIrght_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
 	\ingroup ATCommands
 	\brief Envoi de la commande de vol au drone dr
 	\param ardrone* dr : Handle du drone
@@ -306,7 +306,7 @@ cppbool aru(ardrone* dr);
 **/
 cppbool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_);
 
-/** \fn void setGoUpDown(ardrone* dr, float val)
+/* \fn void setGoUpDown(ardrone* dr, float val)
 	\ingroup ATCommands
 	\brief Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr
 	\param ardrone* dr : Handle du drone
@@ -315,7 +315,7 @@ cppbool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_
 **/
 void setGoUpDown(ardrone* dr, float val) { dr->goUpDown.f = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTurnLeftRight(ardrone* dr, float val)
+/* \fn void setTurnLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
 	\brief Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr
 	\param ardrone* dr: Handle du drone
@@ -324,7 +324,7 @@ void setGoUpDown(ardrone* dr, float val) { dr->goUpDown.f = (val <= 1 && val >= 
 **/
 void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTiltFrontBack(ardrone* dr, float val)
+/* \fn void setTiltFrontBack(ardrone* dr, float val)
 	\ingroup ATCommands
 	\brief Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr
 	\param ardrone* dr : Handle du drone
@@ -333,7 +333,7 @@ void setTurnLeftRight(ardrone* dr, float val) { dr->turnLeftRight.f = (val <= 1 
 **/
 void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack.f = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn void setTiltLeftRight(ardrone* dr, float val)
+/* \fn void setTiltLeftRight(ardrone* dr, float val)
 	\ingroup ATCommands
 	\brief Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr
 	\param ardrone* dr : Handle du drone
@@ -342,7 +342,7 @@ void setTiltFrontBack(ardrone* dr, float val) { dr->tiltFrontBack.f = (val <= 1 
 **/
 void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight.f = (val <= 1 && val >= -1) ? val:0; }
 
-/** \fn cppbool sendAT(ardrone* dr)
+/* \fn cppbool sendAT(ardrone* dr)
 	\ingroup ATCommands
 	\brief Envoyer la commande AT qui est dans le buffer du drone dr
 	\param ardrone* dr : Handle du drone
@@ -351,7 +351,7 @@ void setTiltLeftRight(ardrone* dr, float val) { dr->tiltLeftRight.f = (val <= 1 
 **/
 cppbool sendAT(ardrone* dr);
 
-/** \fn void newARDrone(ardrone* tmp)
+/* \fn void newARDrone(ardrone* tmp)
 	\ingroup ATCommands
 	\brief Constructeur de l'objet ardrone
 	\param pointeur sur ardrone
@@ -359,7 +359,7 @@ cppbool sendAT(ardrone* dr);
 **/
 void newARDrone(ardrone* tmp);
 
-/** \fn void closeARDrone(ardrone* dr)
+/* \fn void closeARDrone(ardrone* dr)
 	\ingroup ATCommands
 	\brief Destructeur de l'objet ardrone
 	\param ardrone* dr : Handle du objet drone
@@ -392,21 +392,6 @@ void main(void)
 	init_etat_commandes(&ec);
 	lireCommandes(&ec);
 	
-	/*for(;;)
-	{
-		costate
-		{
-			cptPassErr++;
-			ec.led_debug = cptPassErr & 0x01;
-			ec.led_erreur = (cptPassErr & 0x02) >> 1;
-			ec.led_connecte = (cptPassErr & 0x04) >> 2;
-			ecrireCommandes(&ec);
-			lireCommandes(&ec);
-			print_etat_commandes(&ec);
-			waitfor(DelayMs(100));
-		}
-	}*/
-	
 	// crée la structure
 	newARDrone(drone);
 	
@@ -418,14 +403,6 @@ void main(void)
 			printf("erreur de sock_init()\n");
 		else
 			initOk++;
-		
-		if(udp_open(&(drone->udpSocket_at), drone->port_at, resolve(IPDRONE), drone->port_at, NULL))
-			initOk++;
-		else
-			printf("erreur udp_open()\n");
-		
-		// Connexion au réseau WiFi
-		connexion(&ec);
 	
 		// Connexion au drone
 		if(!connectToDrone(drone))
@@ -433,12 +410,15 @@ void main(void)
 		else
 			initOk++;
 		
+		// Connexion au réseau WiFi
+		connexion(&ec);
+		
 		// Initialisation du drone
 		if(!initDrone(drone, &ec))
 			printf("erreur initDrone()\n");
 		else
 			initOk++;
-	} while(initOk < 3);
+	} while(initOk < 2);
 	
 	printf("tentative d'initialisation reussie\n");
 	
@@ -1038,7 +1018,7 @@ cppbool connectToDrone(ardrone* dr)
 {
 	// Création de la socket d'envoi des commande AT
 	sock_close(&(dr->udpSocket_at));
-	return true;//udp_open(dr->udpSocket_at, dr->port_at, resolve(IPDRONE), dr->port_at, NULL);
+	return udp_open(&(dr->udpSocket_at), dr->port_at, resolve(IPDRONE), dr->port_at, NULL);//true;
 }
 
 cppbool sendAT(ardrone* dr)
@@ -1063,6 +1043,7 @@ cppbool sendAT(ardrone* dr)
 
 cppbool initDrone(ardrone* dr, etat_commandes *s)
 {
+	/*
 	// Configure l'application ID pour pouvoir modifier les paramètres de la vidéo
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
@@ -1094,19 +1075,19 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
 	if(!sendAT(dr))
-		return false;
+		return false;*/
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"");
 	strcat(dr->bufferRight, ALTITUDEMAX);
 	strcat(dr->bufferRight, "\"\r");
 	if(!sendAT(dr))
 		return false;
-	
+	/*
 	// configure à l'intérieur / à l'extérieur
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
 	if(!sendAT(dr))
-		return false;
+		return false;*/
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
 	strcpy(dr->bufferRight, ",\"control:outdoor\",\"");
 	if(s->bp_video)
@@ -1116,7 +1097,7 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	if(!sendAT(dr))
 		return false;
 	//printf("\n\n%s%d%s\n\n", dr->bufferLeft, dr->ident, dr->bufferRight);
-
+	/*
 	// configure les fps du flux vidéo
 	strcpy(dr->bufferLeft, "AT*CONFIG_IDS=");
 	strcpy(dr->bufferRight, ",\"5686c78e\",\"2aff28b9\",\"355fda13\"");
