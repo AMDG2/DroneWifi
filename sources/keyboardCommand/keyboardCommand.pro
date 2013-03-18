@@ -14,12 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ardrone.cpp \
-    navdatawindow.cpp
+    ardrone.cpp
 
 HEADERS  += mainwindow.h \
-    ardrone.h \
-    navdatawindow.h
+    ardrone.h
 
-FORMS    += mainwindow.ui \
-    navdatawindow.ui
+FORMS    += mainwindow.ui
