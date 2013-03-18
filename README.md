@@ -10,4 +10,5 @@ Description des dossiers sources
 - **carte** : Contient le schéma de la carte électronique
 - **documentations** : Contient les documentations utilisées
 - **documents** : Contient divers documents (journal de bord du projet, diagramme de Gantt)
-- **sources** : Contient tous les codes sources
+- **sources** : Contient toutes les sources
+- **doxygen** : Contient la documentation des sources (documentation html générée avec Doxygen)
