@@ -1,19 +1,29 @@
 #ifndef ARDRONE_H
 #define ARDRONE_H
 
+/**
+  @defgroup libARDrone
+
+  @defgroup Navdata
+  @ingroup libARDrone
+
+  @defgroup ATCommands
+  @ingroup libARDrone
+  */
+
 #include <QThread>
 #include <QtNetwork/QUdpSocket>
-#include <stddef.h>
-#include <stdint.h>
 
 
 // Some typedef to be compatible with ardrone SDK Code
 typedef float float32_t;
-//typedef unsigned int uint32_t;
+typedef quint8 uint8_t;
+typedef quint16 uint16_t;
+typedef quint32 uint32_t;
 
 /**
  *	@typedef _navdata_option_t
- *	@ingroup ardrone Navdata
+ *	@ingroup Navdata
  *	@brief Données de navigation
  *	@author Parrot
  */
@@ -30,7 +40,7 @@ typedef struct _navdata_option_t {
 
 /**
  * @typedef _navdata_t
- * @ingroup ardrone Navdata
+ * @ingroup Navdata
  * @brief Navdata structure sent over the network.
  * @author Parrot
  */
@@ -46,7 +56,7 @@ typedef struct _navdata_t {
 /*----------------------------------------------------------------------------*/
 /**
  * @typedef _navdata_demo_t
- * @ingroup ardrone Navdata
+ * @ingroup Navdata
  * @brief Minimal navigation data for all flights.
  * @author Parrot
  */
@@ -87,95 +97,18 @@ class ARDrone : public QThread
 public:
     explicit ARDrone(QObject *parent = 0);
 
-    /**
-     * @fn bool connectToDrone(void)
-     * @brief Initialise la connexion au drone
-     * @return (bool) true : Connexion réussie ; false : Connexion échouée
-     * @author Baudouin Feildel
-     */
     bool connectToDrone(void);
-
-    /**
-     * @fn bool initDrone(void)
-     * @brief Initialise le drone (à utiliser avant de lancer la navigation)
-     * @return (bool) true : Initialisation réussie ; false : Initialisation échouée
-     * @author Baudouin Feildel
-     */
     bool initDrone(void);
-
-    /**
-     * @fn bool initNavData(void)
-     * @brief Initialise le fux de données
-     * @return (bool) true : Initialisation réussie ; false : Initialisation échouée
-     * @author Baudouin Feildel
-     */
     bool initNavData(void);
-
-    /**
-     * @fn bool takeoff(void)
-     * @brief Demande de décollage
-     * @return (bool) true : demande envoyée ; false : demande non-envoyée
-     * @author Baudouin Feildel
-     */
     bool takeoff(void);
-
-    /**
-     * @fn bool land(void)
-     * @brief Demande d'atterrissage
-     * @return (bool) true : demande envoyée ; false : demande non-envoyée
-     */
     bool land(void);
-
-    /**
-     * @fn bool aru(void)
-     * @brief Demande d'arrêt d'urgence
-     * @return (bool) true : demande envoyée ; false : demande non-envoyée
-     */
     bool aru(void);
-
-    /**
-     * @fn bool volCommand(float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
-     * @brief Pilotage du drone en vol
-     * @param float tiltLeftRight_ Inclinaison gauche droite ; [-1,1]
-     * @param float tiltFrontBack_ Inclinaison avant arrière ; [-1;1]
-     * @param float goUpDown_ Vitesse verticale ; [-1;1]
-     * @param float turnLeftRight_ Vitesse angulaire ; [-1;1]
-     * @return (bool) true : commande envoyée ; false : commande non-envoyée
-     * @author Baudouin Feildel
-     */
     bool volCommand(float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
-
-    /**
-     * @fn void setGoUpDown(float val)
-     * @brief Setter sécurisé de la valeur de la vitesse verticale
-     * @param float val : valeur à écrire
-     * @author Baudouin Feildel
-     */
     void setGoUpDown(float val) { goUpDown = (val <= 1 && val >= -1) ? val:0; }
-
-    /**
-     * @fn void setTurnLeftRight(float val)
-     * @brief Setter sécurisé de la valeur de la vitesse angulaire
-     * @param float val : valeur à écrire
-     * @author Baudouin Feildel
-     */
     void setTurnLeftRight(float val) { turnLeftRight = (val <= 1 && val >= -1) ? val:0; }
-
-    /**
-     * @fn void setTiltFrontBack(float val)
-     * @brief Setter sécurisé de la valeur de l'inclinaison avant arrière
-     * @param float val : valeur à écrire
-     * @author Baudouin Feildel
-     */
     void setTiltFrontBack(float val) { tiltFrontBack = (val <= 1 && val >= -1) ? val:0; }
-
-    /**
-     * @fn void setTiltLeftRight(float val)
-     * @brief Setter sécurisé de la valeur de l'inclinaison gauche droite
-     * @param float val : valeur à écrire
-     * @author Baudouin Feildel
-     */
     void setTiltLeftRight(float val) { tiltLeftRight = (val <= 1 && val >= -1) ? val:0; }
+    void getNavData();
 
 private:
     QUdpSocket *udpSocket_at;
@@ -191,28 +124,14 @@ private:
     float tiltLeftRight;
     float goUpDown;
     float turnLeftRight;
+    _navdata_demo_t navdata;
+    _navdata_t infoDrone;
 
-    /**
-     * @fn bool sendAT(void)
-     * @brief Envoyer une commande AT
-     * @return (bool) true : commande envoyée ; false : commande non-envoyée
-     */
     bool sendAT(void);
-
-    /**
-     * @fn int receiveNavData()
-     * @brief Reçoit les données de navigation et remplie le buffer de réception.
-     * @param QHostAddress* sender : Adresse de l'expéditeur
-     * @param qint64* senderPort : port de l'expéditeur
-     * @param char* buffer : Buffer de stockage de la trame reçue
-     * @param bufferLenght : Taille du buffer
-     * @return Nombre de bytes reçu
-     */
-    int receiveNavData(QHostAddress* sender, qint64* senderPort, char* buffer, qint64 bufferLenght);
+    int receiveNavData(QHostAddress* sender, quint16 *senderPort, char* buffer, qint64 bufferLenght);
     void run(void);
 
 signals:
-    //void updateNavData(char *data, )
 
 public slots:
 

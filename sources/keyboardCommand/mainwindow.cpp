@@ -208,6 +208,7 @@ void MainWindow::on_btnConnect_clicked()
 {
     drone->connectToDrone();
     drone->initDrone();
+    drone->initNavData();
 }
 
 void MainWindow::on_btnARU_clicked()

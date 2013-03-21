@@ -141,7 +141,7 @@ void ARDrone::run(void)
     }
 }
 
-int ARDrone::receiveNavData(QHostAddress *sender, qint64 senderPort, char *buffer, qint64 bufferLenght)
+int ARDrone::receiveNavData(QHostAddress *sender, quint16 *senderPort, char *buffer, qint64 bufferLenght)
 {
     int ret = 0;
 
@@ -158,4 +158,16 @@ int ARDrone::receiveNavData(QHostAddress *sender, qint64 senderPort, char *buffe
     if(ret <= 0)
         qDebug("Impossible de réceptionner les données : %d\n", ret);
     return ret;
+}
+
+void ARDrone::getNavData()
+{
+    char buffer[500];
+    QHostAddress sender;
+    quint16 senderPort;
+
+    receiveNavData(&sender, &senderPort, buffer, 500);
+
+    memcpy(&infoDrone, buffer, 128);
+    memcpy(&navdata, buffer + 128, 372 /* 500 - 128 */);
 }

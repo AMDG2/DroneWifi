@@ -1,9 +1,13 @@
 #ifndef __ARDRONE__
 #define __ARDRONE__
 /**
-	\defgroup ardrone
+	\defgroup libARDrone
+	
 	\defgroup Navdata
+	\ingroup libARDrone
+	
 	\defgroup ATCommands
+	\ingroup libARDrone
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,20 +21,20 @@
 #include <unistd.h>
 
 /**	\typedef joystick
-	\ingroup ardrone
-	\brief union permettant l'envoie d'une valeur flottante en tant que long/int (empreinte binaire selon un long)
+	\ingroup libARDrone
+	\brief Union permettant d'écrire des valeurs flottantes, et de lire des int ayant la même empreinte.
 	\author Thibaut Marty
 **/
 typedef union
 {
 	float f;
-	long l;
+	long l; /*!< Le type long est utilisé sur le rabbit */
 	int i;
 } joystick;
 
 /** \typedef bool
-	\ingroup ardrone
-	\brief Implementation du type c++ bool en c
+	\ingroup libARDrone
+	\brief Implémentation du type c++ bool en c.
 	\author Baudouin Feildel
 **/
 #define true (1)
@@ -38,8 +42,8 @@ typedef union
 typedef int bool;
 
 /** \typedef ardrone
-	\ingroup ardrone
-	\brief Structure contenant les informations nécéssaires à la commande d'un drone
+	\ingroup libARDrone
+	\brief Structure contenant les informations nécessaires au pilotage d'un drone.
 	\author Baudouin Feildel
 **/
 typedef struct ardrone
@@ -47,9 +51,9 @@ typedef struct ardrone
 	char buff[1025];				/*!< Buffer de Stockage de trame de commande */
 	int udpSocket_at;				/*!< Handle de la socket d'envoi de commande AT */
 	int udpSocket_navData;			/*!< Handle de la socket de récupération des données de navigation */
-	struct sockaddr_in serverAddr;	/*!< Information sur le récepteur des trames de commandes AT */
-	struct sockaddr_in serverListen;/*!< Information sur l'émetteur des trames de données de navigation */
-	struct sockaddr_in serverListS; /*!< Information sur le récepteur des trames à destination du port navdata */
+	struct sockaddr_in addrDroneAT;	/*!< Information sur le récepteur des trames de commandes AT */
+	struct sockaddr_in addrDroneNavDataR;/*!< Information sur l'émetteur des trames de données de navigation */
+	struct sockaddr_in addrDroneNavDataW; /*!< Information sur le récepteur des trames à destination du port navdata */
 	struct hostent* hostInfo;		/*!< Adresse IP du drone */
 	unsigned short int port_at;		/*!< Port de commande du drone */
 	unsigned short int port_navdata;/*!< Port d'écoute des données de navigation */
@@ -68,7 +72,7 @@ typedef float float32_t;
 
 /**
  *	@typedef _navdata_option_t
- *	@ingroup ardrone Navdata
+ *	@ingroup Navdata
  *	@brief Données de navigation
  *	@author Parrot
  */
@@ -85,7 +89,7 @@ typedef struct _navdata_option_t {
 
 /**
  * @typedef _navdata_t
- * @ingroup ardrone Navdata
+ * @ingroup Navdata
  * @brief Navdata structure sent over the network.
  * @author Parrot
  */
@@ -101,7 +105,7 @@ typedef struct _navdata_t {
 /*----------------------------------------------------------------------------*/
 /**
  * @typedef _navdata_demo_t
- * @ingroup ardrone Navdata
+ * @ingroup Navdata
  * @brief Minimal navigation data for all flights.
  * @author Parrot
  */
@@ -138,8 +142,8 @@ typedef struct _navdata_demo_t {
 
 
 /** \fn bool connectToDrone(ardrone* dr)
-	\ingroup ardrone
-	\brief Initie la connexion avec le drone dr
+	\ingroup libARDrone
+	\brief Crée et initialise les sockets de communication avec le drone, ainsi que les structures qui identifient le drone pour la lecture et l'écriture sur le port des navdata (5554), et l'écriture sur le port des commandes AT (5556). Cette fonction est dépendante de l'environnement d'exécution.
 	\param ardrone* dr : handle de drone
 	\return true : Connexion réussie ; false : Connexion échouée
 	\author Baudouin Feildel
@@ -147,8 +151,8 @@ typedef struct _navdata_demo_t {
 bool connectToDrone(ardrone* dr);
 
 /** \fn bool initDrone(ardrone* dr)
-	\ingroup ardrone
-	\brief Initialisation du drone dr pour permettre un décollage en toute sécurité.
+	\ingroup libARDrone
+	\brief Initialisation du drone dr, indique qu'il est à l'horizontale (AT*FTRIM), configure l'altitude max (3000 mm), indique au drone qu'il vole en intérieur ou extérieur suivant la configuration réalisée à l'aide d'une define (#define VOL_INTERIEUR) ou d'un bouton sur la télécommande. N.B. : Cette fonction retourne false dès que l'envoi d'une commande a échoué.
 	\param ardrone* dr : Handle du drone
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
@@ -156,8 +160,8 @@ bool connectToDrone(ardrone* dr);
 bool initDrone(ardrone* dr);
 
 /** \fn bool initNavData(ardrone* dr)
-	\ingroup ardrone Navdata
-	\brief Initialisation de la communication des données de navigation
+	\ingroup Navdata
+	\brief Initialise de la communication des données de navigation. Retourne false dès qu'une partie du protocole d'initialisation a échoué, pour plus de détails voir le déroulement de la fonction ci-dessous.
 	\param ardrone* dr : Handle du drone
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
@@ -165,8 +169,8 @@ bool initDrone(ardrone* dr);
 bool initNavData(ardrone* dr);
 
 /** \fn bool takeoff(ardrone* dr)
-	\ingroup ardrone ATCommands
-	\brief Initialisation du drone
+	\ingroup ATCommands
+	\brief Commande le décollage du drone dr.
 	\param ardrone* dr : Handle du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
@@ -174,8 +178,8 @@ bool initNavData(ardrone* dr);
 bool takeoff(ardrone* dr);
 
 /** \fn bool land(ardrone* dr)
-	\ingroup ardrone ATCommands
-	\brief Commande l'atterissage du drone dr
+	\ingroup ATCommands
+	\brief Commande l'atterrissage du drone dr.
 	\param ardrone* dr : Handle du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
@@ -183,30 +187,30 @@ bool takeoff(ardrone* dr);
 bool land(ardrone* dr);
 
 /** \fn bool aru(ardrone* dr)
-	\ingroup ardrone ATCommands
-	\brief Envoi un arrêt d'urgence au drone dr
+	\ingroup ATCommands
+	\brief Envoie un arrêt d'urgence au drone dr.
 	\param ardrone* dr : Handle du drone
 	\return true : arrêt d'urgence envoyé ; false : arrêt d'urgence non-envoyé
 	\author Baudouin Feildel
 **/
 bool aru(ardrone* dr);
 
-/** \fn bool volCommand(ardrone* dr, float tiltLeftIrght_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_)
-	\ingroup ardrone ATCommands
-	\brief Envoi de la commande de vol au drone dr
+/** \fn bool volCommand(ardrone* dr, joystick tiltLeftIrght_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_)
+	\ingroup ATCommands
+	\brief Envoie de la commande AT*PCMD au drone dr. Cette commande indique au drone la vitesse angulaire, et la vitesse verticale qu'il doit adopter, et lui indique comment il doit s'incliner sur deux axes (gauche/droite et avant/arrière).
 	\param ardrone* dr : Handle du drone
-	\param float tiltLeftRight : commande l'inclinaison avant/arrière du drone
-	\param float tiltFrontBack : commande l'inclinaison gauche/droite du drone
-	\param float goUpDown : commande vitesse verticale du drone
-	\param float turnLeftRight : commande vitesse angulaire du drone
+	\param joystick tiltLeftRight : commande l'inclinaison avant/arrière du drone
+	\param joystick tiltFrontBack : commande l'inclinaison gauche/droite du drone
+	\param joystick goUpDown : commande vitesse verticale du drone
+	\param joystick turnLeftRight : commande vitesse angulaire du drone
 	\return true : commande envoyée ; false : commande non-envoyée
 	\author Baudouin Feildel
 **/
-bool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float goUpDown_, float turnLeftRight_);
+bool volCommand(ardrone* dr, joystick tiltLeftRight_, joystick tiltFrontBack_, joystick goUpDown_, joystick turnLeftRight_);
 
 /** \fn void setGoUpDown(ardrone* dr, float val)
-	\ingroup ardrone ATCommands
-	\brief Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr
+	\ingroup ATCommands
+	\brief Met une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr. Ce buffer est une union qui permet de stocker des valeurs flottantes (membre f) et de les écrire en tant que int (utilisé dans l'envoi des commandes AT).
 	\param ardrone* dr : Handle du drone
 	\param float val : valeur à inserer
 	\author Baudouin Feildel
@@ -214,8 +218,8 @@ bool volCommand(ardrone* dr, float tiltLeftRight_, float tiltFrontBack_, float g
 void setGoUpDown(ardrone* dr, float val);
 
 /** \fn void setTurnLeftRight(ardrone* dr, float val)
-	\ingroup ardrone ATCommands
-	\brief Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr
+	\ingroup ATCommands
+	\brief Met une valeur de manière sécurisée dans le buffer de la vitesse angulaire du drone dr. Ce buffer est une union qui permet de stocker des valeurs flottantes (membre f) et de les écrire en tant que int (utilisé dans l'envoi des commandes AT).
 	\param ardrone* dr: Handle du drone
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
@@ -223,8 +227,8 @@ void setGoUpDown(ardrone* dr, float val);
 void setTurnLeftRight(ardrone* dr, float val);
 
 /** \fn void setTiltFrontBack(ardrone* dr, float val)
-	\ingroup ardrone ATCommands
-	\brief Mettre une valeur de manière sécurisé dans le buffer de l'inclinaison avant/arrière du drone dr
+	\ingroup ATCommands
+	\brief Met une valeur de manière sécurisée dans le buffer de l'inclinaison avant/arrière du drone dr. Ce buffer est une union qui permet de stocker des valeurs flottantes (membre f) et de les écrire en tant que int (utilisé dans l'envoi des commandes AT).
 	\param ardrone* dr : Handle du drone
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
@@ -232,8 +236,8 @@ void setTurnLeftRight(ardrone* dr, float val);
 void setTiltFrontBack(ardrone* dr, float val);
 
 /** \fn void setTiltLeftRight(ardrone* dr, float val)
-	\ingroup ardrone ATCommands
-	\brief Mettre une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr
+	\ingroup ATCommands
+	\brief Met une valeur de manière sécurisée dans le buffer de l'inclinaison gauche/droite du drone dr. Ce buffer est une union qui permet de stocker des valeurs flottantes (membre f) et de les écrire en tant que int (utilisé dans l'envoi des commandes AT).
 	\param ardrone* dr : Handle du drone
 	\param float val : valeur à insérer
 	\author Baudouin Feildel
@@ -241,8 +245,8 @@ void setTiltFrontBack(ardrone* dr, float val);
 void setTiltLeftRight(ardrone* dr, float val);
 
 /** \fn bool sendAT(ardrone* dr)
-	\ingroup ardrone ATCommands
-	\brief Envoyer la commande AT qui est dans le buffer du drone dr
+	\ingroup ATCommands
+	\brief Envoie la commande AT qui est dans le buffer du drone dr. Le buffer est construit à l'aide de bufferLeft et de bufferRight, l'identifiant de commande est inséré entre ces deux buffers. N.B. : Cette fonction incrémente l'identifiant de commande à chaque appel.
 	\param ardrone* dr : Handle du drone
 	\return true : buffer envoyé ; false buffer non-envoyé
 	\author Baudouin Feildel
@@ -250,8 +254,8 @@ void setTiltLeftRight(ardrone* dr, float val);
 bool sendAT(ardrone* dr);
 
 /** \fn bool sendNavData(ardrone* dr, const char* buffer)
-	\ingroup ardrone Navdata
-	\brief Envoyer des trame sur le drone, sur le port de données de navigation
+	\ingroup Navdata
+	\brief Envoie le buffer au drone sur le port de données de navigation.
 	\param ardrone* dr : Handle du drone
 	\param const char* buffer : Trame à envoyer.
 	\return true : buffer envoyé ; false buffer non-envoyé
@@ -260,29 +264,29 @@ bool sendAT(ardrone* dr);
 bool sendNavData(ardrone* dr, const char* buffer);
 
 /** \fn int receiveNavData(ardrone* dr, struct sockaddr_in* sender, socklen_t* senderLen, char *buffer, int bufferLenght)
-	\ingroup ardrone Navdata
-	\brief Réception des trames de données de navigation
+	\ingroup Navdata
+	\brief Réceptionne une trame de données de navigation venant du drone dr. Cette trame est stockée dans le buffer. Les informations concernant l'expéditeur sont stockées dans la structure sender.
 	\param ardrone* dr : Handle du drone
-	\param struct sockaddr_in* sender : structure recevant les informations concernant l'expréditeur
-	\param socklen_t* senderLen : taille de la structure précédente
+	\param struct sockaddr_in* sender : structure recevant les informations concernant l'expéditeur
+	\param socklen_t* senderLen : taille de la structure précédente, généralement "sizeof(sender)"
 	\param char* buffer : buffer de réception
 	\param int bufferLenght : taille du buffer
-	\return Nombre de bytes reçu.
+	\return Nombre d'octets reçus.
 	\author Baudouin Feildel
 **/
 int receiveNavData(ardrone* dr, struct sockaddr_in* sender, socklen_t* senderLen, char *buffer, int bufferLenght);
 
 /** \fn ardrone* newARDrone(void)
-	\ingroup ardrone
-	\brief Constructeur de l'objet ardrone
+	\ingroup libARDrone
+	\brief Constructeur de l'objet ardrone. Initialise l'adresse IP du drone, les ports de communication, l'identifiant de commande, désactive le mode de vol. N.B. : Cette fonction est dépendante de l'environnement d'exécution et le langage utilisé.
 	\return Handle sur drone
 	\author Baudouin Feildel
 **/
 ardrone* newARDrone(void);
 
 /** \fn void closeARDrone(ardrone* dr)
-	\ingroup ardrone
-	\brief Destructeur de l'objet ardrone
+	\ingroup libARDrone
+	\brief Destructeur de l'objet ardrone. Ferme les sockets, et libère la mémoire allouée dynamiquement.
 	\param ardrone* dr : Handle du objet drone
 	\author Baudouin Feildel
 **/
