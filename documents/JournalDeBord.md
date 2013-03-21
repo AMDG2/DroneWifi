@@ -178,6 +178,7 @@ Séance du lundi 25 février (4h)
 - Thibaut
 	- Soudure de la seconde carte
 	- Tests
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 
 Séance du mardi 26 février (3h)
 -------------------------------
@@ -187,6 +188,7 @@ Séance du mardi 26 février (3h)
 - Thibaut
 	- Modification du programme pour fonctionner avec la seconde carte
 	- Tests
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 
 Séance du vendredi 1er mars (4h pour Thibaut)
 ----------------------------------------------
@@ -217,9 +219,29 @@ Séance du jeudi 14 mars (2h)
 - Baudouin
 	- Récupération des données de navigation
 	- Analyse des trames reçues
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
 
 Séance du vendredi 16 mars (2h)
 -------------------------------
 - Baudouin
 	- Récupération des données de navigation
 	- Analyse des trames reçues
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+
+Séance du lundi 18 mars (4h)
+----------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+	- Corrections de quelques erreurs sur le schéma de la carte (condensateur de découplage pour le CAN) et sur le routage.
+
+Séance du mardi 19 mars (3h)
+----------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
+
+Séance du vendredi 22 mars (3h)
+----------------------------
+- Thibaut
+	- Tentatives de récupération de la vidéo sur le Raspberry Pi
