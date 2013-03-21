@@ -21,12 +21,6 @@ typedef quint8 uint8_t;
 typedef quint16 uint16_t;
 typedef quint32 uint32_t;
 
-/**
- *	@typedef _navdata_option_t
- *	@ingroup Navdata
- *	@brief Données de navigation
- *	@author Parrot
- */
 typedef struct _navdata_option_t {
     uint16_t  tag;
     uint16_t  size;
@@ -38,12 +32,6 @@ typedef struct _navdata_option_t {
     #endif
 } navdata_option_t;
 
-/**
- * @typedef _navdata_t
- * @ingroup Navdata
- * @brief Navdata structure sent over the network.
- * @author Parrot
- */
 typedef struct _navdata_t {
     uint32_t    header;			/*!< Always set to NAVDATA_HEADER */
     uint32_t    ardrone_state;    /*!< Bit mask built from def_ardrone_state_mask_t */
@@ -54,12 +42,6 @@ typedef struct _navdata_t {
 }/*_ATTRIBUTE_PACKED_*/ navdata_t;
 
 /*----------------------------------------------------------------------------*/
-/**
- * @typedef _navdata_demo_t
- * @ingroup Navdata
- * @brief Minimal navigation data for all flights.
- * @author Parrot
- */
 typedef struct _navdata_demo_t {
     uint16_t    tag;					  /*!< Navdata block ('option') identifier */
     uint16_t    size;					  /*!< set this to the size of this structure */
@@ -90,6 +72,7 @@ typedef struct _navdata_demo_t {
     //  matrix33_t  drone_camera_rot;		  /*!<  Deprecated ! Don't use ! */
     //  vector31_t  drone_camera_trans;	  /*!<  Deprecated ! Don't use ! */
 }/*_ATTRIBUTE_PACKED_*/ navdata_demo_t;
+
 
 class ARDrone : public QThread
 {

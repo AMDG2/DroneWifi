@@ -1,8 +1,0 @@
-<map id="takeoff" name="takeoff">
-<area shape="rect" id="node3" href="$group___a_t_commands.html#gad4a88a78f2b094bcce69b749a845e11c" title="Envoyer la commande AT qui est dans le buffer du drone dr." alt="" coords="144,5,211,32"/>
-<area shape="rect" id="node7" href="$group___a_t_commands.html#ga9d9aece95d737ed64ba8e9131ff0065c" title="Mettre une valeur de manière sécurisée dans le buffer de la vitesse verticale du drone dr..." alt="" coords="123,56,231,83"/>
-<area shape="rect" id="node9" href="$group___a_t_commands.html#ga0d757863caf7f9c4110ab6e71cac1a4c" title="Mettre une valeur dans de manière sécurisée dans le buffer de la vitesse angulaire du drone dr..." alt="" coords="118,107,237,133"/>
-<area shape="rect" id="node11" href="$group___a_t_commands.html#ga9a290eee046f983fc53d282c0bc53aff" title="Mettre une valeur de manière sécurisé dans le buffer de l&#39;inclinaison avant/arrière du drone dr..." alt="" coords="118,157,237,184"/>
-<area shape="rect" id="node13" href="$group___a_t_commands.html#ga28a6f7458f7dbcdf7068b26236f10e2c" title="Mettre une valeur de manière sécurisée dans le buffer de l&#39;inclinaison gauche/droite du drone dr..." alt="" coords="122,208,233,235"/>
-<area shape="rect" id="node5" href="$group___u_d_p.html#ga303d5a717d50385e7908c735d5bddff7" title="envoie une chaîne de caractère" alt="" coords="285,5,381,32"/>
-</map>

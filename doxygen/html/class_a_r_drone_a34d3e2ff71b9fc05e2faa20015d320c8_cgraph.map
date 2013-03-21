@@ -1,6 +1,0 @@
-<map id="takeoff" name="takeoff">
-<area shape="rect" id="node3" href="$class_a_r_drone.html#a40d5afd3a519061379938368c9096df0" title="Setter sécurisé de la valeur de la vitesse verticale." alt="" coords="123,5,231,32"/>
-<area shape="rect" id="node5" href="$class_a_r_drone.html#a846d9ca708547b77d6353b8c544e2764" title="Setter sécurisé de la valeur de la vitesse angulaire." alt="" coords="118,56,237,83"/>
-<area shape="rect" id="node7" href="$class_a_r_drone.html#a35091a8252bbb1cffab5c07834d1f263" title="Setter sécurisé de la valeur de l&#39;inclinaison avant arrière." alt="" coords="118,107,237,133"/>
-<area shape="rect" id="node9" href="$class_a_r_drone.html#a2cd513a18603d81fdbc8167c103af577" title="Setter sécurisé de la valeur de l&#39;inclinaison gauche droite." alt="" coords="122,157,233,184"/>
-</map>

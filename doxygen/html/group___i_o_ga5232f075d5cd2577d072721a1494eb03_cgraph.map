@@ -1,7 +1,0 @@
-<map id="SPIread" name="SPIread">
-<area shape="rect" id="node3" href="$group___i_o.html#gab5cfdcd0547c9f87516a805b4849d64f" title="modifie l&#39;état de la sortie CS pour le convertisseur A/N SPI" alt="" coords="133,5,203,32"/>
-<area shape="rect" id="node5" href="$group___i_o.html#ga831fe77ab7ce75ba9a41ecb3c08a97d9" title="modifie l&#39;état de la sortie DIN pour le convertisseur A/N SPI" alt="" coords="131,56,205,83"/>
-<area shape="rect" id="node7" href="$group___i_o.html#ga2574e1f1506d0a5313c21891bef79aca" title="temps d&#39;attente de &#39;i&#39; * 5 µs" alt="" coords="127,107,209,133"/>
-<area shape="rect" id="node9" href="$group___i_o.html#gaf61e8f99c1568bc62cd24251e4cc0fa2" title="modifie l&#39;état de la sortie CLK pour le convertisseur A/N SPI" alt="" coords="129,157,207,184"/>
-<area shape="rect" id="node11" href="$group___i_o.html#ga837457e63fcbfcc6e59b6d4c59bd7252" title="lit l&#39;état de l&#39;entrée DOUT du convertisseur A/N SPI" alt="" coords="123,208,213,235"/>
-</map>

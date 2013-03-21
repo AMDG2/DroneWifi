@@ -1,4 +1,0 @@
-<map id="ARDrone::land" name="ARDrone::land">
-<area shape="rect" id="node3" href="$class_main_window.html#acd4f5cba500696e45b76a309361f905e" title="MainWindow::on_btnTakeOff\lLand_clicked" alt="" coords="165,5,355,46"/>
-<area shape="rect" id="node5" href="$class_main_window.html#a7f44c594db41845d68cd08a64f5b6601" title="MainWindow::keyPressEvent" alt="" coords="163,71,357,97"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="MainWindow" name="MainWindow">
-<area shape="rect" id="node2" href="$class_q_main_window.html" title="{QMainWindow\n||}" alt="" coords="92,285,199,363"/>
-<area shape="rect" id="node4" href="$classnavdata_window.html" title="{navdataWindow\n||+ navdataWindow()\l+ ~navdataWindow()\l}" alt="" coords="249,523,391,615"/>
-<area shape="rect" id="node9" href="$class_a_r_drone.html" title="{ARDrone\n||+ ARDrone()\l+ connectToDrone()\l+ initDrone()\l+ initNavData()\l+ takeoff()\l+ land()\l+ aru()\l+ volCommand()\l+ setGoUpDown()\l+ setTurnLeftRight()\l+ setTiltFrontBack()\l+ setTiltLeftRight()\l&#45; sendAT()\l&#45; run()\l}" alt="" coords="372,190,511,458"/>
-<area shape="rect" id="node11" href="$class_q_thread.html" title="{QThread\n||}" alt="" coords="191,5,263,83"/>
-</map>

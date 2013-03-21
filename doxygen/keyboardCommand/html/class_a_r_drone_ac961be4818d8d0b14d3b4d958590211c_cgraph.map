@@ -1,4 +1,0 @@
-<map id="ARDrone::run" name="ARDrone::run">
-<area shape="rect" id="node3" href="$class_a_r_drone.html#a8d86f42ad281754122fa0fb07e009cfd" title="Pilotage du drone en vol." alt="" coords="158,5,319,32"/>
-<area shape="rect" id="node5" href="$class_a_r_drone.html#a534090497b9f3a959218e2edfe8cda25" title="Envoyer une commande AT." alt="" coords="369,5,498,32"/>
-</map>
