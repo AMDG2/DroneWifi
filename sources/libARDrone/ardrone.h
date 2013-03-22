@@ -41,6 +41,20 @@ typedef union
 #define false (0)
 typedef int bool;
 
+/** \macro VOL_INTERIEUR
+ *  \ingroup libARDrone
+ *  \brief Configure la librairie pour le vol en intérieur.
+ *  \author Baudouin Feildel
+ */
+#define VOL_INTERIEUR
+
+/** \macro ALTITUDEMAX
+ *  \ingroup libARDrone
+ *  \brief Configure la hauteur maximale de vol en intérieur, la hauteur maximale de vol en extérieur est 100 fois celle-ci. Cette valeur est en millimètre.
+ *  \author Baudouin Feildel
+ */
+#define ALTITUDEMAX "2000"
+
 /** \typedef ardrone
 	\ingroup libARDrone
 	\brief Structure contenant les informations nécessaires au pilotage d'un drone.
