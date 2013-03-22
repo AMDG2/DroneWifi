@@ -938,7 +938,7 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	if(s->bp_video)
 		strcat(dr->bufferRight, ALTITUDEMAX);
 	else
-		strcat(dr->bufferRight, 10*ALTITUDEMAX);
+		strcat(dr->bufferRight, 100*ALTITUDEMAX);
 	strcat(dr->bufferRight, "\"\r");
 	if(!sendAT(dr))
 		return false;
