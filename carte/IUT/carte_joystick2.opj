@@ -1,0 +1,116 @@
+(ExpressProject "carte_joystick"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\carte_joystick.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (Netlist_TAB "0"))
+  (Folder "Outputs"
+    (File ".\allegro\pstxnet.dat"
+      (Type "Report")
+      (DisplayName "pstxnet.dat"))
+    (File ".\allegro\pstxprt.dat"
+      (Type "Report")
+      (DisplayName "pstxprt.dat"))
+    (File ".\allegro\pstchip.dat"
+      (Type "Report")
+      (DisplayName "pstchip.dat")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (CON12
+      (FullPartName "CON12.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-CONNECT.OLB")
+      (DeviceIndex "0"))
+    (PORTLEFT-R
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (CON10
+      (FullPartName "CON10.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-CONNECT.OLB")
+      (DeviceIndex "0"))
+    (CON18
+      (FullPartName "CON18.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-CONNECT.OLB")
+      (DeviceIndex "0"))
+    (CON14
+      (FullPartName "CON14.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-CONNECT.OLB")
+      (DeviceIndex "0"))
+    (PORTRIGHT-L
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (BP_4P
+      (FullPartName "BP_4P.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-BP_INTER_SWITCH.OLB")
+      (DeviceIndex "0"))
+    (PCF8591
+      (FullPartName "PCF8591.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-PERIPHERIQUE.OLB")
+      (DeviceIndex "0"))
+    (LED
+      (FullPartName "LED.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-OPTO.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-RLCQ.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-RLCQ.OLB")
+      (DeviceIndex "0"))
+    (GND_POWER
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (VCC_BAR
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (BOUTON_POUSSOIR
+      (FullPartName "BOUTON_POUSSOIR.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-BP_INTER_SWITCH.OLB")
+      (DeviceIndex "0"))
+    (Joystick
+      (FullPartName "Joystick.Normal")
+      (LibraryName "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-DIVERS.OLB")
+      (DeviceIndex "0"))
+    (cummutateur_2pos
+      (FullPartName "cummutateur_2pos.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.2\TOOLS\CAPTURE\LIBRARY\I-BP_INTER_SWITCH.OLB")
+      (DeviceIndex "0")))
+  (LastUsedLibraryBrowseDirectory "C:\OrCAD\OrCAD_16.2\tools\capture\library")
+  (ISPCBBASICLICENSE "false")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "D:\Documents and Settings\g22\Mes documents\DroneWifiTest\carte\carte_joystick.dsn")
+      (Path "Design Resources"
+         "D:\Documents and Settings\g22\Mes documents\DroneWifiTest\carte\carte_joystick.dsn"
+         "SCHEMATIC1")
+      (Path "Outputs"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -4 -23 0 200 0 367"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -4 -23 173 1221 6 633")
+        (Scroll "-42 42")
+        (Zoom "148")
+        (Occurrence "/"))
+      (Path
+         "D:\DOCUMENTS AND SETTINGS\G22\MES DOCUMENTS\DRONEWIFITEST\CARTE\CARTE_JOYSTICK.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (MPSSessionName "g22"))
