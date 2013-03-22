@@ -176,6 +176,7 @@ bool initDrone(ardrone* dr);
 /** \fn bool initNavData(ardrone* dr)
 	\ingroup Navdata
 	\brief Initialise de la communication des données de navigation. Retourne false dès qu'une partie du protocole d'initialisation a échoué, pour plus de détails voir le déroulement de la fonction ci-dessous.
+	\brief N.B. : Pour recevoir les données de navigation le client doit être inscrit au groupe multicast vers lequel le drone émet les données (224.1.1.1). Pour ce faire vous pouvez utiliser le paquets smcroute sous linux, pour rejoindre un groupe il vous suffit alors de lancer ces deux commandes "# smcroute -d" pour lancer le démon smcroute et "# smcroute -j [interface_reseau_a_utiliser] 224.1.1.1".
 	\param ardrone* dr : Handle du drone
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
