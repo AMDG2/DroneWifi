@@ -166,7 +166,7 @@ bool connectToDrone(ardrone* dr);
 
 /** \fn bool initDrone(ardrone* dr)
 	\ingroup libARDrone
-	\brief Initialisation du drone dr, indique qu'il est à l'horizontale (AT*FTRIM), configure l'altitude max (3000 mm), indique au drone qu'il vole en intérieur ou extérieur suivant la configuration réalisée à l'aide d'une define (#define VOL_INTERIEUR) ou d'un bouton sur la télécommande. N.B. : Cette fonction retourne false dès que l'envoi d'une commande a échoué.
+	\brief Initialisation du drone dr, indique qu'il est à l'horizontale (AT*FTRIM), configure l'altitude max en fonction de la configuration intérieur/extérieur et de la définition ALTITUDEMAX, indique au drone qu'il vole en intérieur ou extérieur suivant la configuration réalisée à l'aide d'une define (#define VOL_INTERIEUR) ou d'un bouton sur la télécommande. N.B. : Cette fonction retourne false dès que l'envoi d'une commande a échoué.
 	\param ardrone* dr : Handle du drone
 	\return true : initialisation réussie ; false : initialisation échouée
 	\author Baudouin Feildel
