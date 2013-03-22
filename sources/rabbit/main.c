@@ -931,10 +931,14 @@ cppbool initDrone(ardrone* dr, etat_commandes *s)
 	
 	
 	strcpy(dr->bufferLeft, "AT*CONFIG=");
-	// Configure la hauteur maximale du drone
+	// Configure la hauteur maximale du drone en fonction du bouton extérieur/intérieur
 	
 	strcpy(dr->bufferRight, ",\"control:altitude_max\",\"");
-	strcat(dr->bufferRight, ALTITUDEMAX);
+	
+	if(s->bp_video)
+		strcat(dr->bufferRight, ALTITUDEMAX);
+	else
+		strcat(dr->bufferRight, 100*ALTITUDEMAX);
 	strcat(dr->bufferRight, "\"\r");
 	if(!sendAT(dr))
 		return false;

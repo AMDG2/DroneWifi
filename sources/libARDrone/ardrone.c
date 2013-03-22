@@ -99,9 +99,15 @@ bool sendNavData(ardrone* dr, const char* buffer)
 
 bool initDrone(ardrone* dr)
 {
-    /// Commence par configurer la hauteur maximale du drone.
+    /// Commence par configurer la hauteur maximale du drone en fonction de la configuration réalisée à l'aide d'un #define
+    /// Si le drone vol en intérieur limite l'altitude à ALTITUDEMAX (défini avec #define), sinon c'est 100 fois cette altitude
     strcpy(dr->bufferLeft, "AT*CONFIG=");
-    strcpy(dr->bufferRight, ",\"control:altitude_max\",\"3000\"\r");
+#ifdef VOL_INTERIEUR
+	strcat(dr->bufferRight, ALTITUDEMAX);
+#else
+	strcat(dr->bufferRight, 100*ALTITUDEMAX);
+#endif
+    strcat(dr->bufferRight, "\"\r");
     fprintf(stdout, "#%5d - Config alt max - %s%d%s", dr->ident+1, dr->bufferLeft, dr->ident+1, dr->bufferRight);
     if(!sendAT(dr))
     	return false;
