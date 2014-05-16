@@ -12,3 +12,8 @@ Description des dossiers sources
 - **documents** : Contient divers documents (journal de bord du projet, diagramme de Gantt)
 - **sources** : Contient toutes les sources
 - **doxygen** : Contient la documentation des sources (documentation html générée avec Doxygen)
+
+Licence
+-------
+
+Le projet est sous licence GPL v3 (voir le fichier LICENSE).
